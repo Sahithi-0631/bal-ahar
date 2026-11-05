@@ -1,0 +1,861 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bg-color: #FAF6F0;
+  --bg-gradient: linear-gradient(180deg, #F3ECE3 0%, #FAF6F0 400px, #FAF6F0 100%);
+  --primary-color: #C57B73; /* Muted terracotta/clay */
+  --primary-hover: #B06961;
+  --primary-light: #FBF5F2;
+  --secondary-color: #8FA08B; /* Sage green */
+  --secondary-hover: #7E907B;
+  --secondary-light: #F1F4F0;
+  --accent-color: #D6A474; /* Warm mustard/sand */
+  --text-main: #3D3A37; /* Soft mud charcoal */
+  --text-muted: #827E7A;
+  --white: #FFFFFF;
+  --border-light: #F0EAE1;
+  --card-shadow: 0 16px 36px rgba(61, 58, 55, 0.04);
+  --hover-shadow: 0 24px 48px rgba(61, 58, 55, 0.07);
+  --font-title: 'Fraunces', serif;
+  --font-main: 'Outfit', sans-serif;
+  --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --radius-sm: 10px;
+  --radius-md: 18px;
+  --radius-lg: 32px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-main);
+  background: var(--bg-color);
+  background-image: var(--bg-gradient);
+  background-attachment: fixed;
+  color: var(--text-main);
+  line-height: 1.6;
+  min-height: 100vh;
+  padding-bottom: 4rem;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-title);
+  font-weight: 550;
+  color: var(--text-main);
+}
+
+.container {
+  max-width: 1050px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  position: relative;
+  z-index: 10;
+}
+
+/* Floating background child motifs */
+.floating-deco {
+  position: absolute;
+  font-size: 2.5rem;
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: 1;
+  user-select: none;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.04));
+}
+.deco-bowl  { top: 5%; left: 3%; animation: floatSlow 8s ease-in-out infinite; }
+.deco-spoon { top: 9%; right: 4%; animation: floatSlow 10s ease-in-out infinite 1s; }
+.deco-rainbow { top: 13%; left: 5%; animation: floatSlow 14s ease-in-out infinite 0.5s; }
+.deco-bear  { top: 17%; right: 3%; animation: floatSlow 12s ease-in-out infinite 2s; }
+.deco-elephant { top: 22%; left: 4%; animation: floatSlow 15s ease-in-out infinite 1.5s; }
+.deco-train { top: 26%; right: 5%; animation: floatSlow 13s ease-in-out infinite 2.5s; }
+.deco-balloon { top: 30%; left: 3%; animation: floatSlow 11s ease-in-out infinite 0.8s; }
+.deco-star  { top: 34%; right: 4%; animation: floatSlow 9s ease-in-out infinite 0.3s; }
+.deco-giraffe { top: 38%; left: 4%; animation: floatSlow 16s ease-in-out infinite 1.2s; }
+.deco-cloud { top: 42%; right: 5%; animation: floatSlow 11s ease-in-out infinite 1.5s; }
+.deco-sparkles { top: 46%; left: 3%; animation: floatSlow 7s ease-in-out infinite 0.2s; }
+.deco-bottle { top: 50%; right: 4%; animation: floatSlow 10s ease-in-out infinite 0.7s; }
+.deco-duck { top: 54%; left: 4%; animation: floatSlow 12s ease-in-out infinite 1.8s; }
+.deco-yoyo { top: 58%; right: 3%; animation: floatSlow 9s ease-in-out infinite 0.4s; }
+.deco-block { top: 62%; left: 3%; animation: floatSlow 13s ease-in-out infinite 2.1s; }
+.deco-lion { top: 66%; right: 4%; animation: floatSlow 14s ease-in-out infinite 1.1s; }
+.deco-dino { top: 70%; left: 4%; animation: floatSlow 15s ease-in-out infinite 0.6s; }
+.deco-apple { top: 74%; right: 5%; animation: floatSlow 8s ease-in-out infinite 1.4s; }
+.deco-banana { top: 78%; left: 3%; animation: floatSlow 11s ease-in-out infinite 0.9s; }
+.deco-carrot { top: 82%; right: 4%; animation: floatSlow 12s ease-in-out infinite 2.3s; }
+.deco-sun { top: 86%; left: 4%; animation: floatSlow 18s ease-in-out infinite 0.5s; }
+.deco-moon { top: 90%; right: 5%; animation: floatSlow 14s ease-in-out infinite 1.7s; }
+.deco-kitty { top: 93%; left: 3%; animation: floatSlow 10s ease-in-out infinite 0.3s; }
+.deco-puppy { top: 96%; right: 4%; animation: floatSlow 11s ease-in-out infinite 1.2s; }
+.deco-clover { top: 98%; left: 4%; animation: floatSlow 8s ease-in-out infinite 0.1s; }
+
+/* Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 0;
+  margin-bottom: 2rem;
+  border-bottom: 1px dashed var(--border-light);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-title);
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  letter-spacing: -0.5px;
+}
+
+.logo span {
+  color: var(--text-main);
+}
+
+.logo-icon {
+  font-size: 2.4rem;
+  animation: gentleRock 5s ease-in-out infinite;
+  display: inline-block;
+}
+
+.header-badge {
+  background: var(--white);
+  color: var(--text-main);
+  padding: 0.5rem 1.2rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 1px solid var(--border-light);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.01);
+}
+
+/* Minimalist Hero Section */
+.hero {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 4rem;
+  align-items: center;
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--card-shadow);
+  padding: 4rem;
+  margin-bottom: 3.5rem;
+  border: 1px solid var(--border-light);
+  position: relative;
+}
+
+.hero-text h1 {
+  font-size: 3.5rem;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.5px;
+}
+
+.hero-text h1 span {
+  color: var(--primary-color);
+  font-style: italic;
+}
+
+.hero-text p {
+  font-size: 1.12rem;
+  color: var(--text-muted);
+  margin-bottom: 2.5rem;
+  font-weight: 350;
+  max-width: 600px;
+}
+
+/* Search Bar Mockup */
+.search-mock-container {
+  display: flex;
+  align-items: center;
+  background: var(--white);
+  border: 1.5px solid var(--border-light);
+  border-radius: 16px;
+  padding: 0.3rem 0.5rem;
+  max-width: 550px;
+  box-shadow: 0 4px 15px rgba(61, 58, 55, 0.02);
+  margin-bottom: 2rem;
+}
+
+.search-icon {
+  font-size: 1.2rem;
+  color: var(--primary-color);
+  padding: 0 0.8rem;
+}
+
+.search-mock-input {
+  border: none;
+  font-family: var(--font-main);
+  font-size: 0.95rem;
+  padding: 0.8rem 0;
+  width: 100%;
+  color: var(--text-main);
+  background: transparent;
+  outline: none;
+}
+
+.search-mock-input::placeholder {
+  color: #B5B0A8;
+}
+
+.search-badge {
+  background: var(--primary-color);
+  color: var(--white);
+  padding: 0.6rem 1.4rem;
+  border-radius: 12px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.hero-illustration {
+  display: flex;
+  justify-content: center;
+}
+
+.hero-illustration img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+  box-shadow: 0 10px 25px rgba(61, 58, 55, 0.05);
+  transform: rotate(-1deg);
+  transition: var(--transition);
+}
+
+.hero-illustration img:hover {
+  transform: scale(1.01) rotate(1deg);
+}
+
+/* Care Finder Section */
+.section-title {
+  font-family: var(--font-title);
+  font-size: 2.6rem;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.section-subtitle {
+  text-align: center;
+  color: var(--text-muted);
+  margin-bottom: 3rem;
+  font-size: 1.08rem;
+  font-weight: 350;
+}
+
+.care-finder-card {
+  background: var(--white);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--card-shadow);
+  padding: 3.5rem;
+  margin-bottom: 4rem;
+}
+
+.finder-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+}
+
+.step-header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 2rem;
+}
+
+.step-num {
+  background-color: var(--primary-light);
+  color: var(--primary-color);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.step-header h3 {
+  font-size: 1.6rem;
+}
+
+/* Age Options */
+.age-options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.option-card {
+  background: var(--white);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 2.2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition);
+  position: relative;
+}
+
+.option-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--primary-color);
+  box-shadow: var(--hover-shadow);
+}
+
+.option-card.active {
+  border-color: var(--primary-color);
+  background-color: var(--primary-light);
+}
+
+.option-card.active::after {
+  content: '✓';
+  position: absolute;
+  top: 15px;
+  right: 18px;
+  background: var(--primary-color);
+  color: var(--white);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.option-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  display: inline-block;
+  animation: gentleRock 6s ease-in-out infinite;
+}
+
+.option-card h4 {
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.option-card p {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+}
+
+/* Illness Options */
+.illness-options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+}
+
+.illness-btn {
+  background: var(--white);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 1.2rem 1.4rem;
+  cursor: pointer;
+  font-family: var(--font-main);
+  font-weight: 500;
+  font-size: 0.95rem;
+  text-align: left;
+  color: var(--text-main);
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.illness-btn:hover {
+  transform: translateY(-2px);
+  border-color: var(--primary-color);
+  box-shadow: 0 8px 24px rgba(197, 123, 115, 0.05);
+}
+
+.illness-btn.active {
+  border-color: var(--primary-color);
+  background-color: var(--primary-color);
+  color: var(--white);
+}
+
+/* Recommended Healing Bowl */
+.recipe-container {
+  display: none;
+  margin-bottom: 4rem;
+  scroll-margin-top: 2rem;
+  animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.recipe-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-light);
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+}
+
+.recipe-visuals {
+  background: var(--primary-light);
+  padding: 3.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 1px solid var(--border-light);
+}
+
+.recipe-meta-top {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.badge-row {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.recipe-tag {
+  background-color: var(--secondary-color);
+  color: var(--white);
+  padding: 0.4rem 1rem;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.2px;
+}
+
+.rating-chip {
+  background: var(--accent-color);
+  color: var(--white);
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 0.4rem 1rem;
+  border-radius: 50px;
+}
+
+.recipe-header-title {
+  font-size: 2.8rem;
+  line-height: 1.15;
+  margin-top: 0.5rem;
+}
+
+.recipe-desc {
+  color: var(--text-muted);
+  font-size: 1.08rem;
+  font-weight: 350;
+  margin-bottom: 2rem;
+}
+
+.recipe-meta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+  margin-bottom: 2.5rem;
+}
+
+.meta-item {
+  background: var(--white);
+  padding: 1rem 1.2rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.meta-item i {
+  font-size: 1.5rem;
+}
+
+.meta-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: block;
+}
+
+.meta-value {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+/* Cooking Helper Timer */
+.cooking-timer {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  padding: 1.8rem;
+  border: 1px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.timer-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.timer-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.timer-clock {
+  font-size: 2.2rem;
+  font-family: var(--font-title);
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.timer-controls {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.timer-btn {
+  background: var(--bg-color);
+  border: none;
+  border-radius: 10px;
+  padding: 0.7rem 1.4rem;
+  font-family: var(--font-main);
+  font-weight: 600;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: var(--transition);
+  color: var(--text-main);
+}
+
+.timer-btn.start {
+  background-color: var(--primary-color);
+  color: var(--white);
+}
+
+.timer-btn.start:hover {
+  background-color: var(--primary-hover);
+}
+
+.timer-btn.pause {
+  background-color: var(--accent-color);
+  color: var(--white);
+}
+
+.timer-btn.reset:hover {
+  background-color: var(--border-light);
+}
+
+.timer-progress-bar {
+  height: 5px;
+  background-color: var(--bg-color);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.timer-progress-fill {
+  height: 100%;
+  width: 0%;
+  background-color: var(--primary-color);
+  border-radius: 10px;
+  transition: width 1s linear;
+}
+
+/* Recipe Content */
+.recipe-content {
+  padding: 3.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.recipe-section h4 {
+  font-size: 1.4rem;
+  border-bottom: 1.5px dashed var(--border-light);
+  padding-bottom: 0.8rem;
+  margin-bottom: 1.5rem;
+  color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.ingredients-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  list-style: none;
+}
+
+.ingredients-list li {
+  position: relative;
+  padding-left: 1.6rem;
+  font-size: 0.98rem;
+  font-weight: 400;
+}
+
+.ingredients-list li::before {
+  content: '🥄';
+  font-size: 0.8rem;
+  position: absolute;
+  left: 0;
+  top: 0.25rem;
+}
+
+.steps-list {
+  display: flex;
+  flex-direction: column;
+  counter-reset: steps-counter;
+  gap: 1.4rem;
+  list-style: none;
+}
+
+.steps-list li {
+  position: relative;
+  padding-left: 2.8rem;
+  font-size: 1.02rem;
+  color: var(--text-main);
+}
+
+.steps-list li::before {
+  counter-increment: steps-counter;
+  content: counter(steps-counter);
+  position: absolute;
+  left: 0;
+  top: 0.05rem;
+  background: var(--primary-light);
+  color: var(--primary-color);
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.82rem;
+}
+
+.age-adjustment-box {
+  background: #FFFDF0;
+  border-left: 4px solid var(--accent-color);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  padding: 1.5rem;
+}
+
+.age-adjustment-box h5 {
+  font-size: 1.15rem;
+  color: #B58428;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.healing-science-box {
+  background: var(--secondary-light);
+  border-left: 4px solid var(--secondary-color);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  padding: 1.5rem;
+}
+
+.healing-science-box h5 {
+  font-size: 1.15rem;
+  color: var(--secondary-color);
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* Medical Disclaimer */
+.disclaimer-box {
+  background: #FCF8F5;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+  margin-bottom: 4rem;
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.disclaimer-box i {
+  font-size: 2.2rem;
+  color: var(--primary-color);
+}
+
+.disclaimer-text h4 {
+  font-size: 1.3rem;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.disclaimer-text p {
+  font-size: 0.98rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  border-top: 1px dashed var(--border-light);
+  padding-top: 3rem;
+  margin-top: 4rem;
+}
+
+/* Keyframes animations */
+@keyframes floatSlow {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(5deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
+@keyframes gentleRock {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(4deg); }
+  75% { transform: rotate(-4deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive Media Queries */
+@media (max-width: 992px) {
+  .hero {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding: 3rem;
+    gap: 2.5rem;
+  }
+  
+  .hero-illustration {
+    max-width: 250px;
+    margin: 0 auto;
+  }
+  
+  .search-mock-container {
+    margin: 0 auto 2rem auto;
+  }
+  
+  .recipe-card {
+    grid-template-columns: 1fr;
+  }
+  
+  .recipe-visuals {
+    border-right: none;
+    border-bottom: 1px solid var(--border-light);
+    padding: 2.5rem;
+  }
+  
+  .recipe-content {
+    padding: 2.5rem;
+  }
+  
+  .illness-options {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .age-options {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+  
+  .illness-options {
+    grid-template-columns: 1fr;
+  }
+  
+  .ingredients-list {
+    grid-template-columns: 1fr;
+  }
+  
+  .hero-text h1 {
+    font-size: 2.8rem;
+  }
+}
+
+/* Doctor Warning Card for Multiple Illnesses */
+.doctor-warning-card {
+  background: var(--white);
+  border: 2.5px solid var(--primary-color);
+  border-radius: var(--radius-lg);
+  padding: 3rem;
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  box-shadow: var(--card-shadow);
+  margin-top: 2rem;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.doctor-warning-card .warning-icon {
+  font-size: 3.5rem;
+  line-height: 1;
+}
+
+.doctor-warning-card .warning-content h3 {
+  font-size: 1.8rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  font-family: var(--font-title);
+}
+
+.doctor-warning-card .warning-content p {
+  font-size: 1.05rem;
+  color: var(--text-main);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.doctor-warning-card .emergency-badge {
+  background: var(--primary-light);
+  border-left: 4px solid var(--primary-color);
+  padding: 1.2rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  color: var(--text-main);
+  font-weight: 550;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .doctor-warning-card {
+    flex-direction: column;
+    padding: 2rem;
+    gap: 1rem;
+  }
+}
+
+/* Multi-Symptom Harmony Box */
+.harmony-box {
+  background: var(--secondary-light);
+  border-left: 4px solid var(--secondary-color);
+  padding: 1.2rem;
+  border-radius: var(--radius-sm);
+  margin-bottom: 2rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--text-main);
+}
+
+.harmony-box strong {
+  color: var(--secondary-hover);
+}

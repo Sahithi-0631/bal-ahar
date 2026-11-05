@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bal Aahar — Indian Healing Recipes for Sick Kids (6m to 4y)</title>
+  <meta name="description" content="Discover traditional Indian home remedies and comforting recipes tailored for infants, toddlers, and preschoolers recovering from fever, cold, stomach upset, or sore throat.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Floating background child motifs -->
+  <div class="floating-deco deco-bowl">🥣</div>
+  <div class="floating-deco deco-spoon">🥄</div>
+  <div class="floating-deco deco-rainbow">🌈</div>
+  <div class="floating-deco deco-bear">🧸</div>
+  <div class="floating-deco deco-elephant">🐘</div>
+  <div class="floating-deco deco-train">🚂</div>
+  <div class="floating-deco deco-balloon">🎈</div>
+  <div class="floating-deco deco-star">⭐</div>
+  <div class="floating-deco deco-giraffe">🦒</div>
+  <div class="floating-deco deco-cloud">☁️</div>
+  <div class="floating-deco deco-sparkles">✨</div>
+  <div class="floating-deco deco-bottle">🍼</div>
+  <div class="floating-deco deco-duck">🦆</div>
+  <div class="floating-deco deco-yoyo">🪀</div>
+  <div class="floating-deco deco-block">🧱</div>
+  <div class="floating-deco deco-lion">🦁</div>
+  <div class="floating-deco deco-dino">🦕</div>
+  <div class="floating-deco deco-apple">🍎</div>
+  <div class="floating-deco deco-banana">🍌</div>
+  <div class="floating-deco deco-carrot">🥕</div>
+  <div class="floating-deco deco-sun">🌞</div>
+  <div class="floating-deco deco-moon">🌙</div>
+  <div class="floating-deco deco-kitty">🐱</div>
+  <div class="floating-deco deco-puppy">🐶</div>
+  <div class="floating-deco deco-clover">🍀</div>
+
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <div class="logo">
+        <span class="logo-icon">🥣</span> Bal <span>Aahar</span>
+      </div>
+      <div class="header-badge">
+        🌿 Calm & Natural Care
+      </div>
+    </header>
+
+    <!-- Minimalist Hero Section -->
+    <section class="hero">
+      <div class="hero-text">
+        <h1>Comforting Indian Recipes for <span>Recovering Little Ones</span></h1>
+        <p>When our children are unwell, a warm, gentle bowl of comfort food is the best medicine. Bal Aahar helps you find traditional, age-appropriate Indian recipes tailored to your child's symptoms—bringing comfort, nutrition, and hydration back into their recovery days.</p>
+        
+        <div style="display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: 1rem;">
+          <div class="header-badge">👶 6 Months - 4 Years</div>
+          <div class="header-badge">🍲 75 Recovery Bowls</div>
+          <div class="header-badge">⏱️ Cook Helpers</div>
+        </div>
+      </div>
+      <div class="hero-illustration">
+        <img src="hero.png" alt="Chubby baby hands playfully smashing food in a silicone plate on a wooden table, with fresh fruits, veggies, and wooden baby toys arranged aside">
+      </div>
+    </section>
+
+    <!-- Care Finder Section -->
+    <section class="care-finder-section">
+      <h2 class="section-title">The Care Finder</h2>
+      <p class="section-subtitle">Select your child's age group and their primary symptom to reveal custom healing recipes.</p>
+
+      <div class="care-finder-card">
+        <div class="finder-steps">
+          
+          <!-- Step 1: Age Selector -->
+          <div class="step-group">
+            <div class="step-header">
+              <div class="step-num">1</div>
+              <h3>Select Child's Age Group</h3>
+            </div>
+            <div class="age-options">
+              <div class="option-card" id="age-infant">
+                <div class="option-icon">🥣</div>
+                <h4>Infants</h4>
+                <p>6 to 12 months</p>
+                <p style="font-size: 0.82rem; margin-top: 0.5rem; color: var(--primary-color); font-weight: 600;">Purees & starches. No salt/sugar.</p>
+              </div>
+              <div class="option-card" id="age-toddler">
+                <div class="option-icon">🥄</div>
+                <h4>Toddlers</h4>
+                <p>12 to 24 months</p>
+                <p style="font-size: 0.82rem; margin-top: 0.5rem; color: var(--primary-color); font-weight: 600;">Mashed textures. Extremely mild spices.</p>
+              </div>
+              <div class="option-card" id="age-preschool">
+                <div class="option-icon">🍽️</div>
+                <h4>Preschoolers</h4>
+                <p>2 to 4 years</p>
+                <p style="font-size: 0.82rem; margin-top: 0.5rem; color: var(--primary-color); font-weight: 600;">Soft solids. Nutrient dense & comforting.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 2: Illness Selector -->
+          <div class="step-group">
+            <div class="step-header">
+              <div class="step-num">2</div>
+              <h3>Select Illness / Symptom</h3>
+            </div>
+            <div class="illness-options">
+              <button class="illness-btn" id="illness-fever">Fever / Flu</button>
+              <button class="illness-btn" id="illness-cold">Cough & Cold</button>
+              <button class="illness-btn" id="illness-stomach">Tummy Troubles</button>
+              <button class="illness-btn" id="illness-throat">Sore Throat</button>
+              <button class="illness-btn" id="illness-constipation">Constipation</button>
+              <button class="illness-btn" id="illness-teething">Teething</button>
+              <button class="illness-btn" id="illness-vomiting">Vomiting</button>
+              <button class="illness-btn" id="illness-colic">Colic & Gas</button>
+              <button class="illness-btn" id="illness-appetite">Appetite Loss</button>
+              <button class="illness-btn" id="illness-rashes">Heat Boils</button>
+              <button class="illness-btn" id="illness-diarrhea">Diarrhea</button>
+              <button class="illness-btn" id="illness-dehydration">Dehydration</button>
+              <button class="illness-btn" id="illness-anemia">Iron Anemia</button>
+              <button class="illness-btn" id="illness-underweight">Underweight</button>
+              <button class="illness-btn" id="illness-poorweight">Poor Weight</button>
+              <button class="illness-btn" id="illness-pem">Protein-PEM</button>
+              <button class="illness-btn" id="illness-vitd">Vitamin D</button>
+              <button class="illness-btn" id="illness-calcium">Calcium</button>
+              <button class="illness-btn" id="illness-immunity">Weak Immunity</button>
+              <button class="illness-btn" id="illness-picky">Picky Eating</button>
+              <button class="illness-btn" id="illness-allergy">Food Allergy</button>
+              <button class="illness-btn" id="illness-lactose">Lactose Free</button>
+              <button class="illness-btn" id="illness-diaperrash">Diaper Rash</button>
+              <button class="illness-btn" id="illness-eczema">Eczema Support</button>
+              <button class="illness-btn" id="illness-reflux">Acid Reflux</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Dynamic Recipe Display Section -->
+    <section class="recipe-container" id="recipe-output-container">
+      <!-- Injected dynamically by JavaScript -->
+    </section>
+
+    <!-- Medical Disclaimer -->
+    <section class="disclaimer-box">
+      <i>⚠️</i>
+      <div class="disclaimer-text">
+        <h4>Important Medical Disclaimer</h4>
+        <p>The recipes, home remedies, and advice on Bal Aahar are intended for comforting and supporting recovering children. They are <strong>not</strong> a substitute for professional medical care, diagnosis, or advice. Always consult your pediatrician immediately if your child has a high or persistent fever, difficulty breathing, refuses all fluids, shows signs of severe dehydration, or exhibits any severe symptoms. Under 12 months, strictly avoid honey and salt.</p>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2026 Bal Aahar. Handcrafted for comforting recovering little souls.</p>
+      <p style="font-size: 0.8rem; margin-top: 0.5rem; color: var(--text-muted);">Please set the workspace to this directory to explore files locally.</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

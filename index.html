@@ -103,8 +103,16 @@
           <!-- Step 2: Illness Selector -->
           <div class="step-group">
             <div class="step-header">
-              <div class="step-num">2</div>
-              <h3>Select Illness / Symptom</h3>
+              <div class="step-header-left">
+                <div class="step-num">2</div>
+                <h3>Select Illness / Symptom</h3>
+              </div>
+              <div class="selection-indicator-wrap" id="selection-indicator-wrap">
+                <span class="selected-pill-badge" id="selected-count-badge">Selected: 0</span>
+                <button type="button" class="clear-selection-btn" id="clear-selection-btn" onclick="clearSelectedSymptoms()" disabled title="Clear all selected symptoms">
+                  <span class="clear-btn-icon">✕</span> Clear Selected Symptoms
+                </button>
+              </div>
             </div>
             <div class="illness-options">
               <button class="illness-btn" id="illness-fever">Fever / Flu</button>

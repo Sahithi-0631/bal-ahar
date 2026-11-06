@@ -1966,14 +1966,53 @@ function setIllness(illness) {
     document.getElementById(`illness-${illness}`).classList.add('active');
   }
   
+  updateSelectionIndicator();
   checkAndDisplayRecipe();
 }
 
+// Clear all selected symptoms and restore recommendation view smoothly
+function clearSelectedSymptoms() {
+  selectedIllnesses = [];
+  document.querySelectorAll('.illness-options .illness-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+  updateSelectionIndicator();
+  checkAndDisplayRecipe();
+}
+
+function updateSelectionIndicator() {
+  const wrap = document.getElementById('selection-indicator-wrap');
+  const badge = document.getElementById('selected-count-badge');
+  const clearBtn = document.getElementById('clear-selection-btn');
+  if (!wrap || !badge || !clearBtn) return;
+  
+  const count = selectedIllnesses.length;
+  if (count > 0) {
+    wrap.classList.add('visible');
+    badge.textContent = `Selected: ${count}`;
+    clearBtn.removeAttribute('disabled');
+    if (count > 3) {
+      badge.classList.add('alert-badge');
+    } else {
+      badge.classList.remove('alert-badge');
+    }
+  } else {
+    wrap.classList.remove('visible');
+    badge.textContent = 'Selected: 0';
+    clearBtn.setAttribute('disabled', 'true');
+    badge.classList.remove('alert-badge');
+  }
+}
+
 function checkAndDisplayRecipe() {
+  const container = document.getElementById('recipe-output-container');
   if (selectedAge && selectedIllnesses.length > 0) {
     displayRecipes();
   } else {
-    document.getElementById('recipe-output-container').style.display = 'none';
+    if (container) {
+      container.style.display = 'none';
+      container.innerHTML = '';
+    }
   }
 }
 
@@ -2250,12 +2289,40 @@ function triggerTimerFinish(index) {
   }
 }
 
+// Interactive 3D Cursor Tilt for Age Group Cards
+function initCardTilt() {
+  const cards = document.querySelectorAll('.option-card');
+  cards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      const rotateX = -(y / (rect.height / 2)) * 7;
+      const rotateY = (x / (rect.width / 2)) * 7;
+      const isSelected = card.classList.contains('active');
+      const lift = isSelected ? '-2px' : '-6px';
+      card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(${lift})`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+    });
+  });
+}
+
 // Expose functions globally for onclick bindings in dynamic HTML
 window.startTimer = startTimer;
 window.resetTimer = resetTimer;
+window.clearSelectedSymptoms = clearSelectedSymptoms;
+window.updateSelectionIndicator = updateSelectionIndicator;
 
 // Page initialized binds
 window.addEventListener('DOMContentLoaded', () => {
+  // Initialize 3D Card Tilt
+  initCardTilt();
+  
+  // Initialize selection indicator state
+  updateSelectionIndicator();
+
   // Age options
   document.getElementById('age-infant').onclick = () => setAge('infant');
   document.getElementById('age-toddler').onclick = () => setAge('toddler');

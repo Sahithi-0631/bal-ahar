@@ -3,9 +3,1469 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bal Aahar — Indian Healing Recipes for Sick Kids (6m to 4y)</title>
-  <meta name="description" content="Discover traditional Indian home remedies and comforting recipes tailored for infants, toddlers, and preschoolers recovering from fever, cold, stomach upset, or sore throat.">
-  <link rel="stylesheet" href="styles.css">
+  <title>Bal Aahar — Clinical Pediatric Nutrition & Recovery Platform (6m to 4y)</title>
+  <meta name="description" content="Production-grade, ICMR-NIN aligned pediatric nutrition and recovery platform for Indian children (6m to 4y). Multi-symptom conflict resolution, allergy exclusions, and authentic healing bowls.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=2.5">
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --bg-color: #FAF6F0;
+  --bg-gradient: linear-gradient(180deg, #F4ECE1 0%, #FAF6F0 380px, #FAF6F0 100%);
+  --card-bg: #FFFFFF;
+  --border-warm: #E8DFD5;
+  --border-subtle: #E3D7C5;
+  --primary-color: #C85A32; /* Soft terracotta clay */
+  --primary-hover: #B44E28;
+  --primary-dark: #9F3E1B;
+  --primary-light: #FBF3EE;
+  --secondary-color: #4A7C59; /* Sage green safety */
+  --secondary-hover: #3E6B4C;
+  --secondary-light: #EEF4F0;
+  --accent-color: #D6A474; /* Warm sand/mustard */
+  --text-main: #3D3A37; /* Dark charcoal */
+  --text-muted: #7E7974;
+  --white: #FFFFFF;
+  --font-title: 'Fraunces', 'Lora', Georgia, serif;
+  --font-main: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --clay-bevel: 0 4px 0 #E2D5C3, 0 8px 16px rgba(0, 0, 0, 0.05);
+  --clay-card-shadow: 0 10px 0 #EADDC9, 0 20px 32px rgba(61, 58, 55, 0.06);
+  --spring-timing: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--bg-color);
+  background-image: var(--bg-gradient);
+  background-attachment: fixed;
+  color: var(--text-main);
+  line-height: 1.6;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-title);
+  font-weight: 600;
+  color: var(--text-main);
+  line-height: 1.25;
+}
+
+.app-wrapper {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 1.5rem 1.8rem 4rem;
+  position: relative;
+  z-index: 10;
+}
+
+/* Floating background child motifs */
+.floating-deco {
+  position: absolute;
+  font-size: 2.2rem;
+  opacity: 0.32;
+  pointer-events: none;
+  z-index: 1;
+  user-select: none;
+  filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.08));
+}
+.deco-bowl  { top: 3%; left: 2%; animation: floatSlow 8s ease-in-out infinite; }
+.deco-spoon { top: 7%; right: 3%; animation: floatSlowAlt 10s ease-in-out infinite 1s; }
+.deco-rainbow { top: 11%; left: 3%; animation: floatSlow 14s ease-in-out infinite 0.5s; }
+.deco-bear  { top: 15%; right: 2%; animation: floatSlowAlt 12s ease-in-out infinite 2s; }
+.deco-elephant { top: 20%; left: 3%; animation: floatSlow 15s ease-in-out infinite 1.5s; }
+.deco-train { top: 24%; right: 3%; animation: floatSlowAlt 13s ease-in-out infinite 2.5s; }
+.deco-balloon { top: 28%; left: 2%; animation: floatSlow 11s ease-in-out infinite 0.8s; }
+.deco-star  { top: 32%; right: 3%; animation: floatSlowAlt 9s ease-in-out infinite 0.3s; }
+.deco-giraffe { top: 36%; left: 3%; animation: floatSlow 16s ease-in-out infinite 1.2s; }
+.deco-cloud { top: 40%; right: 3%; animation: floatSlowAlt 11s ease-in-out infinite 1.5s; }
+.deco-sparkles { top: 44%; left: 2%; animation: floatSlow 7s ease-in-out infinite 0.2s; }
+.deco-bottle { top: 48%; right: 3%; animation: floatSlowAlt 10s ease-in-out infinite 0.7s; }
+.deco-duck { top: 52%; left: 3%; animation: floatSlow 12s ease-in-out infinite 1.8s; }
+.deco-yoyo { top: 56%; right: 2%; animation: floatSlowAlt 9s ease-in-out infinite 0.4s; }
+.deco-block { top: 60%; left: 2%; animation: floatSlow 13s ease-in-out infinite 2.1s; }
+.deco-lion { top: 64%; right: 3%; animation: floatSlowAlt 14s ease-in-out infinite 1.1s; }
+.deco-dino { top: 68%; left: 3%; animation: floatSlow 15s ease-in-out infinite 0.6s; }
+.deco-apple { top: 72%; right: 3%; animation: floatSlowAlt 8s ease-in-out infinite 1.4s; }
+.deco-banana { top: 76%; left: 2%; animation: floatSlow 11s ease-in-out infinite 0.9s; }
+.deco-carrot { top: 80%; right: 3%; animation: floatSlowAlt 12s ease-in-out infinite 2.3s; }
+.deco-sun { top: 84%; left: 3%; animation: floatSlow 18s ease-in-out infinite 0.5s; }
+.deco-moon { top: 88%; right: 3%; animation: floatSlowAlt 14s ease-in-out infinite 1.7s; }
+.deco-kitty { top: 92%; left: 2%; animation: floatSlow 10s ease-in-out infinite 0.3s; }
+.deco-puppy { top: 95%; right: 3%; animation: floatSlowAlt 11s ease-in-out infinite 1.2s; }
+.deco-clover { top: 98%; left: 3%; animation: floatSlow 8s ease-in-out infinite 0.1s; }
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(3deg); }
+}
+@keyframes floatSlowAlt {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(-3deg); }
+}
+
+/* Header */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 0 1.2rem;
+  margin-bottom: 1.2rem;
+  border-bottom: 1px dashed var(--border-subtle);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-title);
+  font-size: 2.1rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  letter-spacing: -0.5px;
+}
+.logo span {
+  color: var(--text-main);
+}
+.logo-icon {
+  font-size: 2.2rem;
+  display: inline-block;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.header-badge {
+  background: #FFFFFF;
+  color: var(--text-main);
+  padding: 0.5rem 1.1rem;
+  border-radius: 50px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  border: 1.5px solid var(--border-warm);
+  box-shadow: 0 3px 0 #E2D5C3;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--secondary-color);
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.header-action-btn {
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-warm);
+  border-radius: 50px;
+  padding: 0.5rem 1rem;
+  font-family: var(--font-main);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-main);
+  cursor: pointer;
+  box-shadow: 0 3px 0 #E2D5C3;
+  transition: var(--spring-timing);
+}
+.header-action-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 0 #E2D5C3;
+}
+
+/* Hero Banner */
+.hero-compact {
+  background: var(--card-bg);
+  border-radius: var(--radius-lg);
+  padding: 1.4rem 1.8rem;
+  margin-bottom: 1.6rem;
+  border: 1.5px solid var(--border-warm);
+  border-top: 2px solid #FFFFFF;
+  box-shadow: var(--clay-card-shadow);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.8rem;
+  flex-wrap: wrap;
+}
+.hero-content h1 {
+  font-size: 1.7rem;
+  line-height: 1.25;
+  margin-bottom: 0.35rem;
+}
+.hero-content h1 span {
+  color: var(--primary-color);
+}
+.hero-content p {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  max-width: 660px;
+  line-height: 1.5;
+}
+.hero-highlights {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+.hero-tag {
+  background: var(--primary-light);
+  color: var(--primary-color);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.4rem 0.85rem;
+  border-radius: 50px;
+  border: 1px solid rgba(200, 90, 50, 0.25);
+}
+
+/* =========================================================
+   DASHBOARD SPLIT-SCREEN LAYOUT (38% Left / 62% Right)
+========================================================= */
+.dashboard-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.8rem;
+  align-items: start;
+}
+
+@media (min-width: 860px) {
+  .dashboard-layout {
+    grid-template-columns: 38% 62%;
+  }
+}
+
+/* =========================================================
+   LEFT COLUMN: CONTROL PANEL
+========================================================= */
+.control-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+}
+
+@media (min-width: 860px) {
+  .control-panel {
+    position: sticky;
+    top: 1.2rem;
+    max-height: calc(100vh - 2.4rem);
+    overflow-y: auto;
+    padding-right: 0.4rem;
+  }
+  .control-panel::-webkit-scrollbar {
+    width: 6px;
+  }
+  .control-panel::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .control-panel::-webkit-scrollbar-thumb {
+    background: #E2D5C3;
+    border-radius: 10px;
+  }
+}
+
+.panel-section {
+  background: var(--card-bg);
+  border-radius: var(--radius-lg);
+  padding: 1.3rem 1.4rem;
+  border: 1.5px solid var(--border-warm);
+  border-top: 2px solid #FFFFFF;
+  box-shadow: 0 6px 0 #EADDC9, 0 14px 24px rgba(61, 58, 55, 0.04);
+}
+
+.section-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.3rem;
+}
+
+.section-badge-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.step-num {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  box-shadow: 0 2px 0 var(--primary-dark);
+}
+.section-badge-header h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+.section-hint {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-top: 0.2rem;
+  margin-bottom: 0.85rem;
+}
+
+/* 4 Age Stages Grid */
+.age-grid-4 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.65rem;
+  margin-bottom: 0.85rem;
+}
+
+.age-card-btn {
+  background: linear-gradient(180deg, #FFFFFF, #FAF6F0);
+  border: 1.5px solid var(--border-warm);
+  border-top: 2px solid #FFFFFF;
+  border-radius: var(--radius-md);
+  padding: 0.85rem 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #E2D5C3, 0 8px 12px rgba(0, 0, 0, 0.04);
+  transition: var(--spring-timing);
+  text-align: left;
+}
+.age-card-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 #E2D5C3;
+}
+.age-card-btn.active {
+  background: linear-gradient(145deg, #D46A45, #C85A32);
+  border-color: #9F3E1B;
+  color: #FFFFFF;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2), 0 3px 0 #852F11;
+  transform: translateY(1px);
+}
+.age-card-btn.active .age-sub {
+  color: rgba(255, 255, 255, 0.9);
+}
+.age-icon {
+  font-size: 1.5rem;
+}
+.age-info strong {
+  display: block;
+  font-size: 0.92rem;
+  line-height: 1.2;
+}
+.age-sub {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+}
+
+/* Pediatric Guardrail Box */
+.pediatric-guardrail-box {
+  background: #FDF9F3;
+  border: 1.5px solid #EFE0CC;
+  border-left: 4px solid var(--accent-color);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 0.9rem;
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+.pediatric-guardrail-box strong {
+  color: var(--primary-color);
+}
+
+/* Symptoms & Selection Indicator */
+.symptom-control-pills {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.selected-pill-badge {
+  background: var(--secondary-light);
+  color: var(--secondary-color);
+  border: 1px solid rgba(74, 124, 89, 0.25);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.3rem 0.65rem;
+  border-radius: 50px;
+}
+.selected-pill-badge.limit-reached {
+  background: #FFF3E0;
+  color: #D35400;
+  border-color: #F5B041;
+}
+.selected-pill-badge.alert-badge {
+  background: #FDEDEC;
+  color: #C0392B;
+  border-color: #E74C3C;
+}
+
+.clear-btn-tactile {
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-warm);
+  border-radius: 50px;
+  padding: 0.3rem 0.7rem;
+  font-family: var(--font-main);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  cursor: pointer;
+  box-shadow: 0 2px 0 #E2D5C3;
+  transition: var(--spring-timing);
+}
+.clear-btn-tactile:not(:disabled):hover {
+  background: #FDEDEC;
+  color: #C0392B;
+  border-color: #F5B7B1;
+  transform: translateY(-1px);
+}
+.clear-btn-tactile:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.symptoms-flow-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.symptom-chip {
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-warm);
+  border-top: 1.5px solid rgba(255, 255, 255, 0.9);
+  border-radius: 50px;
+  padding: 0.45rem 0.9rem;
+  font-family: var(--font-main);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-main);
+  cursor: pointer;
+  box-shadow: 0 3px 0 #E2D5C3, 0 6px 10px rgba(0, 0, 0, 0.03);
+  transition: var(--spring-timing);
+  user-select: none;
+}
+.symptom-chip:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 0 #E2D5C3;
+}
+.symptom-chip:active {
+  transform: translateY(2px);
+}
+.symptom-chip.active {
+  background: linear-gradient(145deg, #D46A45, #C85A32);
+  border-color: #9F3E1B;
+  color: #FFFFFF;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2), 0 3px 0 #852F11;
+  transform: translateY(1px);
+}
+.symptom-chip.active::before {
+  content: '✓ ';
+  font-weight: 800;
+}
+
+/* Allergen Exclusions Bar */
+.allergen-toggle-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.allergen-btn {
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-warm);
+  border-radius: var(--radius-sm);
+  padding: 0.42rem 0.75rem;
+  font-family: var(--font-main);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-main);
+  cursor: pointer;
+  box-shadow: 0 3px 0 #E2D5C3;
+  transition: var(--spring-timing);
+}
+.allergen-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 0 #E2D5C3;
+}
+.allergen-btn.active {
+  background: linear-gradient(145deg, #5B8C6A, #4A7C59);
+  border-color: #385E43;
+  color: #FFFFFF;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.2), 0 2px 0 #2A4833;
+}
+.allergen-btn.active::before {
+  content: '🛡️ ';
+}
+
+/* Pantry Quick-Filter */
+.clear-text-btn {
+  background: none;
+  border: none;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  text-decoration: underline;
+}
+.clear-text-btn:hover {
+  color: var(--primary-color);
+}
+
+.pantry-chips-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.pantry-chip {
+  background: #FAF6F0;
+  border: 1.5px solid var(--border-warm);
+  border-radius: 50px;
+  padding: 0.38rem 0.8rem;
+  font-family: var(--font-main);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-main);
+  cursor: pointer;
+  box-shadow: 0 3px 0 #E2D5C3;
+  transition: var(--spring-timing);
+}
+.pantry-chip:hover {
+  transform: translateY(-1px);
+  background: #FFFFFF;
+}
+.pantry-chip.active {
+  background: #FFF5E8;
+  border-color: var(--primary-color);
+  color: var(--primary-dark);
+  box-shadow: inset 0 2px 3px rgba(0,0,0,0.06), 0 2px 0 #C99661;
+  font-weight: 700;
+}
+.pantry-chip.active::after {
+  content: ' ★';
+}
+
+/* =========================================================
+   RIGHT COLUMN: LIVE WORKSPACE PANEL
+========================================================= */
+.workspace-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  min-width: 0;
+}
+
+/* Workspace Top Summary Bar */
+.workspace-top-bar {
+  background: var(--card-bg);
+  border-radius: var(--radius-lg);
+  padding: 1rem 1.4rem;
+  border: 1.5px solid var(--border-warm);
+  border-top: 2px solid #FFFFFF;
+  box-shadow: 0 6px 0 #EADDC9, 0 12px 20px rgba(61, 58, 55, 0.04);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.profile-summary {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+.profile-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--primary-light);
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 3px 0 #E2D5C3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+}
+.profile-title {
+  font-family: var(--font-title);
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.profile-sub {
+  font-size: 0.82rem;
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+/* Portion Scaler */
+.portion-scaler-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.portion-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+.portion-toggle-group {
+  display: flex;
+  background: #FAF6F0;
+  padding: 3px;
+  border-radius: 50px;
+  border: 1.5px solid var(--border-warm);
+}
+.portion-btn {
+  background: transparent;
+  border: none;
+  padding: 0.35rem 0.85rem;
+  border-radius: 50px;
+  font-family: var(--font-main);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-main);
+  cursor: pointer;
+  transition: var(--spring-timing);
+}
+.portion-btn.active {
+  background: #FFFFFF;
+  color: var(--primary-color);
+  font-weight: 700;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08), 0 1px 0 #E2D5C3;
+}
+
+/* =========================================================
+   HERO RECIPE CARD (#1 Clinical Match)
+========================================================= */
+.recipe-card-hero {
+  background: var(--card-bg);
+  border-radius: var(--radius-xl);
+  border: 1.5px solid var(--border-warm);
+  border-top: 2.5px solid #FFFFFF;
+  box-shadow: var(--clay-card-shadow);
+  overflow: hidden;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.hero-match-badge-bar {
+  background: linear-gradient(90deg, #FDF4EF, #FAF0EB);
+  border-bottom: 1.5px solid var(--border-warm);
+  padding: 0.75rem 1.6rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.clinical-match-badge {
+  background: var(--primary-color);
+  color: #FFFFFF;
+  padding: 0.3rem 0.8rem;
+  border-radius: 50px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  box-shadow: 0 2px 0 var(--primary-dark);
+}
+.match-score-pill {
+  font-size: 0.8rem;
+  color: var(--secondary-color);
+  font-weight: 700;
+  background: var(--secondary-light);
+  padding: 0.25rem 0.65rem;
+  border-radius: 50px;
+  border: 1px solid rgba(74, 124, 89, 0.2);
+}
+
+.recipe-hero-body {
+  padding: 1.8rem;
+}
+
+.recipe-header-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.5rem;
+  margin-bottom: 0.8rem;
+}
+.recipe-hero-title {
+  font-size: 1.85rem;
+  line-height: 1.2;
+  margin-bottom: 0.4rem;
+}
+.recipe-hero-desc {
+  font-size: 0.96rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+  margin-bottom: 1.2rem;
+}
+
+/* Harmony & Mutation Alerts */
+.harmony-conflict-box {
+  background: #FFF9F3;
+  border: 1.5px solid #F5E1CB;
+  border-radius: var(--radius-md);
+  padding: 1rem 1.2rem;
+  margin-bottom: 1.4rem;
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+.harmony-conflict-box strong {
+  color: var(--primary-color);
+}
+.mutation-badges-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+}
+.mutation-badge {
+  background: #FFF0E6;
+  border: 1px solid #F8CBB6;
+  color: #B44E28;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.3rem 0.65rem;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+/* Macro Nutrients Grid */
+.macros-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.7rem;
+  background: #FAF6F0;
+  border-radius: var(--radius-md);
+  padding: 0.9rem;
+  margin-bottom: 1.5rem;
+  border: 1.5px solid var(--border-warm);
+}
+.macro-col {
+  text-align: center;
+}
+.macro-val {
+  display: block;
+  font-family: var(--font-title);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1.1;
+}
+.macro-lbl {
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Meta Details Strip */
+.meta-quick-strip {
+  display: flex;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 1px dashed var(--border-subtle);
+}
+.meta-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.85rem;
+  color: var(--text-main);
+  font-weight: 600;
+}
+.meta-chip span {
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+/* Two-Column Recipe Inner Layout */
+.recipe-inner-columns {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+@media (min-width: 768px) {
+  .recipe-inner-columns {
+    grid-template-columns: 1fr 1.2fr;
+  }
+}
+
+.recipe-sub-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Interactive Ingredients Checklist */
+.checklist-box {
+  background: #FCFAF7;
+  border-radius: var(--radius-md);
+  padding: 1.2rem;
+  border: 1.5px solid var(--border-warm);
+}
+.ingredient-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid #F3EAE0;
+  font-size: 0.88rem;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s ease;
+}
+.ingredient-row:last-child {
+  border-bottom: none;
+}
+.ing-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #D6C7B3;
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+  margin-top: 3px;
+  flex-shrink: 0;
+  transition: var(--spring-timing);
+  position: relative;
+}
+.ing-checkbox:checked {
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
+}
+.ing-checkbox:checked::after {
+  content: '✓';
+  position: absolute;
+  color: #FFFFFF;
+  font-size: 12px;
+  font-weight: 800;
+  top: -1px;
+  left: 3px;
+}
+.ingredient-row.checked .ing-text {
+  text-decoration: line-through;
+  color: #A29E9A;
+}
+.ing-adapted-tag {
+  background: #FFF0E6;
+  color: #B44E28;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  margin-left: 0.4rem;
+  display: inline-block;
+}
+
+/* Cooking Steps */
+.steps-box {
+  background: #FCFAF7;
+  border-radius: var(--radius-md);
+  padding: 1.2rem;
+  border: 1.5px solid var(--border-warm);
+}
+.step-item {
+  display: flex;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+.step-item:last-child {
+  margin-bottom: 0;
+}
+.step-number-circle {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #EFE4D6;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.step-timer-trigger {
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-warm);
+  border-radius: 50px;
+  padding: 0.25rem 0.65rem;
+  font-family: var(--font-main);
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  cursor: pointer;
+  box-shadow: 0 2px 0 #E2D5C3;
+  transition: var(--spring-timing);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-top: 0.35rem;
+}
+.step-timer-trigger:hover {
+  transform: translateY(-1px);
+  background: var(--primary-light);
+}
+
+/* Integrated Cooking Timer Card */
+.cooking-timer-card {
+  background: #FAF6F0;
+  border: 1.5px solid #EADCC8;
+  border-radius: var(--radius-md);
+  padding: 1rem 1.3rem;
+  margin-bottom: 1.5rem;
+}
+.timer-header-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.6rem;
+}
+.timer-title-text {
+  font-size: 0.88rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.timer-countdown-clock {
+  font-family: var(--font-title);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+.timer-bar-track {
+  width: 100%;
+  height: 8px;
+  background: #EAE0D2;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 0.8rem;
+}
+.timer-bar-progress {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--secondary-color), #6FA880);
+  border-radius: 10px;
+  transition: width 1s linear;
+}
+.timer-buttons-row {
+  display: flex;
+  gap: 0.6rem;
+}
+.timer-tactile-btn {
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-warm);
+  border-radius: 50px;
+  padding: 0.35rem 0.9rem;
+  font-family: var(--font-main);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 3px 0 #E2D5C3;
+  transition: var(--spring-timing);
+}
+.timer-tactile-btn.primary {
+  background: var(--primary-color);
+  color: #FFFFFF;
+  border-color: var(--primary-dark);
+  box-shadow: 0 3px 0 var(--primary-dark);
+}
+.timer-tactile-btn:hover {
+  transform: translateY(-1px);
+}
+
+/* Guardrails & Scientific Rationale */
+.science-guardrail-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+@media (min-width: 640px) {
+  .science-guardrail-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.guardrail-callout {
+  background: #FDF9F3;
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  border: 1.5px solid var(--border-warm);
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+.guardrail-callout h5 {
+  font-size: 0.92rem;
+  margin-bottom: 0.3rem;
+  color: var(--primary-color);
+}
+
+/* =========================================================
+   RANKED ALTERNATIVES (#2 Quick, #3 Pantry Staple)
+========================================================= */
+.alternatives-section {
+  margin-top: 1.5rem;
+}
+.alternatives-title {
+  font-size: 1.25rem;
+  margin-bottom: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.alternatives-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+@media (min-width: 768px) {
+  .alternatives-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.alt-recipe-card {
+  background: var(--card-bg);
+  border: 1.5px solid var(--border-warm);
+  border-top: 2px solid #FFFFFF;
+  border-radius: var(--radius-lg);
+  padding: 1.2rem;
+  box-shadow: 0 6px 0 #EADDC9, 0 12px 20px rgba(61, 58, 55, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+  transition: var(--spring-timing);
+}
+.alt-recipe-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 0 #EADDC9;
+}
+.alt-tag-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.4rem;
+}
+.alt-type-badge {
+  font-size: 0.74rem;
+  font-weight: 800;
+  padding: 0.25rem 0.6rem;
+  border-radius: 50px;
+}
+.alt-type-badge.quick {
+  background: #EBF5FB;
+  color: #2980B9;
+  border: 1px solid #AED6F1;
+}
+.alt-type-badge.pantry {
+  background: #FEF9E7;
+  color: #B7950B;
+  border: 1px solid #F9E79F;
+}
+.alt-card-title {
+  font-size: 1.15rem;
+  line-height: 1.25;
+  margin-bottom: 0.3rem;
+}
+.alt-card-desc {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+.swap-to-main-btn {
+  background: linear-gradient(180deg, #FFFFFF, #FAF6F0);
+  border: 1.5px solid var(--border-warm);
+  border-radius: 50px;
+  padding: 0.5rem 1rem;
+  font-family: var(--font-main);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  cursor: pointer;
+  box-shadow: 0 3px 0 #E2D5C3;
+  transition: var(--spring-timing);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  width: 100%;
+}
+.swap-to-main-btn:hover {
+  background: var(--primary-light);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 0 #E2D5C3;
+}
+
+/* =========================================================
+   24-HOUR GENTLE RECOVERY FEEDING SCHEDULE
+========================================================= */
+.recovery-timeline-card {
+  background: var(--card-bg);
+  border-radius: var(--radius-xl);
+  border: 1.5px solid var(--border-warm);
+  border-top: 2.5px solid #FFFFFF;
+  box-shadow: var(--clay-card-shadow);
+  padding: 1.6rem;
+  margin-top: 0.5rem;
+}
+.recovery-header-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px dashed var(--border-subtle);
+}
+.recovery-header-title h3 {
+  font-size: 1.35rem;
+  line-height: 1.2;
+}
+.recovery-header-title p {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+}
+.recovery-actions {
+  display: flex;
+  gap: 0.6rem;
+}
+.recovery-tactile-btn {
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-warm);
+  border-radius: 50px;
+  padding: 0.45rem 0.95rem;
+  font-family: var(--font-main);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-main);
+  cursor: pointer;
+  box-shadow: 0 3px 0 #E2D5C3;
+  transition: var(--spring-timing);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.recovery-tactile-btn.whatsapp {
+  background: #E8F8F0;
+  border-color: #A3E4D7;
+  color: #117864;
+  box-shadow: 0 3px 0 #A3E4D7;
+}
+.recovery-tactile-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 0 #E2D5C3;
+}
+
+.timeline-slots-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.8rem;
+}
+@media (min-width: 640px) {
+  .timeline-slots-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1200px) {
+  .timeline-slots-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.timeline-slot {
+  background: #FCFAF7;
+  border: 1.5px solid var(--border-warm);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+.slot-time-badge {
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--primary-color);
+  letter-spacing: 0.5px;
+}
+.slot-name {
+  font-family: var(--font-title);
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+.slot-item-text {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* =========================================================
+   3-SYMPTOM TRIAGE WARNING MODAL / CARD
+========================================================= */
+.doctor-warning-card {
+  background: #FFF8F7;
+  border: 2px solid #F5C6CB;
+  border-radius: var(--radius-xl);
+  padding: 2rem;
+  box-shadow: 0 10px 0 #EAC3C7, 0 22px 36px rgba(192, 57, 43, 0.08);
+}
+.warning-icon-big {
+  font-size: 3rem;
+  margin-bottom: 0.8rem;
+}
+.doctor-warning-card h3 {
+  color: #C0392B;
+  font-size: 1.7rem;
+  margin-bottom: 0.8rem;
+}
+.doctor-warning-card p {
+  font-size: 0.95rem;
+  color: #4A2320;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+.emergency-red-box {
+  background: #FDEDEC;
+  border-left: 4px solid #C0392B;
+  border-radius: 8px;
+  padding: 1rem;
+  font-size: 0.88rem;
+  color: #78281F;
+  line-height: 1.5;
+}
+
+/* =========================================================
+   MOBILE STICKY SUMMARY BAR
+========================================================= */
+.mobile-sticky-bar {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #FFFFFF;
+  border-top: 2px solid var(--border-warm);
+  padding: 0.8rem 1.4rem;
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.08);
+  z-index: 999;
+  justify-content: space-between;
+  align-items: center;
+}
+@media (max-width: 859px) {
+  .mobile-sticky-bar {
+    display: flex;
+  }
+}
+.mobile-sticky-info {
+  display: flex;
+  flex-direction: column;
+}
+.mobile-recipe-label {
+  font-size: 0.72rem;
+  color: var(--primary-color);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.mobile-sticky-info strong {
+  font-size: 0.92rem;
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+.mobile-jump-btn {
+  background: var(--primary-color);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 50px;
+  padding: 0.55rem 1.1rem;
+  font-family: var(--font-main);
+  font-size: 0.84rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 3px 0 var(--primary-dark);
+}
+
+/* =========================================================
+   CLINICAL DISCLAIMER & FOOTER
+========================================================= */
+.clinical-disclaimer-card {
+  background: var(--card-bg);
+  border-radius: var(--radius-lg);
+  padding: 1.4rem 1.8rem;
+  margin-top: 2.2rem;
+  border: 1.5px solid var(--border-warm);
+  border-left: 5px solid var(--primary-color);
+  box-shadow: 0 6px 0 #EADDC9, 0 14px 24px rgba(61, 58, 55, 0.04);
+}
+.disclaimer-header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 0.8rem;
+}
+.disclaimer-icon {
+  font-size: 1.8rem;
+}
+.disclaimer-header h4 {
+  font-size: 1.15rem;
+  color: var(--text-main);
+}
+.disclaimer-sub {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+.disclaimer-body p {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 0.8rem;
+}
+.red-flag-bullets {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+}
+@media (min-width: 768px) {
+  .red-flag-bullets {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.red-flag-item {
+  background: #FDF9F5;
+  border: 1px solid #F5E9DC;
+  border-radius: 8px;
+  padding: 0.75rem 0.9rem;
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.app-footer {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px dashed var(--border-subtle);
+  text-align: center;
+}
+.footer-logo {
+  font-family: var(--font-title);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 0.4rem;
+}
+.footer-logo span {
+  color: var(--text-main);
+}
+.footer-tagline {
+  font-size: 0.86rem;
+  color: var(--text-muted);
+  margin-bottom: 0.3rem;
+}
+.footer-copyright {
+  font-size: 0.78rem;
+  color: #A29E9A;
+}
+
+/* Toast Notification */
+.toast-notification {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: #3D3A37;
+  color: #FFFFFF;
+  padding: 0.8rem 1.4rem;
+  border-radius: 50px;
+  font-size: 0.86rem;
+  font-weight: 600;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.2);
+  z-index: 10000;
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.toast-notification.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Print Styles */
+@media print {
+  body {
+    background: #FFFFFF !important;
+    color: #000000 !important;
+  }
+  .floating-deco,
+  .control-panel,
+  .mobile-sticky-bar,
+  .header-actions,
+  .cooking-timer-card,
+  .portion-scaler-wrap,
+  .hero-compact,
+  .alternatives-section,
+  .recovery-actions,
+  .toast-notification {
+    display: none !important;
+  }
+  .app-wrapper {
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+  .dashboard-layout {
+    display: block !important;
+  }
+  .workspace-panel {
+    width: 100% !important;
+  }
+  .recipe-card-hero,
+  .recovery-timeline-card {
+    box-shadow: none !important;
+    border: 1px solid #CCC !important;
+    page-break-inside: avoid;
+  }
+}
+
+  </style>
 </head>
 <body>
 
@@ -36,137 +1496,265 @@
   <div class="floating-deco deco-puppy">🐶</div>
   <div class="floating-deco deco-clover">🍀</div>
 
-  <div class="container">
+  <div class="app-wrapper">
     <!-- Header -->
-    <header>
+    <header class="app-header">
       <div class="logo">
         <span class="logo-icon">🥣</span> Bal <span>Aahar</span>
       </div>
-      <div class="header-badge">
-        🌿 Calm & Natural Care
+      <div class="header-actions">
+        <div class="header-badge clinical-badge">
+          <span class="pulse-dot"></span> ICMR-NIN Aligned Pediatric Care
+        </div>
+        <button type="button" class="header-action-btn" onclick="window.print()" title="Print Pediatric Summary">
+          🖨️ Print Summary
+        </button>
       </div>
     </header>
 
-    <!-- Minimalist Hero Section -->
-    <section class="hero">
-      <div class="hero-text">
-        <h1>Comforting Indian Recipes for <span>Recovering Little Ones</span></h1>
-        <p>When our children are unwell, a warm, gentle bowl of comfort food is the best medicine. Bal Aahar helps you find traditional, age-appropriate Indian recipes tailored to your child's symptoms—bringing comfort, nutrition, and hydration back into their recovery days.</p>
+    <!-- Minimalist Hero Banner -->
+    <section class="hero-compact">
+      <div class="hero-content">
+        <h1>Clinical Indian Nutrition for <span>Recovering Little Ones</span></h1>
+        <p>Scientific multi-symptom recipe scoring, texture guardrails, and allergen filtering grounded in ICMR-NIN pediatric recovery guidelines for Indian infants and toddlers (6 months – 4 years).</p>
+      </div>
+      <div class="hero-highlights">
+        <div class="hero-tag">👶 4 Pediatric Stages</div>
+        <div class="hero-tag">🛡️ Smart Ingredient Mutation</div>
+        <div class="hero-tag">⏱️ Step-Linked Timers</div>
+      </div>
+    </section>
+
+    <!-- Split-Screen Dashboard Workspace -->
+    <main class="dashboard-layout">
+      
+      <!-- LEFT COLUMN: Clinical Control Panel (38% on desktop) -->
+      <aside class="control-panel">
         
-        <div style="display: flex; gap: 0.8rem; flex-wrap: wrap; margin-top: 1rem;">
-          <div class="header-badge">👶 6 Months - 4 Years</div>
-          <div class="header-badge">🍲 75 Recovery Bowls</div>
-          <div class="header-badge">⏱️ Cook Helpers</div>
-        </div>
-      </div>
-      <div class="hero-illustration">
-        <img src="hero.png" alt="Chubby baby hands playfully smashing food in a silicone plate on a wooden table, with fresh fruits, veggies, and wooden baby toys arranged aside">
-      </div>
-    </section>
-
-    <!-- Care Finder Section -->
-    <section class="care-finder-section">
-      <h2 class="section-title">The Care Finder</h2>
-      <p class="section-subtitle">Select your child's age group and their primary symptom to reveal custom healing recipes.</p>
-
-      <div class="care-finder-card">
-        <div class="finder-steps">
+        <!-- Step 1: 4 Granular Age Stages (ICMR-NIN Aligned) -->
+        <section class="panel-section">
+          <div class="section-badge-header">
+            <span class="step-num">1</span>
+            <h3>Child's Age Stage</h3>
+          </div>
+          <p class="section-hint">Select stage for strict texture and developmental guardrails:</p>
           
-          <!-- Step 1: Age Selector -->
-          <div class="step-group">
-            <div class="step-header">
-              <div class="step-num">1</div>
-              <h3>Select Child's Age Group</h3>
-            </div>
-            <div class="age-options">
-              <div class="option-card" id="age-infant">
-                <div class="option-icon">🥣</div>
-                <h4>Infants</h4>
-                <p>6 to 12 months</p>
-                <p style="font-size: 0.82rem; margin-top: 0.5rem; color: var(--primary-color); font-weight: 600;">Purees & starches. No salt/sugar.</p>
-              </div>
-              <div class="option-card" id="age-toddler">
-                <div class="option-icon">🥄</div>
-                <h4>Toddlers</h4>
-                <p>12 to 24 months</p>
-                <p style="font-size: 0.82rem; margin-top: 0.5rem; color: var(--primary-color); font-weight: 600;">Mashed textures. Extremely mild spices.</p>
-              </div>
-              <div class="option-card" id="age-preschool">
-                <div class="option-icon">🍽️</div>
-                <h4>Preschoolers</h4>
-                <p>2 to 4 years</p>
-                <p style="font-size: 0.82rem; margin-top: 0.5rem; color: var(--primary-color); font-weight: 600;">Soft solids. Nutrient dense & comforting.</p>
+          <div class="age-grid-4">
+            <div class="age-card-btn active" id="age-stage1" onclick="setAgeStage('stage1')">
+              <span class="age-icon">🍼</span>
+              <div class="age-info">
+                <strong>6–8 Months</strong>
+                <span class="age-sub">Stage 1: Smooth Purees</span>
               </div>
             </div>
-          </div>
-
-          <!-- Step 2: Illness Selector -->
-          <div class="step-group">
-            <div class="step-header">
-              <div class="step-header-left">
-                <div class="step-num">2</div>
-                <h3>Select Illness / Symptom</h3>
-              </div>
-              <div class="selection-indicator-wrap" id="selection-indicator-wrap">
-                <span class="selected-pill-badge" id="selected-count-badge">Selected: 0</span>
-                <button type="button" class="clear-selection-btn" id="clear-selection-btn" onclick="clearSelectedSymptoms()" disabled title="Clear all selected symptoms">
-                  <span class="clear-btn-icon">✕</span> Clear Selected Symptoms
-                </button>
+            <div class="age-card-btn" id="age-stage2" onclick="setAgeStage('stage2')">
+              <span class="age-icon">🥣</span>
+              <div class="age-info">
+                <strong>9–12 Months</strong>
+                <span class="age-sub">Stage 2: Soft Lumpy Mash</span>
               </div>
             </div>
-            <div class="illness-options">
-              <button class="illness-btn" id="illness-fever">Fever / Flu</button>
-              <button class="illness-btn" id="illness-cold">Cough & Cold</button>
-              <button class="illness-btn" id="illness-stomach">Tummy Troubles</button>
-              <button class="illness-btn" id="illness-throat">Sore Throat</button>
-              <button class="illness-btn" id="illness-constipation">Constipation</button>
-              <button class="illness-btn" id="illness-teething">Teething</button>
-              <button class="illness-btn" id="illness-vomiting">Vomiting</button>
-              <button class="illness-btn" id="illness-colic">Colic & Gas</button>
-              <button class="illness-btn" id="illness-appetite">Appetite Loss</button>
-              <button class="illness-btn" id="illness-rashes">Heat Boils</button>
-              <button class="illness-btn" id="illness-diarrhea">Diarrhea</button>
-              <button class="illness-btn" id="illness-dehydration">Dehydration</button>
-              <button class="illness-btn" id="illness-anemia">Iron Anemia</button>
-              <button class="illness-btn" id="illness-underweight">Underweight</button>
-              <button class="illness-btn" id="illness-poorweight">Poor Weight</button>
-              <button class="illness-btn" id="illness-pem">Protein-PEM</button>
-              <button class="illness-btn" id="illness-vitd">Vitamin D</button>
-              <button class="illness-btn" id="illness-calcium">Calcium</button>
-              <button class="illness-btn" id="illness-immunity">Weak Immunity</button>
-              <button class="illness-btn" id="illness-picky">Picky Eating</button>
-              <button class="illness-btn" id="illness-allergy">Food Allergy</button>
-              <button class="illness-btn" id="illness-lactose">Lactose Free</button>
-              <button class="illness-btn" id="illness-diaperrash">Diaper Rash</button>
-              <button class="illness-btn" id="illness-eczema">Eczema Support</button>
-              <button class="illness-btn" id="illness-reflux">Acid Reflux</button>
+            <div class="age-card-btn" id="age-stage3" onclick="setAgeStage('stage3')">
+              <span class="age-icon">🥄</span>
+              <div class="age-info">
+                <strong>1–2 Years</strong>
+                <span class="age-sub">Stage 3: Toddler Finger Food</span>
+              </div>
+            </div>
+            <div class="age-card-btn" id="age-stage4" onclick="setAgeStage('stage4')">
+              <span class="age-icon">🍽️</span>
+              <div class="age-info">
+                <strong>2–4 Years</strong>
+                <span class="age-sub">Stage 4: Healing Family Bowls</span>
+              </div>
             </div>
           </div>
 
+          <!-- Dynamic Age Guardrail Badge Box -->
+          <div class="pediatric-guardrail-box" id="pediatric-guardrail-box">
+            <!-- Dynamically populated based on selected age -->
+          </div>
+        </section>
+
+        <!-- Step 2: Symptoms & Illnesses (Max 3, Real-Time Scoring) -->
+        <section class="panel-section">
+          <div class="section-header-row">
+            <div class="section-badge-header">
+              <span class="step-num">2</span>
+              <h3>Active Symptoms / Illness</h3>
+            </div>
+            <div class="symptom-control-pills">
+              <span class="selected-pill-badge" id="selected-count-badge">Selected: 1 / 3</span>
+              <button type="button" class="clear-btn-tactile" id="clear-selection-btn" onclick="clearSelectedSymptoms()" title="Clear all selected symptoms">
+                ✕ Clear
+              </button>
+            </div>
+          </div>
+          <p class="section-hint">Select up to 3 conditions for weighted conflict-free recipe scoring:</p>
+          
+          <div class="symptoms-flow-grid" id="symptoms-container">
+            <!-- Rendered dynamically or via semantic buttons -->
+            <button class="symptom-chip active" id="symptom-fever" onclick="toggleSymptom('fever')">Fever / Flu</button>
+            <button class="symptom-chip" id="symptom-cold" onclick="toggleSymptom('cold')">Cough & Cold</button>
+            <button class="symptom-chip" id="symptom-stomach" onclick="toggleSymptom('stomach')">Tummy Troubles</button>
+            <button class="symptom-chip" id="symptom-throat" onclick="toggleSymptom('throat')">Sore Throat</button>
+            <button class="symptom-chip" id="symptom-constipation" onclick="toggleSymptom('constipation')">Constipation</button>
+            <button class="symptom-chip" id="symptom-teething" onclick="toggleSymptom('teething')">Teething Distress</button>
+            <button class="symptom-chip" id="symptom-vomiting" onclick="toggleSymptom('vomiting')">Vomiting / Nausea</button>
+            <button class="symptom-chip" id="symptom-colic" onclick="toggleSymptom('colic')">Colic & Gas</button>
+            <button class="symptom-chip" id="symptom-appetite" onclick="toggleSymptom('appetite')">Appetite Loss</button>
+            <button class="symptom-chip" id="symptom-rashes" onclick="toggleSymptom('rashes')">Heat Boils / Rash</button>
+            <button class="symptom-chip" id="symptom-diarrhea" onclick="toggleSymptom('diarrhea')">Loose Diarrhea</button>
+            <button class="symptom-chip" id="symptom-dehydration" onclick="toggleSymptom('dehydration')">Mild Dehydration</button>
+            <button class="symptom-chip" id="symptom-anemia" onclick="toggleSymptom('anemia')">Iron Deficiency</button>
+            <button class="symptom-chip" id="symptom-underweight" onclick="toggleSymptom('underweight')">Underweight Boost</button>
+            <button class="symptom-chip" id="symptom-poorweight" onclick="toggleSymptom('poorweight')">Poor Weight Gain</button>
+            <button class="symptom-chip" id="symptom-pem" onclick="toggleSymptom('pem')">Protein Recovery</button>
+            <button class="symptom-chip" id="symptom-vitd" onclick="toggleSymptom('vitd')">Vitamin D Support</button>
+            <button class="symptom-chip" id="symptom-calcium" onclick="toggleSymptom('calcium')">Calcium & Bone</button>
+            <button class="symptom-chip" id="symptom-immunity" onclick="toggleSymptom('immunity')">Weak Immunity</button>
+            <button class="symptom-chip" id="symptom-picky" onclick="toggleSymptom('picky')">Picky Eating</button>
+            <button class="symptom-chip" id="symptom-diaperrash" onclick="toggleSymptom('diaperrash')">Diaper Rash</button>
+            <button class="symptom-chip" id="symptom-eczema" onclick="toggleSymptom('eczema')">Skin Eczema</button>
+            <button class="symptom-chip" id="symptom-reflux" onclick="toggleSymptom('reflux')">Acid Reflux</button>
+          </div>
+        </section>
+
+        <!-- Step 3: Allergy & Dietary Exclusions -->
+        <section class="panel-section">
+          <div class="section-badge-header">
+            <span class="step-num">3</span>
+            <h3>Allergy & Dietary Exclusions</h3>
+          </div>
+          <p class="section-hint">Instantly filter out allergens or auto-substitute safe alternatives:</p>
+          
+          <div class="allergen-toggle-bar">
+            <button type="button" class="allergen-btn" id="allergen-dairy" onclick="toggleAllergen('dairy')">
+              🥛 Dairy/Lactose-Free
+            </button>
+            <button type="button" class="allergen-btn" id="allergen-nuts" onclick="toggleAllergen('nuts')">
+              🥜 Nut-Free
+            </button>
+            <button type="button" class="allergen-btn" id="allergen-gluten" onclick="toggleAllergen('gluten')">
+              🌾 Gluten-Free
+            </button>
+            <button type="button" class="allergen-btn" id="allergen-egg" onclick="toggleAllergen('egg')">
+              🥚 Egg-Free
+            </button>
+            <button type="button" class="allergen-btn" id="allergen-soya" onclick="toggleAllergen('soya')">
+              🌱 Soya-Free
+            </button>
+          </div>
+        </section>
+
+        <!-- Step 4: "What's in My Kitchen?" Pantry Quick-Filter -->
+        <section class="panel-section">
+          <div class="section-header-row">
+            <div class="section-badge-header">
+              <span class="step-num">4</span>
+              <h3>What's in My Kitchen?</h3>
+            </div>
+            <button type="button" class="clear-text-btn" onclick="clearPantryFilter()" id="clear-pantry-btn">Reset</button>
+          </div>
+          <p class="section-hint">Tap ingredients you have right now to prioritize home staples:</p>
+          
+          <div class="pantry-chips-wrap">
+            <button type="button" class="pantry-chip" id="pantry-Rice" onclick="togglePantry('Rice')">🌾 Rice</button>
+            <button type="button" class="pantry-chip" id="pantry-Moong Dal" onclick="togglePantry('Moong Dal')">🥣 Moong Dal</button>
+            <button type="button" class="pantry-chip" id="pantry-Ragi" onclick="togglePantry('Ragi')">🌰 Ragi</button>
+            <button type="button" class="pantry-chip" id="pantry-Poha" onclick="togglePantry('Poha')">🍚 Poha</button>
+            <button type="button" class="pantry-chip" id="pantry-Curd" onclick="togglePantry('Curd')">🥛 Curd</button>
+            <button type="button" class="pantry-chip" id="pantry-Banana" onclick="togglePantry('Banana')">🍌 Banana</button>
+            <button type="button" class="pantry-chip" id="pantry-Ghee" onclick="togglePantry('Ghee')">🧈 Pure Ghee</button>
+            <button type="button" class="pantry-chip" id="pantry-Oats" onclick="togglePantry('Oats')">🥣 Oats</button>
+            <button type="button" class="pantry-chip" id="pantry-Sabudana" onclick="togglePantry('Sabudana')">⚪ Sabudana</button>
+          </div>
+        </section>
+
+      </aside>
+
+      <!-- RIGHT COLUMN: Live Recipe & Recovery Workspace (62% on desktop) -->
+      <section class="workspace-panel" id="recipe-workspace">
+        
+        <!-- Workspace Top Bar: Profile Summary + Portion Scaler -->
+        <div class="workspace-top-bar">
+          <div class="profile-summary">
+            <div class="profile-avatar">👶</div>
+            <div>
+              <div class="profile-title" id="summary-stage-title">6–8 Months (Stage 1)</div>
+              <div class="profile-sub" id="summary-symptoms-sub">Active: Fever / Flu</div>
+            </div>
+          </div>
+
+          <!-- Portion Scaler Toggle -->
+          <div class="portion-scaler-wrap">
+            <span class="portion-label">Portion Size:</span>
+            <div class="portion-toggle-group">
+              <button type="button" class="portion-btn active" id="portion-btn-1" onclick="setPortionScale(1)">
+                🥣 1 Bowl (150ml)
+              </button>
+              <button type="button" class="portion-btn" id="portion-btn-2" onclick="setPortionScale(2)">
+                🍲 2 Bowls (Batch)
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dynamic Output Container: Hero Recipe / Clinical Warning -->
+        <div id="recipe-output-container">
+          <!-- Populated dynamically by JavaScript -->
+        </div>
+
+        <!-- 24-Hour Recovery Feeding Schedule & WhatsApp Export -->
+        <section class="recovery-timeline-card" id="recovery-schedule-section">
+          <!-- Injected dynamically based on active conditions -->
+        </section>
+
+      </section>
+
+    </main>
+
+    <!-- Mobile Sticky Quick-Action Bar -->
+    <div class="mobile-sticky-bar" id="mobile-sticky-bar">
+      <div class="mobile-sticky-info">
+        <span class="mobile-recipe-label">Best Match:</span>
+        <strong id="mobile-matched-title">Golden Moong Dal Soup</strong>
+      </div>
+      <button type="button" class="mobile-jump-btn" onclick="scrollToRecipe()">
+        View Bowl 🥣
+      </button>
+    </div>
+
+    <!-- Clinical Disclaimer Grounded in ICMR-NIN -->
+    <section class="clinical-disclaimer-card">
+      <div class="disclaimer-header">
+        <span class="disclaimer-icon">🩺</span>
+        <div>
+          <h4>ICMR-NIN Aligned Pediatric Guidance & Clinical Safety Notice</h4>
+          <p class="disclaimer-sub">National Institute of Nutrition (ICMR-NIN) Dietary Guidelines for Indian Infants & Toddlers</p>
+        </div>
+      </div>
+      <div class="disclaimer-body">
+        <p>The recipes, texture recommendations, and nutritional modifications in Bal Aahar are formulated for mild recovery and complementary nutritional support. They are <strong>never a substitute for professional pediatric evaluation, medical diagnosis, or prescribed pharmaceutical treatments</strong>.</p>
+        <div class="red-flag-bullets">
+          <div class="red-flag-item"><strong>🚨 Immediate ER Red Flags:</strong> High unremitting fever (&gt;102°F), sunken soft spot (fontanelle), no wet diapers in 6+ hours, fast or grunting breathing, blood in stool, or extreme lethargy.</div>
+          <div class="red-flag-item"><strong>🚫 Hard Pediatric Guardrails:</strong> Strictly <em>ZERO honey under 12 months</em> (infant botulism hazard), <em>ZERO added salt under 12 months</em> (immature kidneys), <em>ZERO added sugar under 24 months</em>, and <em>ZERO whole unground nuts</em> (choking hazard).</div>
         </div>
       </div>
     </section>
 
-    <!-- Dynamic Recipe Display Section -->
-    <section class="recipe-container" id="recipe-output-container">
-      <!-- Injected dynamically by JavaScript -->
-    </section>
-
-    <!-- Medical Disclaimer -->
-    <section class="disclaimer-box">
-      <i>⚠️</i>
-      <div class="disclaimer-text">
-        <h4>Important Medical Disclaimer</h4>
-        <p>The recipes, home remedies, and advice on Bal Aahar are intended for comforting and supporting recovering children. They are <strong>not</strong> a substitute for professional medical care, diagnosis, or advice. Always consult your pediatrician immediately if your child has a high or persistent fever, difficulty breathing, refuses all fluids, shows signs of severe dehydration, or exhibits any severe symptoms. Under 12 months, strictly avoid honey and salt.</p>
+    <!-- Clean Footer Without Workspace Placeholders -->
+    <footer class="app-footer">
+      <div class="footer-inner">
+        <div class="footer-logo">🥣 Bal <span>Aahar</span></div>
+        <p class="footer-tagline">Clinical Pediatric Care & Traditional Indian Healing Nutrition • Built with love for recovering little souls.</p>
+        <p class="footer-copyright">&copy; 2026 Bal Aahar. All medical content referenced to ICMR-NIN & IAP (Indian Academy of Pediatrics) protocols.</p>
       </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-      <p>&copy; 2026 Bal Aahar. Handcrafted for comforting recovering little souls.</p>
-      <p style="font-size: 0.8rem; margin-top: 0.5rem; color: var(--text-muted);">Please set the workspace to this directory to explore files locally.</p>
     </footer>
   </div>
+
+  <!-- Notification Toast for WhatsApp Copy -->
+  <div class="toast-notification" id="toast-notification">Plan copied to clipboard!</div>
 
   <script src="app.js"></script>
 </body>

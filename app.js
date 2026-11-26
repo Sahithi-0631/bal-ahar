@@ -1,2307 +1,2579 @@
-// Bal Aahar Recipe Database & Zomato-themed Interactive Logic
+// Bal Aahar - Production-Grade Clinical Pediatric Nutrition Engine (ICMR-NIN Aligned)
 
-// 1. Comprehensive Recipe Database (75 combinations: 25 illnesses * 3 age groups)
-const recipes = {
-  // --- FEVER / FLU ---
-  fever: {
-    infant: {
-      title: "Golden Moong Dal Soup",
-      desc: "A warm, light, and highly digestible lentil broth. Perfect for keeping infants hydrated and providing easy-to-absorb protein during a fever.",
-      prepTime: "10 mins",
-      cookTime: "15 mins",
-      servings: "1-2 small bowls",
-      rating: "4.9",
-      reviews: [
-        { name: "Priya K. (Mom of 8-month-old)", rating: "5★", text: "This soup was the only thing my baby would take when she had a fever last week. So simple and highly digestible.", date: "3 days ago", avatarClass: "" },
-        { name: "Divya M. (Mom of 10-month-old)", rating: "4★", text: "Added a drop of ghee as suggested and she finished the whole bowl. Very soothing.", date: "1 week ago", avatarClass: "purple" }
-      ],
-      ingredients: [
-        "2 tablespoons yellow moong dal (washed & soaked for 15 mins)",
-        "1.5 cups water",
-        "A tiny pinch of turmeric powder (haldi)",
-        "A pinch of roasted cumin powder (jeera)",
-        "1/4 teaspoon pure cow's ghee"
-      ],
-      steps: [
-        "In a small pressure cooker, add the soaked moong dal, water, and turmeric powder.",
-        "Cook for 3-4 whistles until the lentils are completely soft and mushy.",
-        "Mash the dal thoroughly with a spoon or blend it slightly to create a watery, smooth consistency.",
-        "Strain it if your baby is new to solids to remove any grainy parts.",
-        "Warm the ghee in a small ladle, add a tiny pinch of cumin powder, and stir it into the soup. Serve lukewarm."
-      ],
-      ageAdjustment: "For babies 6-12 months: DO NOT add salt. The recipe is naturally savory from the lentils. Keep the soup very watery and easy to swallow.",
-      science: "Yellow Moong Dal is exceptionally easy on a feverish digestive system. Turmeric has anti-inflammatory properties, while ghee provides energy-boosting medium-chain fatty acids that help in recovery."
-    },
-    toddler: {
-      title: "Soothing Moong Dal Khichdi",
-      desc: "The gold standard of Indian recovery foods. Soft mashed rice and yellow lentils cooked to a porridge consistency with gentle spices.",
-      prepTime: "10 mins",
-      cookTime: "20 mins",
-      servings: "2 child-size servings",
-      rating: "4.8",
-      reviews: [
-        { name: "Sneha R. (Mom of 18-month-old)", rating: "5★", text: "Dadi's recipe never fails! The khichdi is so soft, my toddler didn't have to struggle to chew it.", date: "Yesterday", avatarClass: "orange" },
-        { name: "Ritu S. (Mom of 2-year-old)", rating: "5★", text: "A dash of ghee makes it taste so comforting. Highly recommend when the kid is down with flu.", date: "4 days ago", avatarClass: "green" }
-      ],
-      ingredients: [
-        "3 tablespoons rice (washed)",
-        "2 tablespoons yellow moong dal (washed)",
-        "2 cups water",
-        "A tiny pinch of turmeric powder",
-        "A pinch of hing (asafoetida)",
-        "1/2 teaspoon ghee",
-        "A small pinch of salt (optional)"
-      ],
-      steps: [
-        "Soak the rice and dal together in water for 15 minutes, then drain.",
-        "Heat ghee in a small pressure cooker. Add hing and turmeric.",
-        "Add the drained rice, dal, water, and a very small pinch of salt.",
-        "Pressure cook for 4 whistles on medium heat. Let the pressure release naturally.",
-        "Open and mash the khichdi using a potato masher until it is semi-solid and easily swallowable. Serve warm with a drop of ghee."
-      ],
-      ageAdjustment: "For toddlers (12-24 months): Keep the texture very soft. You can mix in 1 tablespoon of fresh curd if the child likes it and doesn't have a cold.",
-      science: "Rice and lentils together form a complete protein that helps rebuild tissues. The soft texture requires minimal chewing, saving the sick child's energy, while hing aids in relieving bloating."
-    },
-    preschool: {
-      title: "Warm Tomato & Barley Soup",
-      desc: "Barley is traditional for reducing body heat, combined with fresh tomatoes to provide Vitamin C and restore lost minerals during fever.",
-      prepTime: "15 mins",
-      cookTime: "25 mins",
-      servings: "2 servings",
-      rating: "4.7",
-      reviews: [
-        { name: "Meera J. (Mom of 3-year-old)", rating: "4★", text: "My daughter loves tomatoes and this barley soup was a hit! It really helped cool down her body temperature.", date: "5 days ago", avatarClass: "purple" },
-        { name: "Arpita V. (Mom of 4-year-old)", rating: "5★", text: "Excellent combination of vitamin C and cooling barley. Super simple to make.", date: "2 weeks ago", avatarClass: "" }
-      ],
-      ingredients: [
-        "2 tablespoons pearl barley (soaked for 2 hours)",
-        "2 medium ripe tomatoes (washed & chopped)",
-        "3 cups water",
-        "1/2 teaspoon butter or ghee",
-        "A pinch of cumin seeds",
-        "A small pinch of black pepper powder",
-        "1/4 teaspoon salt"
-      ],
-      steps: [
-        "Boil the soaked barley in 2 cups of water in a pressure cooker for 4 whistles until completely tender and soft.",
-        "Boil the tomatoes separately in 1 cup of water for 5 minutes, peel the skins, and blend into a smooth puree.",
-        "In a saucepan, heat butter/ghee. Add cumin seeds and let them splutter.",
-        "Pour in the tomato puree and cooked barley (along with its boiling water).",
-        "Add salt and black pepper. Simmer on low heat for 10 minutes until the soup thickens slightly. Serve warm."
-      ],
-      ageAdjustment: "For 2-4 years: Make sure the barley grains are soft enough to chew easily. Adjust pepper to keep it very mild.",
-      science: "Barley water has cooling properties that help regulate body temperature. Tomatoes are rich in Vitamin C, which supports the immune system and helps the body fight off infections."
-    }
-  },
-
-  // --- COUGH & COLD ---
-  cold: {
-    infant: {
-      title: "Cinnamon Stewed Apple Puree",
-      desc: "Warm, sweet, and comforting. Steam-cooked apples are soothing on raw throats, while cinnamon offers traditional warming properties.",
-      prepTime: "5 mins",
-      cookTime: "10 mins",
-      servings: "1 serving",
-      rating: "4.9",
-      reviews: [
-        { name: "Kajal P. (Mom of 7-month-old)", rating: "5★", text: "The warm cinnamon aroma is so soothing. My baby had a runny nose and loved swallowing this soft puree.", date: "2 days ago", avatarClass: "orange" }
-      ],
-      ingredients: [
-        "1 medium sweet red apple (peeled & cored)",
-        "1/2 cup water",
-        "A tiny pinch of Ceylon cinnamon powder",
-        "No sugar or honey (unsafe for <1 year)"
-      ],
-      steps: [
-        "Chop the peeled and cored apple into small, even cubes.",
-        "Place the cubes in a small saucepan with the water. Cover and simmer on low heat for 8-10 minutes until mushy.",
-        "Allow to cool slightly, then mash thoroughly with a fork or blend into a silky smooth puree.",
-        "Stir in a tiny pinch of cinnamon powder. Serve warm."
-      ],
-      ageAdjustment: "For infants (6-12 months): DO NOT add honey or sweeteners. The natural sweetness of the apple is fully satisfying. Ensure it is served warm, not hot.",
-      science: "Apples contain pectin, a soluble fiber that is very gentle on the stomach, while warm cinnamon helps stimulate circulation, clearing throat irritation."
-    },
-    toddler: {
-      title: "Golden Soothing Besan Sheera",
-      desc: "An age-old Punjabi home remedy for cold. A warm, semi-liquid sweet soup made of roasted chickpea flour, ghee, and warming spices.",
-      prepTime: "5 mins",
-      cookTime: "12 mins",
-      servings: "1 bowl",
-      rating: "4.9",
-      reviews: [
-        { name: "Gurpreet K. (Mom of 20-month-old)", rating: "5★", text: "This sheera is magic! Fed this warm to my boy before sleep. It stopped his night coughing fits.", date: "Yesterday", avatarClass: "green" },
-        { name: "Anjali T. (Mom of 18-month-old)", rating: "5★", text: "A must-make in winters. Clears nose blocks immediately.", date: "3 days ago", avatarClass: "purple" }
-      ],
-      ingredients: [
-        "1.5 tablespoons besan (chickpea flour)",
-        "1 tablespoon ghee",
-        "1 cup warm water or milk",
-        "1 tablespoon jaggery powder (gur)",
-        "A pinch of cardamom powder (elaichi)",
-        "A tiny pinch of turmeric powder"
-      ],
-      steps: [
-        "Heat ghee in a heavy-bottomed pan on low heat. Add the besan.",
-        "Roast the besan, stirring continuously, for about 5-6 minutes until it turns golden brown and emits a nutty aroma.",
-        "Slowly pour in the warm water or milk while whisking vigorously to prevent any lumps from forming.",
-        "Add the jaggery, turmeric, and cardamom powder.",
-        "Simmer for another 2-3 minutes until it reaches a thick, pourable soup consistency. Feed it to the child warm, preferably right before bed."
-      ],
-      ageAdjustment: "For toddlers (12-24 months): Use warm water instead of milk if the cold has created heavy chest congestion, as dairy can sometimes make mucus feel thicker.",
-      science: "Besan is nutrient-dense and provides immediate energy. Ghee coats the throat to relieve dry cough, and turmeric acts as an antiseptic. Feeding this warm helps clear nasal blockages."
-    },
-    preschool: {
-      title: "Spiced Golden Turmeric Milk",
-      desc: "Traditional Haldi-Doodh sweetened with honey. Contains curcumin and black pepper to help relieve coughs and bolster immunity.",
-      prepTime: "3 mins",
-      cookTime: "7 mins",
-      servings: "1 cup",
-      rating: "4.8",
-      reviews: [
-        { name: "Pooja D. (Mom of 3.5-year-old)", rating: "5★", text: "The honey and pepper combination works wonders. He slept peacefully without coughing.", date: "Yesterday", avatarClass: "" }
-      ],
-      ingredients: [
-        "1 cup whole milk (or almond milk)",
-        "1/4 teaspoon organic turmeric powder",
-        "A tiny pinch of freshly ground black pepper",
-        "1/4 teaspoon ghee",
-        "1 teaspoon honey (added after cooling slightly)"
-      ],
-      steps: [
-        "In a small saucepan, bring the milk to a gentle boil.",
-        "Stir in the turmeric powder, black pepper, and ghee. Whisk well.",
-        "Lower the heat and let it simmer for 3-4 minutes to activate the turmeric.",
-        "Turn off the heat. Let the milk cool to a warm, drinkable temperature.",
-        "Stir in the honey and serve right away."
-      ],
-      ageAdjustment: "For 2-4 years: Do not add honey to boiling milk, as it destroys its beneficial enzymes. The tiny pinch of pepper is crucial to help the body absorb the curcumin in turmeric.",
-      science: "Curcumin, the active compound in turmeric, is a powerful antioxidant and anti-inflammatory agent. Black pepper contains piperine, which increases curcumin absorption by up to 2000%."
-    }
-  },
-
-  // --- TUMMY TROUBLES ---
-  stomach: {
-    infant: {
-      title: "Starch-Rich Rice Kanji",
-      desc: "A watery, soothing rice gruel that is highly effective at settling an upset stomach and restoring fluids during loose motions.",
-      prepTime: "5 mins",
-      cookTime: "20 mins",
-      servings: "1-2 small bowls",
-      rating: "4.9",
-      reviews: [
-        { name: "Preeti S. (Mom of 9-month-old)", rating: "5★", text: "Super gentle on the gut. Restores fluids and settled my baby's loose motions in a day.", date: "4 days ago", avatarClass: "purple" }
-      ],
-      ingredients: [
-        "2 tablespoons broken rice (washed)",
-        "2 cups water",
-        "A tiny pinch of roasted cumin powder (jeera)",
-        "No salt for infants under 1 year"
-      ],
-      steps: [
-        "Add washed rice and water into a pressure cooker or saucepan.",
-        "Cook until the rice is overcooked and very soft (about 4-5 whistles in a pressure cooker).",
-        "Strain the watery liquid (the kanji) into a cup, leaving behind the solid rice.",
-        "Stir a tiny pinch of roasted cumin powder into the warm liquid. Feed in sips."
-      ],
-      ageAdjustment: "For infants (6-12 months): Feed only the strained starch water (kanji). Cumin powder helps relieve gas and colic pain. Do not add salt.",
-      science: "Rice starch water is extremely easy to absorb and forms a soothing layer over the inflamed intestinal lining, helping stop diarrhea and dehydration."
-    },
-    toddler: {
-      title: "Banana Sooji Halwa (No Dairy)",
-      desc: "Mild, sweet, and comforting. Banana is rich in potassium to replace lost electrolytes, combined with roasted semolina which binds the stomach.",
-      prepTime: "5 mins",
-      cookTime: "10 mins",
-      servings: "1-2 servings",
-      rating: "4.7",
-      reviews: [
-        { name: "Shweta G. (Mom of 22-month-old)", rating: "4★", text: "Great recipe without milk. Safe for loose motions and my child loved the sweet banana flavor.", date: "1 week ago", avatarClass: "green" }
-      ],
-      ingredients: [
-        "2 tablespoons sooji (semolina)",
-        "1/2 ripe banana (mashed thoroughly)",
-        "1 cup water",
-        "1/2 teaspoon ghee",
-        "A tiny pinch of cardamom powder"
-      ],
-      steps: [
-        "Heat ghee in a pan. Add the sooji and roast on low heat for 3-4 minutes until it becomes fragrant (do not let it brown too much).",
-        "Slowly add the water, stirring continuously to avoid lumps.",
-        "Cook on low heat for 3 minutes until the sooji swells and absorbs the water.",
-        "Stir in the thoroughly mashed banana and cardamom powder.",
-        "Cook for 1 more minute until it forms a soft, pudding-like consistency. Serve warm."
-      ],
-      ageAdjustment: "For toddlers (12-24 months): Ensure the banana is completely ripe (with black spots) as unripe bananas can cause constipation. No milk is used to avoid stomach irritation.",
-      science: "Bananas contain pectin, which helps bind runny stools, and potassium, which replenishes essential minerals lost during vomiting or diarrhea. Sooji provides easily digestible carbohydrates."
-    },
-    preschool: {
-      title: "Cooling Pomegranate Curd Rice",
-      desc: "Probiotic-rich curd rice to settle the gut, topped with gentle pomegranate juice or seeds to soothe inflammation.",
-      prepTime: "10 mins",
-      cookTime: "15 mins",
-      servings: "2 servings",
-      rating: "4.8",
-      reviews: [
-        { name: "Pooja V. (Mom of 3-year-old)", rating: "5★", text: "Probiotics really helped settle his diarrhea. Adding the pomegranate juice makes it look attractive too.", date: "Yesterday", avatarClass: "orange" }
-      ],
-      ingredients: [
-        "1/2 cup rice (washed)",
-        "1.5 cups water",
-        "1/2 cup fresh, non-sour curd (yogurt)",
-        "1/8 teaspoon salt",
-        "2 tablespoons fresh pomegranate seeds (or 1 tbsp juice for sensitive tummies)"
-      ],
-      steps: [
-        "Cook the rice with 1.5 cups of water until it is very soft and mushy.",
-        "Mash the hot rice thoroughly with the back of a spoon. Let it cool to room temperature.",
-        "Once cooled, add the yogurt and salt. Mix well until it forms a creamy consistency.",
-        "Gently fold in fresh pomegranate seeds or drizzle pomegranate juice over the top. Serve cool."
-      ],
-      ageAdjustment: "For 2-4 years: Never add curd to hot rice, as it kills the active probiotics. If the child is recovering from vomiting, serve very small spoonfuls.",
-      science: "Yogurt contains live active cultures (lactobacillus) that restore healthy gut flora. Pomegranate is a traditional astringent that helps reduce intestinal inflammation and diarrhea."
-    }
-  },
-
-  // --- SORE THROAT / FATIGUE ---
-  throat: {
-    infant: {
-      title: "Creamy Carrot & Sweet Potato Puree",
-      desc: "Naturally sweet, smooth, and easy to swallow. Packed with Vitamin A to help repair throat membranes.",
-      prepTime: "10 mins",
-      cookTime: "15 mins",
-      servings: "1-2 small servings",
-      rating: "4.8",
-      reviews: [
-        { name: "Ridhi S. (Mom of 8-month-old)", rating: "5★", text: "Super smooth, sweet carrot flavor. My teething baby with a sore throat ate it without crying.", date: "6 days ago", avatarClass: "purple" }
-      ],
-      ingredients: [
-        "1/2 medium carrot (peeled & sliced)",
-        "1/2 medium sweet potato (peeled & cubed)",
-        "1 cup water",
-        "1/4 teaspoon ghee",
-        "A pinch of cumin powder"
-      ],
-      steps: [
-        "Steam the carrot slices and sweet potato cubes with water in a cooker for 2 whistles until fully tender.",
-        "Let it cool down slightly.",
-        "Transfer to a blender and puree until completely smooth and creamy with no lumps.",
-        "Warm the ghee, add a pinch of cumin, and stir it into the puree. Serve lukewarm."
-      ],
-      ageAdjustment: "For infants (6-12 months): Keep the consistency very smooth. The natural sweetness of carrots and sweet potatoes is highly appealing when appetite is low.",
-      science: "Carrots and sweet potatoes are loaded with beta-carotene (Vitamin A), which is crucial for maintaining and repairing the mucosal linings of a sore throat and airway."
-    },
-    toddler: {
-      title: "Warm Ragi Malt Porridge",
-      desc: "Ragi (finger millet) is highly nutrient-dense. This warm, smooth drink is easy on the throat and provides substantial energy when the child refuses solid foods.",
-      prepTime: "5 mins",
-      cookTime: "10 mins",
-      servings: "1 cup",
-      rating: "4.9",
-      reviews: [
-        { name: "Jasmine T. (Mom of 14-month-old)", rating: "5★", text: "Ragi malt is my go-to! It's so filling and easy to feed through a straw cup when they are cranky.", date: "2 days ago", avatarClass: "green" }
-      ],
-      ingredients: [
-        "1 tablespoon ragi flour",
-        "1 cup water (or half water, half milk)",
-        "1 teaspoon jaggery powder",
-        "A tiny pinch of cardamom powder",
-        "1/4 teaspoon ghee"
-      ],
-      steps: [
-        "In a small bowl, mix the ragi flour with 3 tablespoons of room-temperature water. Stir well to ensure there are no lumps.",
-        "Bring the remaining water/milk to a boil in a saucepan.",
-        "Lower the heat and slowly pour in the ragi mixture while stirring continuously.",
-        "Cook on low-medium heat for 5-6 minutes, stirring constantly as ragi thickens quickly.",
-        "Add the jaggery, cardamom, and ghee. Stir well, cook for 1 minute, and turn off heat. Serve lukewarm."
-      ],
-      ageAdjustment: "For toddlers (12-24 months): Keep the consistency pourable so they can sip it directly from a cup or straw, which is easier than spoon-feeding when they are irritable.",
-      science: "Ragi is exceptionally rich in calcium, iron, and dietary fiber. It is a slow-burning carb that provides sustained energy to a weak child, and its warm, smooth texture comforts the throat."
-    },
-    preschool: {
-      title: "Warm Almond-Oats Shorba",
-      desc: "A rich, creamy, and soothing oat soup cooked with ground almonds. High in energy and very soothing for painful swallowing.",
-      prepTime: "5 mins",
-      cookTime: "12 mins",
-      servings: "2 servings",
-      rating: "4.8",
-      reviews: [
-        { name: "Shreya H. (Mom of 3-year-old)", rating: "5★", text: "Creamy, smooth shorba! My kid drank it warm and it coated his throat nicely. Very nourishing.", date: "3 days ago", avatarClass: "" }
-      ],
-      ingredients: [
-        "3 tablespoons rolled oats (ground or powdered)",
-        "1.5 tablespoons almond powder (blanched & skinless)",
-        "2 cups water or milk",
-        "1/2 teaspoon ghee",
-        "A pinch of cardamom powder",
-        "1 teaspoon honey or jaggery"
-      ],
-      steps: [
-        "Heat ghee in a saucepan. Add the powdered oats and saute on low heat for 2 minutes.",
-        "Add the almond powder and mix.",
-        "Slowly pour in the water/milk while whisking to avoid lumps.",
-        "Bring to a gentle boil, then simmer on low heat for 5 minutes until creamy.",
-        "Add cardamom powder. Let it cool slightly, then stir in honey/jaggery. Serve warm."
-      ],
-      ageAdjustment: "For 2-4 years: You can blend it after cooking if the child wants it completely smooth. Almonds should be skinless to avoid throat tickling.",
-      science: "Oats contain beta-glucans which boost immune function, while blanched almonds provide healthy fats and proteins to rebuild strength when appetite is poor. Ghee coats the throat."
-    }
-  },
-
-  // --- CONSTIPATION & BLOATING ---
-  constipation: {
-    infant: {
-      title: "Soothing Pear & Prune Puree",
-      desc: "Laxative-rich and high in dietary fiber. Prunes and pears contain sorbitol, which naturally draws water into the colon, relieving dry bowels.",
-      prepTime: "10 mins",
-      cookTime: "10 mins",
-      servings: "1-2 small servings",
-      rating: "4.9",
-      reviews: [
-        { name: "Rashi G. (Mom of 10-month-old)", rating: "5★", text: "This worked in just a few hours! Highly recommend pear-prune mash for baby constipation.", date: "2 days ago", avatarClass: "orange" }
-      ],
-      ingredients: [
-        "1 small soft ripe pear (peeled & cored)",
-        "2 dried prunes (pitted)",
-        "1/2 cup water"
-      ],
-      steps: [
-        "Chop the pear into small pieces.",
-        "Boil the prunes and pear pieces in water in a small pan for 8-10 minutes on a low flame until soft.",
-        "Cool slightly, then blend in a mixer or mash with a fork to form a silky, smooth puree. Feed lukewarm."
-      ],
-      ageAdjustment: "For infants (6-12 months): Ensure prunes are completely pitted. Do not add any sweeteners; prunes are naturally very sweet.",
-      science: "Prunes are rich in sorbitol, a sugar alcohol that acts as a natural laxative. Pears are high in pectin, which helps soften stools and ease passage."
-    },
-    toddler: {
-      title: "Mashed Papaya & Cumin Cup",
-      desc: "A soft, easy-to-digest bowl of fresh papaya, sprinkled with digestive cumin. Papaya contains digestive enzymes that speed up intestinal clearing.",
-      prepTime: "5 mins",
-      cookTime: "0 mins",
-      servings: "1 serving",
-      rating: "4.7",
-      reviews: [
-        { name: "Lata D. (Mom of 18-month-old)", rating: "5★", text: "My toddler loved it. Papaya always helps him pass motion easily, and the cumin stops gas.", date: "4 days ago", avatarClass: "green" }
-      ],
-      ingredients: [
-        "1/2 cup ripe orange papaya (peeled & seeded)",
-        "A tiny pinch of roasted cumin powder",
-        "A drop of lime juice"
-      ],
-      steps: [
-        "Ensure all black seeds are removed from the papaya.",
-        "Mash the papaya pieces thoroughly using a fork until it is soft and paste-like.",
-        "Sprinkle a tiny pinch of roasted cumin powder and a drop of fresh lime juice. Mix well and serve immediately."
-      ],
-      ageAdjustment: "For toddlers (12-24 months): Make sure the papaya is completely ripe and soft. Do not serve large chunks to prevent choking.",
-      science: "Papaya contains papain, a proteolytic enzyme that breaks down proteins and relieves bloating. Cumin powder relieves gas associated with backing up of stools."
-    },
-    preschool: {
-      title: "Warm Oats & Chia Seed Porridge",
-      desc: "A fiber-loaded, hydrating porridge. Oats provide soluble fibers, while chia seeds expand in the gut to bulk and lubricate stools.",
-      prepTime: "5 mins",
-      cookTime: "8 mins",
-      servings: "1-2 servings",
-      rating: "4.8",
-      reviews: [
-        { name: "Neha P. (Mom of 3-year-old)", rating: "4★", text: "Great fiber boost. Chia seeds really helped make bowel movements regular for my son.", date: "Yesterday", avatarClass: "purple" }
-      ],
-      ingredients: [
-        "3 tablespoons rolled oats",
-        "1/2 teaspoon chia seeds (soaked in water for 15 mins)",
-        "1.5 cups water or milk",
-        "1 teaspoon jaggery or honey"
-      ],
-      steps: [
-        "Bring the water/milk to a boil in a saucepan. Add the oats.",
-        "Cook on medium heat for 5-6 minutes, stirring frequently until soft.",
-        "Stir in the pre-soaked chia seeds (they should look like gelatinous beads).",
-        "Remove from heat, mix in jaggery/honey, and serve warm."
-      ],
-      ageAdjustment: "For 2-4 years: Always soak chia seeds before adding them. Dry chia seeds can absorb fluid inside the throat and present a swallowing hazard.",
-      science: "Oats are rich in beta-glucan fiber, which holds water in the gut. Chia seeds absorb up to 12 times their weight in water, acting as a lubricant to ease constipation."
-    }
-  },
-
-  // --- TEETHING / MOUTH ULCERS ---
-  teething: {
-    infant: {
-      title: "Frozen Watermelon-Coconut Slush",
-      desc: "A cool, soothing, and hydrating slush. Cold temperatures naturally numb sore gums, while coconut milk provides a protective layer.",
-      prepTime: "10 mins",
-      cookTime: "0 mins",
-      servings: "1 serving",
-      rating: "4.9",
-      reviews: [
-        { name: "Mini A. (Mom of 9-month-old)", rating: "5★", text: "A lifesaver during teething! The cold slush really numbed her sore red gums, and she sucked it up instantly.", date: "Yesterday", avatarClass: "" }
-      ],
-      ingredients: [
-        "1/2 cup fresh seedless watermelon cubes",
-        "2 tablespoons fresh thick coconut milk"
-      ],
-      steps: [
-        "Puree the watermelon cubes in a blender and strain to ensure no stray seeds remain.",
-        "Mix in the thick coconut milk.",
-        "Pour the mixture into a shallow steel plate and freeze for 1 hour until semi-solid (slush consistency).",
-        "Scrape with a spoon and feed to the teething baby lukewarm/cool. Do not make it rock hard."
-      ],
-      ageAdjustment: "For infants (6-12 months): Double check for seeds. Keep it in a slushy, melt-in-mouth state. Do not offer large solid ice chunks.",
-      science: "Cold temperatures cause mild vasoconstriction, which reduces swelling and numbs pain in teething gums. Coconut milk contains lauric acid, which has mild antimicrobial actions."
-    },
-    toddler: {
-      title: "Sweet Cardamom Curd Lassi",
-      desc: "A cooling, probiotic-rich lassi. The smooth, cold texture coats raw mouth ulcers, providing immediate relief from burning sensations.",
-      prepTime: "5 mins",
-      cookTime: "0 mins",
-      servings: "1 cup",
-      rating: "4.8",
-      reviews: [
-        { name: "Tanya M. (Mom of 2-year-old)", rating: "5★", text: "My toddler had painful mouth ulcers and refused all food. This lassi was soothing and kept him hydrated.", date: "3 days ago", avatarClass: "purple" }
-      ],
-      ingredients: [
-        "1/2 cup fresh sweet curd (not sour)",
-        "1/4 cup chilled water",
-        "1 teaspoon sugar or jaggery",
-        "A pinch of cardamom powder (elaichi)"
-      ],
-      steps: [
-        "In a blender or using a hand whisk, blend the curd, chilled water, sugar, and cardamom powder together.",
-        "Whisk until frothy and smooth. Serve chilled in a cup with a straw."
-      ],
-      ageAdjustment: "For toddlers (12-24 months): Ensure the curd is fully sweet and fresh. Sour curd contains lactic acid which can sting mouth ulcers.",
-      science: "Curd is a natural coolant that helps lower body heat (associated with ulcers). Cardamom reduces oral inflammation and freshens the mouth."
-    },
-    preschool: {
-      title: "Creamy Cardamom Mashed Paneer",
-      desc: "A soft, no-chew, and calorie-dense dessert. Provides highly absorbable protein to children who refuse to eat solid food due to mouth pain.",
-      prepTime: "5 mins",
-      cookTime: "0 mins",
-      servings: "1-2 servings",
-      rating: "4.9",
-      reviews: [
-        { name: "Priti G. (Mom of 3-year-old)", rating: "5★", text: "So soft and high in protein! He didn't have to chew it at all, and it kept his energy up during teething.", date: "5 days ago", avatarClass: "orange" }
-      ],
-      ingredients: [
-        "1/2 cup fresh soft cottage cheese (paneer)",
-        "1 teaspoon honey or jaggery powder",
-        "A tiny pinch of cardamom powder",
-        "1 tablespoon milk (to soften)"
-      ],
-      steps: [
-        "Crumble the paneer thoroughly using clean hands.",
-        "Add the honey/jaggery, cardamom powder, and milk.",
-        "Mash vigorously with a spoon or blend in a mixer for 1 minute until it forms a smooth, whipped, whipped-cream consistency. Serve cool."
-      ],
-      ageAdjustment: "For 2-4 years: Use fresh homemade paneer if possible, as it is much softer than store-bought. Cardamom adds flavor without throat-tickling spice.",
-      science: "Paneer is rich in casein protein and calcium, helping rebuild oral tissues. Cardamom acts as an antiseptic, and the soft whipped texture requires zero chewing."
-    }
-  },
-
-  // --- VOMITING & NAUSEA ---
-  vomiting: {
-    infant: {
-      title: "Clear Apple Starch Water",
-      desc: "Highly hydrating and easy to absorb. Strained apple water provides electrolytes and glucose to prevent dehydration without burdening the stomach.",
-      prepTime: "5 mins",
-      cookTime: "10 mins",
-      servings: "1-2 small servings",
-      rating: "4.9",
-      reviews: [
-        { name: "Megha S. (Mom of 10-month-old)", rating: "5★", text: "After two vomiting episodes, my baby couldn't keep anything down. This apple water worked like a charm.", date: "3 days ago", avatarClass: "green" }
-      ],
-      ingredients: [
-        "1/2 sweet red apple (peeled & cored)",
-        "1.5 cups water",
-        "A microscopic pinch of salt"
-      ],
-      steps: [
-        "Chop the peeled apple into tiny bits.",
-        "Boil the apple in 1.5 cups of water for 10 minutes until the water reduces slightly and absorbs the apple juices.",
-        "Strain the liquid completely through a fine mesh, discarding the pulp.",
-        "Let the clear water cool to room temperature. Feed in small sips (1-2 teaspoons every 15 minutes)."
-      ],
-      ageAdjustment: "For infants (6-12 months): Do not add sugar. Straining the pulp is critical because fibers require digestive work which can trigger vomiting.",
-      science: "Apple water contains natural glucose and potassium. Small, frequent sips bypass the vomiting reflex, allowing the stomach to absorb fluids easily."
-    },
-    toddler: {
-      title: "Salted Kanji Starch Broth",
-      desc: "Watery rice starch containing salt. Helps replenish sodium lost during vomiting and forms a settling layer in the stomach.",
-      prepTime: "5 mins",
-      cookTime: "15 mins",
-      servings: "1 cup",
-      rating: "4.8",
-      reviews: [
-        { name: "Harpreet V. (Mom of 18-month-old)", rating: "5★", text: "Salted kanji is Dadi's gold standard. My toddler stopped vomiting and his energy came back after sipping this.", date: "1 week ago", avatarClass: "purple" }
-      ],
-      ingredients: [
-        "2 tablespoons rice",
-        "2.5 cups water",
-        "1/8 teaspoon salt",
-        "A dot of ghee (less than 1/8 tsp)"
-      ],
-      steps: [
-        "Boil the rice with water and salt in a pressure cooker or pan until the rice is overcooked and watery.",
-        "Mash the rice in the pot, then strain the watery broth (kanji) into a cup.",
-        "Stir in a tiny dot of ghee. Feed warm in small sips."
-      ],
-      ageAdjustment: "For toddlers (12-24 months): Keep the broth extremely thin. Do not feed solid rice particles until the child has gone 4 hours without vomiting.",
-      science: "Rice starch water is hypoallergenic and easily tolerated. The addition of salt helps restore the sodium balance in the body, keeping dehydration at bay."
-    },
-    preschool: {
-      title: "Bland Tapioca (Sabudana) Soup",
-      desc: "A completely bland, fat-free starch soup. Sabudana settles nausea and provides quick energy without triggering the stomach's gag reflex.",
-      prepTime: "10 mins",
-      cookTime: "15 mins",
-      servings: "1 bowl",
-      rating: "4.7",
-      reviews: [
-        { name: "Nisha T. (Mom of 3-year-old)", rating: "4★", text: "Very bland and gel-like. She was able to keep this down when she had a stomach bug.", date: "Yesterday", avatarClass: "" }
-      ],
-      ingredients: [
-        "2 tablespoons sabudana (tapioca pearls, soaked for 1 hour)",
-        "1.5 cups water",
-        "A pinch of salt",
-        "A pinch of roasted cumin powder"
-      ],
-      steps: [
-        "Add the soaked sabudana and water to a pan.",
-        "Boil on medium heat, stirring continuously, until the tapioca pearls turn completely translucent and transparent.",
-        "Add salt and a tiny pinch of cumin powder.",
-        "Allow it to cool to lukewarm. The soup will have a thin, gel-like texture. Feed in small spoonfuls."
-      ],
-      ageAdjustment: "For 2-4 years: Make sure the pearls are completely transparent and soft (raw centers can cause stomach aches). Keep spices microscopic.",
-      science: "Tapioca is pure starch and holds zero fats or fibers, making it the easiest carbohydrate for a nauseated stomach to process and turn into immediate energy."
-    }
-  },
-
-  // --- COLIC & GAS ---
-  colic: {
-    infant: {
-      title: "Saunf-Jeera Warm Infusion",
-      desc: "A mild, warm herbal tea. Fennel and cumin contain natural carminative oils that relax the intestinal muscles, helping release trapped gas.",
-      prepTime: "5 mins",
-      cookTime: "8 mins",
-      servings: "1-2 small cups",
-      rating: "4.9",
-      reviews: [
-        { name: "Radhika K. (Mom of 6-month-old)", rating: "5★", text: "My baby cried for hours from colic. Gave her 2 teaspoons of this warm saunf water and she fell asleep in 10 minutes.", date: "2 days ago", avatarClass: "orange" }
-      ],
-      ingredients: [
-        "1/4 teaspoon fennel seeds (saunf)",
-        "1/4 teaspoon cumin seeds (jeera)",
-        "1.5 cups water"
-      ],
-      steps: [
-        "Add saunf, jeera, and water to a small pan.",
-        "Bring to a boil, then lower heat and simmer for 5-6 minutes until the water turns light yellow.",
-        "Turn off heat and let it cool until lukewarm.",
-        "Strain thoroughly. Feed 2-3 teaspoons to the baby using a dropper or spoon."
-      ],
-      ageAdjustment: "For infants (6-12 months): Serve plain and lukewarm. Never add honey, sugar, or salt. Limit to 3-4 teaspoons per gas episode.",
-      science: "Fennel contains anethole, which acts as an antispasmodic to relax stomach linings. Cumin reduces gas bubbles and speeds up colic clearance."
-    },
-    toddler: {
-      title: "Mashed Potato with Ajwain & Hing",
-      desc: "Warm mashed potato tempered with carom seeds and asafoetida. An excellent anti-flatulence food for toddlers with bloated tummies.",
-      prepTime: "10 mins",
-      cookTime: "5 mins",
-      servings: "1 bowl",
-      rating: "4.8",
-      reviews: [
-        { name: "Pooja P. (Mom of 22-month-old)", rating: "5★", text: "The hing and ajwain work so quickly. Mashed potato is easy to feed and digests well.", date: "Yesterday", avatarClass: "green" }
-      ],
-      ingredients: [
-        "1 medium potato (boiled and peeled)",
-        "1/4 teaspoon ghee",
-        "A tiny pinch of ajwain (carom seeds)",
-        "A tiny pinch of hing (asafoetida)",
-        "A pinch of salt"
-      ],
-      steps: [
-        "Mash the boiled potato completely until there are zero lumps.",
-        "In a tiny ladle, heat the ghee. Add the ajwain and hing. Let them sizzle for 5 seconds.",
-        "Pour the hot tempered ghee over the mashed potato.",
-        "Add salt, mix thoroughly, and feed to the toddler while warm."
-      ],
-      ageAdjustment: "For toddlers (12-24 months): Ensure the potato is mashed completely smooth. Use very little ghee so it remains light.",
-      science: "Ajwain contains thymol, which has strong carminative properties that help expel gas. Hing is a traditional Indian anti-flatulent that prevents gas build-up."
-    },
-    preschool: {
-      title: "Warm Mint-Fennel Dal Shorba",
-      desc: "A comforting yellow lentil soup simmered with fresh mint and crushed fennel seeds to soothe intestinal spasms and bloating.",
-      prepTime: "10 mins",
-      cookTime: "15 mins",
-      servings: "2 servings",
-      rating: "4.8",
-      reviews: [
-        { name: "Sonali N. (Mom of 3-year-old)", rating: "5★", text: "Fennel shorba is very aromatic. My son drank a cup of it and got relief from his tummy ache.", date: "4 days ago", avatarClass: "purple" }
-      ],
-      ingredients: [
-        "3 tablespoons yellow moong dal (washed)",
-        "1/4 teaspoon crushed fennel seeds",
-        "4-5 fresh mint leaves (pudina)",
-        "2 cups water",
-        "1/4 teaspoon ghee",
-        "A pinch of turmeric and salt"
-      ],
-      steps: [
-        "Pressure cook the moong dal with water, turmeric, salt, and mint leaves for 3 whistles.",
-        "Whisk the cooked dal until completely smooth.",
-        "Heat ghee in a ladle, add the crushed fennel seeds, and pour it into the dal shorba.",
-        "Simmer for 2 minutes, strain to remove any mint leaf fibers, and serve warm."
-      ],
-      ageAdjustment: "For 2-4 years: Strain the shorba if your child is sensitive to bits of leaves or seeds. Feed warm.",
-      science: "Mint contains menthol, which has a calming effect on the digestive tract muscles. Fennel prevents gas production and relieves abdominal cramping."
-    }
-  },
-
-  // --- LOSS OF APPETITE ---
-  appetite: {
-    infant: {
-      title: "Mild Cumin-Tomato Shorba",
-      desc: "A tangy, clear tomato and lentil water seasoned with cumin. Instantly awakens sleeping taste buds and stimulates salivation.",
-      prepTime: "5 mins",
-      cookTime: "10 mins",
-      servings: "1 bowl",
-      rating: "4.8",
-      reviews: [
-        { name: "Divya N. (Mom of 9-month-old)", rating: "5★", text: "My baby refused all foods after recovery. This sour shorba really stimulated her appetite and she started eating again.", date: "3 days ago", avatarClass: "orange" }
-      ],
-      ingredients: [
-        "1/2 ripe tomato (chopped)",
-        "1 tablespoon yellow moong dal",
-        "1.5 cups water",
-        "A tiny pinch of turmeric",
-        "A pinch of roasted cumin powder"
-      ],
-      steps: [
-        "Boil the dal, chopped tomato, and turmeric in water for 10 minutes until mushy.",
-        "Whisk the mixture thoroughly, then strain through a sieve to collect the clear, tangy liquid.",
-        "Stir in the cumin powder and feed warm in small spoonfuls before the main feed."
-      ],
-      ageAdjustment: "For infants (6-12 months): Keep it completely fluid. Do not add salt or sugar. The natural tartness of the tomato stimulates saliva.",
-      science: "The mild acidity of tomatoes combined with cumin triggers salivary glands and stimulates stomach acid secretion, which naturally sparks appetite."
-    },
-    toddler: {
-      title: "Tangy Lemon & Coriander Poha",
-      desc: "Light, fluffy beaten rice seasoned with coriander, cumin, and fresh lemon. The sour-savory flavor is highly appealing to children with flat taste buds.",
-      prepTime: "10 mins",
-      cookTime: "5 mins",
-      servings: "1-2 servings",
-      rating: "4.9",
-      reviews: [
-        { name: "Pooja K. (Mom of 2-year-old)", rating: "5★", text: "Light and tangy! The lemon flavor made it so tasty for him since his tongue was dry and bitter from illness.", date: "Yesterday", avatarClass: "green" }
-      ],
-      ingredients: [
-        "3 tablespoons poha (beaten rice, washed & drained)",
-        "1/2 teaspoon ghee",
-        "A tiny pinch of mustard seeds",
-        "A pinch of turmeric and cumin powder",
-        "1 teaspoon fresh lemon juice",
-        "1 tablespoon finely chopped fresh coriander leaves"
-      ],
-      steps: [
-        "Wash the poha in a strainer and let it rest for 5 minutes to become soft.",
-        "Heat ghee in a small pan, add mustard seeds and let them pop.",
-        "Add the cumin powder, turmeric, and softened poha. Toss gently for 2 minutes on low heat.",
-        "Remove from heat, drizzle fresh lemon juice and toss with coriander. Serve warm."
-      ],
-      ageAdjustment: "For toddlers (12-24 months): Ensure the poha is fully soft and moist (add a splash of water if dry). Do not add green chillies or hard peanuts.",
-      science: "Lemon juice provides Vitamin C and citric acid, which cleanses the tongue palate and stimulates digestive secretions. Coriander acts as a natural digestion aid."
-    },
-    preschool: {
-      title: "Apple-Amla Sweet & Sour Jam",
-      desc: "A warm, sweet and tart relish made of Indian gooseberry (Amla) and sweet apple. High in vitamin C and digestive enzymes.",
-      prepTime: "10 mins",
-      cookTime: "12 mins",
-      servings: "2-3 child-size portions",
-      rating: "4.9",
-      reviews: [
-        { name: "Priya S. (Mom of 3.5-year-old)", rating: "5★", text: "The perfect sweet & sour chutney! Amla is usually so sour, but cooking it with apple makes it delicious. Really helped her appetite.", date: "4 days ago", avatarClass: "purple" }
-      ],
-      ingredients: [
-        "1 amla (Indian gooseberry, deseeded)",
-        "1/2 red apple (peeled & cored)",
-        "1/2 cup water",
-        "1.5 teaspoons jaggery powder",
-        "A pinch of cardamom and ginger powder"
-      ],
-      steps: [
-        "Steam the amla and apple slices in a small pressure cooker with 1/2 cup water for 2 whistles until fully soft.",
-        "Mash them together into a smooth paste.",
-        "Transfer to a pan, add jaggery, cardamom, and ginger powder.",
-        "Cook on low heat for 3-4 minutes until it hits a jam-like chutney. Serve 1 teaspoon warm before meals."
-      ],
-      ageAdjustment: "For 2-4 years: Keep it smooth. The addition of ginger powder helps relieve nausea while jaggery masks the astringent taste of amla.",
-      science: "Amla is one of the richest sources of Vitamin C and stimulates appetite and liver function. Ginger and cardamom activate digestive enzymes."
-    }
-  },
-
-  // --- HEAT BOILS & RASHES ---
-  rashes: {
-    infant: {
-      title: "Cooling Sago (Sabudana) Gruel",
-      desc: "A completely cooling and hypoallergenic starch drink. Excellent for soothing body heat and calming skin rashes.",
-      prepTime: "15 mins",
-      cookTime: "12 mins",
-      servings: "1-2 small bowls",
-      rating: "4.7",
-      reviews: [
-        { name: "Kirti R. (Mom of 8-month-old)", rating: "5★", text: "My baby had severe summer heat boils. This sabudana gruel really helped cool down his system.", date: "Yesterday", avatarClass: "" }
-      ],
-      ingredients: [
-        "1.5 tablespoons sabudana (tapioca pearls, soaked for 2 hours)",
-        "1.5 cups water",
-        "A tiny pinch of cardamom powder"
-      ],
-      steps: [
-        "Add the soaked sabudana along with water in a pan.",
-        "Boil on medium heat while stirring until the pearls are completely transparent and the liquid is thick and clear.",
-        "Strain to get a smooth starch water, add a tiny pinch of cardamom, and cool. Serve at room temperature."
-      ],
-      ageAdjustment: "For infants (6-12 months): Keep it completely fluid and smooth. Do not add sweeteners. Serve cool, not hot.",
-      science: "Tapioca is a traditional cooling starch in Ayurveda. It digests instantly without generating metabolic heat, helping lower overall body temperature."
-    },
-    toddler: {
-      title: "Barley-Coconut Milk Soother",
-      desc: "Cooked barley mashed with cooling, anti-inflammatory fresh coconut milk. Highly soothing for systemic heat and skin boils.",
-      prepTime: "10 mins",
-      cookTime: "20 mins",
-      servings: "1-2 servings",
-      rating: "4.8",
-      reviews: [
-        { name: "Megha P. (Mom of 15-month-old)", rating: "5★", text: "The coconut milk makes it so creamy and delicious. Her heat rashes cleared up in a few days.", date: "3 days ago", avatarClass: "orange" }
-      ],
-      ingredients: [
-        "2 tablespoons pearl barley (washed & soaked)",
-        "1.5 cups water",
-        "3 tablespoons fresh coconut milk",
-        "1/2 teaspoon jaggery"
-      ],
-      steps: [
-        "Pressure cook the soaked barley in water for 4 whistles until extremely mushy.",
-        "Mash the hot barley with a potato masher until paste-like, then let it cool to warm.",
-        "Stir in the fresh coconut milk and jaggery. Serve at room temperature."
-      ],
-      ageAdjustment: "For toddlers (12-24 months): Ensure the barley is mashed completely so there is no choking risk. Use fresh coconut milk, not canned.",
-      science: "Barley is a potent diuretic and cooling grain that cleanses toxins. Coconut milk contains anti-inflammatory lipids that soothe skin and tissues from the inside out."
-    },
-    preschool: {
-      title: "Cooling Moong-Sattu Drink",
-      desc: "A traditional cooling beverage made from roasted yellow moong flour, mint, and cumin. High in protein and hydration.",
-      prepTime: "5 mins",
-      cookTime: "0 mins",
-      servings: "1 cup",
-      rating: "4.9",
-      reviews: [
-        { name: "Anjali S. (Mom of 3-year-old)", rating: "5★", text: "Amazing drink for hot days! My toddler had heat boils and this cooling sattu drink was so refreshing.", date: "5 days ago", avatarClass: "purple" }
-      ],
-      ingredients: [
-        "1.5 tablespoons roasted moong dal flour (moong sattu)",
-        "1 cup cool water",
-        "A pinch of roasted cumin powder",
-        "3 fresh mint leaves (crushed)",
-        "A tiny pinch of salt"
-      ],
-      steps: [
-        "In a glass, mix the roasted moong flour with a few tablespoons of water and whisk into a smooth lump-free paste.",
-        "Add the remaining water, cumin powder, crushed mint leaves, and salt.",
-        "Whisk well, let it rest for 2 minutes to absorb the mint flavor, and serve cool."
-      ],
-      ageAdjustment: "For 2-4 years: Ensure the moong dal is thoroughly roasted before grinding to avoid gas. Serve cool but not ice-cold.",
-      science: "Roasted moong flour is easy to digest and highly cooling. Mint and cumin act as heat-relieving agents, and the drink rapidly hydrates cells."
-    }
-  },
-
-  // --- DIARRHEA ---
-  diarrhea: {
-    infant: {
-      title: "Warm Rice & Moong Starch Pej",
-      desc: "A traditional watery rice and lentil broth that is exceptionally gentle on inflamed baby intestines.",
-      prepTime: "5 mins",
-      cookTime: "15 mins",
-      servings: "1-2 small bowls",
-      rating: "4.8",
-      reviews: [{ name: "Kiran R. (Mom of 7-month-old)", rating: "5★", text: "Stopped my baby's loose motions within half a day! Hydrating.", date: "2 days ago", avatarClass: "" }],
-      ingredients: [
-        "2 tablespoons broken rice (washed)",
-        "1 tablespoon yellow moong dal (washed)",
-        "3 cups water",
-        "A pinch of roasted cumin powder"
-      ],
-      steps: [
-        "Add washed rice, dal, and water to a small pressure cooker.",
-        "Cook for 4 whistles until mushy and dissolved.",
-        "Strain the thick liquid broth using a sieve, discarding solid grains for infants.",
-        "Stir in cumin powder and serve warm in small sips."
-      ],
-      ageAdjustment: "For infants (6-12 months): Strictly exclude salt and sugar. Keep it thin, watery, and warm.",
-      science: "Rice starch forms a protective lining on the intestinal walls, reducing the frequency of stools while cumin powder relieves digestive colic."
-    },
-    toddler: {
-      title: "Dadi's Yogurt Curd Rice Mash",
-      desc: "Creamy curd rice made with room-temperature, fresh yogurt, helping restore gut flora and soothing diarrhea.",
-      prepTime: "5 mins",
-      cookTime: "15 mins",
-      servings: "1 bowl",
-      rating: "4.9",
-      reviews: [{ name: "Sonia G. (Mom of 16-month-old)", rating: "5★", text: "Probiotics really work! He loved the cool, creamy texture.", date: "Yesterday", avatarClass: "green" }],
-      ingredients: [
-        "1/4 cup rice",
-        "1 cup water",
-        "1/2 cup fresh sweet curd (not sour)",
-        "A tiny pinch of salt",
-        "A pinch of cumin powder"
-      ],
-      steps: [
-        "Pressure cook the rice with water until very soft and mushy.",
-        "Let the rice cool completely to room temperature.",
-        "Whisk the curd and mix it with the mashed rice, salt, and cumin powder.",
-        "Serve at room temperature."
-      ],
-      ageAdjustment: "For toddlers (12-24 months): Mash the rice completely. Do not add raw mustard seeds or curry leaves.",
-      science: "Yogurt contains lactobacillus (probiotics) that fight off pathogens in the gut and restore a healthy microbiome."
-    },
-    preschool: {
-      title: "Arrowroot Powder (Koova) Porridge",
-      desc: "A traditional South Indian remedy for severe loose motions, made of pure arrowroot flour cooked in water.",
-      prepTime: "5 mins",
-      cookTime: "10 mins",
-      servings: "1 bowl",
-      rating: "4.9",
-      reviews: [{ name: "Meera D. (Mom of 3-year-old)", rating: "5★", text: "Arrowroot works like magic. It completely stopped his diarrhea.", date: "3 days ago", avatarClass: "orange" }],
-      ingredients: [
-        "1.5 tablespoons arrowroot powder",
-        "1.5 cups water",
-        "1 teaspoon jaggery powder",
-        "A pinch of cardamom powder"
-      ],
-      steps: [
-        "In a bowl, mix arrowroot powder with 1/2 cup water until smooth.",
-        "Boil the remaining 1 cup of water in a saucepan.",
-        "Lower heat and pour the arrowroot slurry in while stirring continuously.",
-        "Cook for 5 minutes until glossy and thick. Add jaggery and cardamom, then cool and serve."
-      ],
-      ageAdjustment: "For 2-4 years: Keep it slightly sweet with jaggery to encourage the child to eat it when weak.",
-      science: "Arrowroot is a natural demulcent and bowel binder that reduces gastrointestinal irritation and firms up stools."
-    }
-  },
-
-  // --- DEHYDRATION ---
-  dehydration: {
-    infant: {
-      title: "Tender Coconut & Barley Water",
-      desc: "An extremely hydrating drink combining cooling barley water and mineral-rich fresh coconut water.",
-      prepTime: "5 mins",
-      cookTime: "20 mins",
-      servings: "1-2 cups",
-      rating: "4.9",
-      reviews: [{ name: "Anita R. (Mom of 11-month-old)", rating: "5★", text: "Excellent drink. Safe and keeps the hydration up during stomach bugs.", date: "Yesterday", avatarClass: "purple" }],
-      ingredients: [
-        "1.5 tablespoons pearl barley",
-        "2 cups water",
-        "1/2 cup fresh tender coconut water"
-      ],
-      steps: [
-        "Boil barley in 2 cups of water for 20 minutes until the water reduces to 1 cup.",
-        "Strain the barley water and let it cool completely.",
-        "Mix the cooled barley water with tender coconut water.",
-        "Serve in small sips throughout the day."
-      ],
-      ageAdjustment: "For infants (6-12 months): Do not add sugar or salt. Fresh coconut water contains natural sugars and electrolytes.",
-      science: "Barley water provides light carbs, while coconut water is rich in potassium, sodium, and magnesium, mimicking natural ORS."
-    },
-    toddler: {
-      title: "Fennel-Mint Whey Water (Paneer Water)",
-      desc: "Clear whey water collected from fresh curdled milk, seasoned with cooling mint and digestive cumin.",
-      prepTime: "5 mins",
-      cookTime: "10 mins",
-      servings: "1 cup",
-      rating: "4.8",
-      reviews: [{ name: "Jasmeet K. (Mom of 2-year-old)", rating: "5★", text: "Very easy to digest, and she liked the mint aroma. Kept her hydrated when she refused plain water.", date: "2 days ago", avatarClass: "" }],
-      ingredients: [
-        "1 cup whole milk",
-        "1 teaspoon lemon juice",
-        "A pinch of roasted cumin powder",
-        "3 fresh mint leaves (crushed)"
-      ],
-      steps: [
-        "Bring milk to a boil and add lemon juice to curdle it.",
-        "Strain the curdled milk using a muslin cloth to collect the clear whey water.",
-        "Add cumin powder and crushed mint to the warm whey water.",
-        "Let it cool and serve in sips."
-      ],
-      ageAdjustment: "For toddlers (12-24 months): Whey water is extremely high in soluble lactalbumin protein and hydrates better than plain water.",
-      science: "Whey water contains highly soluble milk proteins and natural electrolytes, which are very easy on a recovering gut."
-    },
-    preschool: {
-      title: "Kokum-Jeera Hydrating Chaas",
-      desc: "A refreshing, salty buttermilk drink seasoned with cooling cumin and kokum plum extract.",
-      prepTime: "5 mins",
-      cookTime: "0 mins",
-      servings: "1 cup",
-      rating: "4.9",
-      reviews: [{ name: "Suresh P. (Dad of 3-year-old)", rating: "5★", text: "Super cooling drink. Sattu or chaas with kokum works best for hydration in summers.", date: "3 days ago", avatarClass: "green" }],
-      ingredients: [
-        "3 tablespoons fresh yogurt",
-        "1 cup cool water",
-        "1/2 teaspoon kokum extract (sour plum)",
-        "A pinch of roasted cumin powder",
-        "A tiny pinch of salt"
-      ],
-      steps: [
-        "In a blender or pitcher, combine yogurt, cool water, cumin powder, and salt.",
-        "Whisk or blend until frothy.",
-        "Stir in the kokum extract for a tangy kick.",
-        "Serve cool."
-      ],
-      ageAdjustment: "For 2-4 years: Keep it light and refreshing. Sour kokum cools down the body and stimulates thirst.",
-      science: "Buttermilk contains electrolytes and water molecules bound to proteins, which are retained in the body longer than plain water."
-    }
-  },
-
-  // --- IRON DEFICIENCY ANEMIA ---
-  anemia: {
-    infant: {
-      title: "Iron-Rich Beetroot & Carrot Mash",
-      desc: "A sweet, colorful, and iron-packed steamed puree of beetroot and carrots, finished with ghee.",
-      prepTime: "10 mins",
-      cookTime: "15 mins",
-      servings: "1-2 small servings",
-      rating: "4.8",
-      reviews: [{ name: "Heena T. (Mom of 9-month-old)", rating: "5★", text: "The bright pink color is so attractive. My baby loves the natural sweetness.", date: "4 days ago", avatarClass: "orange" }],
-      ingredients: [
-        "1/2 medium carrot (peeled)",
-        "1/4 beetroot (peeled)",
-        "1 cup water",
-        "1/4 teaspoon cow's ghee"
-      ],
-      steps: [
-        "Chop the beetroot and carrot into small cubes.",
-        "Steam or pressure cook with water for 3 whistles until very soft.",
-        "Puree in a blender until silky smooth.",
-        "Stir in cow's ghee and serve warm."
-      ],
-      ageAdjustment: "For infants (6-12 months): Do not add salt. Feed a few spoonfuls daily to boost iron absorption.",
-      science: "Beetroot is rich in non-heme iron and folate, while carrots provide vitamin A, which helps the body utilize iron effectively."
-    },
-    toddler: {
-      title: "Dates & Ragi Iron-Rich Porridge",
-      desc: "A rich porridge combining iron-dense finger millet (ragi) with mashed sweet dates.",
-      prepTime: "5 mins",
-      cookTime: "12 mins",
-      servings: "1 cup",
-      rating: "4.9",
-      reviews: [{ name: "Raksha G. (Mom of 18-month-old)", rating: "5★", text: "Dates add a great sweet taste naturally. Perfect breakfast for low iron levels.", date: "2 days ago", avatarClass: "" }],
-      ingredients: [
-        "1.5 tablespoons ragi flour",
-        "2 soft seedless dates (chopped)",
-        "1 cup water or milk",
-        "1/4 teaspoon ghee"
-      ],
-      steps: [
-        "Boil the dates in 1/2 cup water until soft, then mash into a paste.",
-        "Dissolve ragi flour in 1/2 cup water/milk, stirring out all lumps.",
-        "Cook the ragi mixture on low heat for 6 minutes until thick.",
-        "Mix in the date paste and ghee, cook for 1 minute, and serve lukewarm."
-      ],
-      ageAdjustment: "For toddlers (12-24 months): Dates act as a natural sweetener, replacing refined sugar while adding essential iron.",
-      science: "Ragi is one of the richest millet sources of iron. Combining it with dates multiplies the iron content, fighting anemia."
-    },
-    preschool: {
-      title: "Iron-Boost Sesame Badam Sheera",
-      desc: "A high-iron dessert made of semolina, almond flour, and dry-roasted black sesame seeds.",
-      prepTime: "10 mins",
-      cookTime: "15 mins",
-      servings: "2 servings",
-      rating: "4.9",
-      reviews: [{ name: "Prerna V. (Mom of 3.5-year-old)", rating: "5★", text: "My daughter loves this sheera. Sesame and jaggery makes it so rich in iron.", date: "1 week ago", avatarClass: "purple" }],
-      ingredients: [
-        "2 tablespoons semolina (sooji)",
-        "1 tablespoon black sesame seeds (dry-roasted & powdered)",
-        "1.5 cups milk",
-        "1 tablespoon jaggery",
-        "1/2 teaspoon ghee",
-        "5 almonds (powdered)"
-      ],
-      steps: [
-        "Heat ghee in a pan, roast sooji for 3 minutes until aromatic.",
-        "Add sesame powder and almond powder, stir for 1 minute.",
-        "Slowly pour in milk while whisking to avoid lumps.",
-        "Add jaggery, cook on low heat for 4 minutes until it forms a soft sheera consistency."
-      ],
-      ageAdjustment: "For 2-4 years: Sesame seeds are exceptionally rich in iron. Ensure they are fully powdered to avoid choking.",
-      science: "Black sesame contains high concentration of iron and zinc. Jaggery is another rich iron source that activates hemoglobin production."
-    }
-  },
-
-  // --- UNDERWEIGHT CHILD ---
-  underweight: {
-    infant: {
-      title: "Rich Banana-Ragi Ghee Porridge",
-      desc: "A high-calorie, nutrient-dense weaning food for infants containing finger millet, banana, and ghee.",
-      prepTime: "5 mins",
-      cookTime: "10 mins",
-      servings: "1 bowl",
-      rating: "4.9",
-      reviews: [{ name: "Swati M. (Mom of 9-month-old)", rating: "5★", text: "Very filling and helped my baby gain weight steadily.", date: "4 days ago", avatarClass: "green" }],
-      ingredients: [
-        "1.5 tablespoons ragi flour",
-        "1/2 ripe banana (mashed)",
-        "1 cup water",
-        "1/2 teaspoon ghee"
-      ],
-      steps: [
-        "Mix ragi flour in water to make a smooth lump-free paste.",
-        "Cook on low heat, stirring continuously for 6 minutes.",
-        "Add the thoroughly mashed banana and ghee.",
-        "Cook for 1 more minute until thick and serve warm."
-      ],
-      ageAdjustment: "For infants (6-12 months): The ghee adds healthy calorie density. Keep the porridge thick but smooth.",
-      science: "Ragi is high in protein and calcium, while banana and ghee provide dense calories and healthy fats to support healthy weight gain."
-    },
-    toddler: {
-      title: "Sweet Potato & Paneer Ghee Mash",
-      desc: "A calorie-dense soft mash of sweet potatoes, fresh grated paneer, and cow's ghee.",
-      prepTime: "10 mins",
-      cookTime: "5 mins",
-      servings: "1 bowl",
-      rating: "4.8",
-      reviews: [{ name: "Nisha D. (Mom of 15-month-old)", rating: "5★", text: "Super creamy. The paneer and sweet potato blend is delicious.", date: "Yesterday", avatarClass: "orange" }],
-      ingredients: [
-        "1/2 cup sweet potato (boiled & peeled)",
-        "2 tablespoons fresh paneer (grated)",
-        "1/2 teaspoon ghee",
-        "A pinch of cardamom powder"
-      ],
-      steps: [
-        "Mash the sweet potato and grated paneer together thoroughly.",
-        "Heat ghee in a pan, add the sweet potato and paneer mix.",
-        "Add cardamom powder and warm through for 2 minutes on low heat.",
-        "Serve lukewarm."
-      ],
-      ageAdjustment: "For toddlers (12-24 months): Mash it soft. The combination of dairy fat and root veggie starch is highly palatable.",
-      science: "Sweet potato provides complex carbs, paneer provides casein protein, and ghee delivers energy-dense medium chain triglycerides."
-    },
-    preschool: {
-      title: "Almond & Makhana Nutri-Kheer",
-      desc: "A rich pudding containing roasted foxnut (makhana) powder, almond flour, and whole milk.",
-      prepTime: "10 mins",
-      cookTime: "15 mins",
-      servings: "2 servings",
-      rating: "4.9",
-      reviews: [{ name: "Garima K. (Mom of 3-year-old)", rating: "5★", text: "Healthy fats in makhana and badam make this a top weight-gain snack.", date: "5 days ago", avatarClass: "" }],
-      ingredients: [
-        "1/2 cup makhana (foxnuts)",
-        "1 cup whole milk",
-        "1 tablespoon almond powder",
-        "1 tablespoon jaggery",
-        "1/2 teaspoon ghee"
-      ],
-      steps: [
-        "Dry roast makhana in ghee until crunchy, then grind into a coarse powder.",
-        "Boil milk in a saucepan, add the makhana powder and almond powder.",
-        "Simmer on low heat for 8 minutes until thick.",
-        "Stir in jaggery, let it dissolve, and serve warm."
-      ],
-      ageAdjustment: "For 2-4 years: Makhana and almonds are powerhouses of healthy fats and protein. Serve warm as an evening snack.",
-      science: "Foxnuts (Makhana) are rich in protein and low-GI carbs, which combined with whole milk and almonds, promote healthy muscle mass development."
-    }
-  },
-
-  // --- POOR WEIGHT GAIN ---
-  poorweight: {
-    infant: {
-      title: "Sago-Banana Mash in Coconut Milk",
-      desc: "A creamy, dairy-free mash of cooked tapioca pearls and banana folded into fresh coconut milk.",
-      prepTime: "15 mins",
-      cookTime: "12 mins",
-      servings: "1-2 small bowls",
-      rating: "4.7",
-      reviews: [{ name: "Priti L. (Mom of 10-month-old)", rating: "5★", text: "Coconut milk is so rich. Easy to digest and baby finished it all.", date: "Yesterday", avatarClass: "purple" }],
-      ingredients: [
-        "2 tablespoons sabudana (soaked)",
-        "1 cup water",
-        "3 tablespoons coconut milk",
-        "1/2 ripe banana (mashed)"
-      ],
-      steps: [
-        "Boil soaked sabudana in water until transparent.",
-        "Mash the cooked pearls, then stir in mashed banana and coconut milk.",
-        "Mix thoroughly and serve lukewarm."
-      ],
-      ageAdjustment: "For infants (6-12 months): Coconut milk provides healthy lauric acid fats, aiding weight gain without dairy allergens.",
-      science: "Tapioca starch digests quickly, providing immediate energy, while coconut milk provides fats similar to breastmilk."
-    },
-    toddler: {
-      title: "Potato-Paneer Double Ghee Mash",
-      desc: "A simple, comforting, and high-calorie mash of potatoes, grated paneer, and a double serving of cow's ghee.",
-      prepTime: "10 mins",
-      cookTime: "5 mins",
-      servings: "1 bowl",
-      rating: "4.8",
-      reviews: [{ name: "Suman H. (Mom of 2-year-old)", rating: "5★", text: "Classic home food. Paneer and potato is a great calorie booster.", date: "3 days ago", avatarClass: "" }],
-      ingredients: [
-        "1 medium potato (boiled)",
-        "2 tablespoons paneer (mashed)",
-        "1 teaspoon ghee",
-        "A pinch of salt & pepper"
-      ],
-      steps: [
-        "Mash the potato and paneer together until completely smooth.",
-        "Heat ghee in a pan, add the mash, and stir for 2 minutes.",
-        "Add salt, pepper, and mix well.",
-        "Serve warm with another drop of ghee on top."
-      ],
-      ageAdjustment: "For toddlers (12-24 months): High-fat and high-carb density stimulates appetite and supports healthy weight.",
-      science: "Potato starch combined with paneer protein and ghee creates a highly calorie-dense, easy-to-digest mass."
-    },
-    preschool: {
-      title: "Sattu & Peanut Butter Nutri-Sheera",
-      desc: "A rich sheera made of roasted chickpea flour (sattu), peanut butter, and jaggery.",
-      prepTime: "10 mins",
-      cookTime: "12 mins",
-      servings: "2 servings",
-      rating: "4.9",
-      reviews: [{ name: "Deepak S. (Dad of 3-year-old)", rating: "5★", text: "Protein and calorie dense. Sattu is amazing for kids' muscle growth.", date: "Yesterday", avatarClass: "green" }],
-      ingredients: [
-        "2 tablespoons sattu flour (roasted gram)",
-        "1 tablespoon peanut butter (creamy)",
-        "1.5 cups milk",
-        "1 tablespoon jaggery",
-        "1/2 teaspoon ghee"
-      ],
-      steps: [
-        "In a pan, warm the ghee, add sattu flour and roast for 1 minute.",
-        "Add warm milk slowly while whisking to prevent lumps.",
-        "Add the peanut butter and jaggery, cooking on low heat for 3 minutes until smooth.",
-        "Serve warm."
-      ],
-      ageAdjustment: "For 2-4 years: Double check for peanut allergy. Sattu and peanut butter together offer massive protein and calories.",
-      science: "Peanut butter contains monounsaturated fats, and sattu is high in plant protein and dietary fibers, assisting steady weight gain."
-    }
-  },
-
-  // --- PROTEIN-ENERGY MALNUTRITION ---
-  pem: {
-    infant: {
-      title: "High-Protein Sprouted Moong Puree",
-      desc: "A highly nutritious puree of sprouted yellow moong dal, rich in amino acids and easy to digest.",
-      prepTime: "10 mins",
-      cookTime: "15 mins",
-      servings: "1-2 small servings",
-      rating: "4.9",
-      reviews: [{ name: "Tripti P. (Mom of 11-month-old)", rating: "5★", text: "Sprouted dal is much lighter on the tummy. Highly recommend.", date: "Yesterday", avatarClass: "orange" }],
-      ingredients: [
-        "2 tablespoons sprouted yellow moong dal",
-        "1 cup water",
-        "1/4 teaspoon ghee",
-        "A pinch of turmeric"
-      ],
-      steps: [
-        "Wash sprouted moong dal thoroughly.",
-        "Pressure cook with water and turmeric for 4 whistles until very soft.",
-        "Blend into a very smooth, fine puree.",
-        "Stir in ghee and serve lukewarm."
-      ],
-      ageAdjustment: "For infants (6-12 months): Sprouting breaks down complex starches, making the protein twice as easy to absorb.",
-      science: "Sprouted lentils have increased bioavailability of protein, iron, and zinc, helping combat nutritional malnutrition."
-    },
-    toddler: {
-      title: "Paneer-Dal High-Calorie Khichdi",
-      desc: "A protein-heavy khichdi combining rice, yellow lentils, and grated cottage cheese.",
-      prepTime: "10 mins",
-      cookTime: "20 mins",
-      servings: "2 servings",
-      rating: "4.8",
-      reviews: [{ name: "Rahul J. (Dad of 20-month-old)", rating: "5★", text: "Paneer in khichdi is an excellent way to feed protein to toddlers.", date: "5 days ago", avatarClass: "purple" }],
-      ingredients: [
-        "2 tablespoons rice",
-        "2 tablespoons moong dal",
-        "3 tablespoons fresh paneer (cubed)",
-        "2 cups water",
-        "1/2 teaspoon ghee",
-        "A pinch of turmeric & salt"
-      ],
-      steps: [
-        "Cook rice and dal in a pressure cooker with water and turmeric for 4 whistles.",
-        "Mash the khichdi, then stir in grated paneer and salt.",
-        "Simmer for 2 minutes, add ghee, and serve warm."
-      ],
-      ageAdjustment: "For toddlers (12-24 months): Ensure paneer is grated or mashed so it blends completely with the soft khichdi.",
-      science: "Combining rice, lentils, and dairy paneer provides a complete spectrum of essential amino acids and lipids."
-    },
-    preschool: {
-      title: "Triple-Protein Sattu Badam Shake",
-      desc: "A rich beverage combining high-protein sattu, almond flour, and whole cow's milk.",
-      prepTime: "5 mins",
-      cookTime: "0 mins",
-      servings: "1 cup",
-      rating: "4.9",
-      reviews: [{ name: "Renu B. (Mom of 4-year-old)", rating: "5★", text: "Best drink after playtime. Very filling and packed with protein.", date: "Yesterday", avatarClass: "" }],
-      ingredients: [
-        "2 tablespoons sattu powder",
-        "1 cup whole milk",
-        "5 almonds (ground)",
-        "1 tablespoon jaggery",
-        "1/2 teaspoon ghee"
-      ],
-      steps: [
-        "In a blender, combine sattu, milk, ground almonds, and jaggery.",
-        "Blend until smooth and frothy.",
-        "Pour into a cup, add a drop of ghee, and serve warm or cool."
-      ],
-      ageAdjustment: "For 2-4 years: A liquid meal is easier to consume for malnourished children with low appetite.",
-      science: "Sattu (chickpea flour) is a powerhouse of protein, combined with milk calcium and almond fats for rapid energy recovery."
-    }
-  },
-
-  // --- VITAMIN D DEFICIENCY ---
-  vitd: {
-    infant: {
-      title: "Egg Yolk & Breastmilk Mash",
-      desc: "A smooth, creamy mash of hard-boiled egg yolk dissolved in breastmilk, naturally rich in Vitamin D3.",
-      prepTime: "10 mins",
-      cookTime: "10 mins",
-      servings: "1 serving",
-      rating: "4.9",
-      reviews: [{ name: "Monika F. (Mom of 8-month-old)", rating: "5★", text: "Pediatrician recommended egg yolk. Mash with breastmilk makes it very smooth.", date: "4 days ago", avatarClass: "green" }],
-      ingredients: [
-        "1 hard-boiled egg yolk",
-        "2 tablespoons breastmilk or formula"
-      ],
-      steps: [
-        "Boil an egg until the yolk is completely hard-cooked.",
-        "Separate the yolk (discard white for infants under 1 year).",
-        "Mash the yolk with warm breastmilk or formula until it forms a creamy paste.",
-        "Serve lukewarm."
-      ],
-      ageAdjustment: "For infants (6-12 months): Avoid feeding egg white, as it is a common allergen. Egg yolk is rich in natural Vitamin D.",
-      science: "Egg yolk is one of the few natural dietary sources of Vitamin D3, essential for skeletal development and bone density."
-    },
-    toddler: {
-      title: "Fortified Paneer & Mushroom Bhurji",
-      desc: "A warm stir-fry of finely chopped button mushrooms and fresh paneer, providing calcium and vitamin D.",
-      prepTime: "10 mins",
-      cookTime: "8 mins",
-      servings: "1-2 servings",
-      rating: "4.8",
-      reviews: [{ name: "Shikha L. (Mom of 2-year-old)", rating: "4★", text: "Great vegetarian recipe. Mushrooms are finely chopped so they are safe.", date: "Yesterday", avatarClass: "orange" }],
-      ingredients: [
-        "1/4 cup button mushrooms (finely chopped)",
-        "1/4 cup fresh paneer (crumbled)",
-        "1/2 teaspoon ghee",
-        "A pinch of turmeric & cumin"
-      ],
-      steps: [
-        "Heat ghee in a pan, add cumin and chopped mushrooms. Sauté for 3 minutes.",
-        "Add crumbled paneer, turmeric, and a tiny pinch of salt.",
-        "Sauté for 2 minutes until mushrooms are soft and paneer is warm. Serve mashed."
-      ],
-      ageAdjustment: "For toddlers (12-24 months): Mushrooms must be chopped extremely fine to ensure easy chewing.",
-      science: "Mushrooms exposed to UV light are rich in Vitamin D2. Paneer provides calcium, which requires Vitamin D to be absorbed."
-    },
-    preschool: {
-      title: "Sesame-Fortified Badam Milk",
-      desc: "A traditional almond milk beverage boosted with sesame seeds and prepared with Vitamin D fortified milk.",
-      prepTime: "10 mins",
-      cookTime: "10 mins",
-      servings: "1 cup",
-      rating: "4.9",
-      reviews: [{ name: "Aarti S. (Mom of 3-year-old)", rating: "5★", text: "My kid loves this almond milk. I use fortified milk as suggested.", date: "5 days ago", avatarClass: "purple" }],
-      ingredients: [
-        "1 cup fortified cow's milk (Vitamin D enriched)",
-        "5 almonds (soaked & peeled)",
-        "1 teaspoon white sesame seeds (powdered)",
-        "1 teaspoon jaggery"
-      ],
-      steps: [
-        "Grind soaked almonds into a fine paste with a little milk.",
-        "Boil the remaining milk, then stir in almond paste and sesame powder.",
-        "Simmer for 5 minutes. Add jaggery, cool to warm, and serve."
-      ],
-      ageAdjustment: "For 2-4 years: Using Vitamin D fortified milk ensures adequate absorption of sesame and almond calcium.",
-      science: "Vitamin D is necessary for calcium absorption. Sesame seeds provide high calcium, while fortified milk supplies the vital Vitamin D."
-    }
-  },
-
-  // --- CALCIUM DEFICIENCY ---
-  calcium: {
-    infant: {
-      title: "Ragi-Coconut Milk Calcium Porridge",
-      desc: "A dairy-free, calcium-dense porridge of finger millet (ragi) cooked in fresh coconut milk.",
-      prepTime: "10 mins",
-      cookTime: "8 mins",
-      servings: "1 bowl",
-      rating: "4.9",
-      reviews: [{ name: "Jaspreet C. (Mom of 8-month-old)", rating: "5★", text: "Baby loves the coconut milk aroma. Ragi is great for calcium.", date: "3 days ago", avatarClass: "" }],
-      ingredients: [
-        "1.5 tablespoons ragi flour",
-        "3 tablespoons coconut milk",
-        "1 cup water",
-        "A pinch of cardamom"
-      ],
-      steps: [
-        "Whisk ragi flour in water until smooth.",
-        "Cook on low heat for 6 minutes, stirring constantly.",
-        "Stir in coconut milk and cardamom powder, simmer for 1 minute, and serve warm."
-      ],
-      ageAdjustment: "For infants (6-12 months): Ragi is the best non-dairy calcium source for weaning infants.",
-      science: "Finger millet (Ragi) has 10 times more calcium than wheat or rice, aiding skeletal structure growth."
-    },
-    toddler: {
-      title: "Sweet Cardamom Doi with Sesame",
-      desc: "Creamy fresh yogurt sweetened with jaggery and boosted with high-calcium ground white sesame seeds.",
-      prepTime: "5 mins",
-      cookTime: "0 mins",
-      servings: "1 bowl",
-      rating: "4.8",
-      reviews: [{ name: "Tanvi R. (Mom of 19-month-old)", rating: "5★", text: "My daughter loves sweet curd. Ground sesame mixes in invisibly.", date: "Yesterday", avatarClass: "purple" }],
-      ingredients: [
-        "1/2 cup thick fresh curd (yogurt)",
-        "1 teaspoon powdered white sesame seeds",
-        "1 teaspoon jaggery powder",
-        "A pinch of cardamom"
-      ],
-      steps: [
-        "Whisk curd, jaggery, and cardamom together until creamy.",
-        "Stir in the powdered sesame seeds thoroughly.",
-        "Serve cool as a snack."
-      ],
-      ageAdjustment: "For toddlers (12-24 months): Ensure sesame is ground to a very fine powder to prevent airway aspiration.",
-      science: "Yogurt provides easily absorbable calcium and proteins, while sesame powder dramatically boosts the calcium density."
-    },
-    preschool: {
-      title: "Crispy Sesame Paneer Cubes",
-      desc: "Pan-seared fresh paneer cubes coated in roasted sesame seeds, providing a double calcium boost.",
-      prepTime: "10 mins",
-      cookTime: "5 mins",
-      servings: "1 plate",
-      rating: "4.9",
-      reviews: [{ name: "Vineet G. (Dad of 3.5-year-old)", rating: "5★", text: "Perfect finger food. Crunchy sesame outer layer and soft paneer inside.", date: "Yesterday", avatarClass: "green" }],
-      ingredients: [
-        "50g fresh paneer (cut into small cubes)",
-        "1 tablespoon sesame seeds",
-        "1/2 teaspoon ghee",
-        "A pinch of cumin & salt"
-      ],
-      steps: [
-        "Roll the paneer cubes in sesame seeds, pressing gently so they stick.",
-        "Heat ghee in a pan and lightly toss the paneer cubes until golden.",
-        "Sprinkle cumin powder and a tiny pinch of salt. Serve warm."
-      ],
-      ageAdjustment: "For 2-4 years: Crispy paneer is a fun finger food that kids love, offering double calcium from dairy and sesame.",
-      science: "Paneer and sesame are both top-tier calcium sources, supporting rapid bone growth and dental development in preschoolers."
-    }
-  },
-
-  // --- WEAK IMMUNITY ---
-  immunity: {
-    infant: {
-      title: "Mild Turmeric & Sweet Potato Mash",
-      desc: "A warm, sweet mash of orange sweet potatoes seasoned with organic turmeric powder.",
-      prepTime: "10 mins",
-      cookTime: "10 mins",
-      servings: "1-2 small servings",
-      rating: "4.8",
-      reviews: [{ name: "Heena T. (Mom of 7-month-old)", rating: "5★", text: "Turmeric is sweet potato's best friend. Very mild and healthy.", date: "4 days ago", avatarClass: "orange" }],
-      ingredients: [
-        "1/2 sweet potato",
-        "1 cup water",
-        "A tiny pinch of turmeric (haldi)",
-        "1/4 teaspoon ghee"
-      ],
-      steps: [
-        "Peel and cube the sweet potato.",
-        "Steam with water and turmeric for 2 whistles until fully soft.",
-        "Mash thoroughly, stir in ghee, and serve warm."
-      ],
-      ageAdjustment: "For infants (6-12 months): Turmeric helps build immune resistance from an early age. Keep the mash soft.",
-      science: "Sweet potato provides beta-carotene (Vitamin A) for mucosal immunity, while turmeric curcumin reduces systemic inflammation."
-    },
-    toddler: {
-      title: "Tulsi-Ginger Pear Puree",
-      desc: "A warm pear puree infused with holy basil (tulsi) and a drop of fresh ginger juice.",
-      prepTime: "10 mins",
-      cookTime: "10 mins",
-      servings: "1 bowl",
-      rating: "4.9",
-      reviews: [{ name: "Sita R. (Mom of 14-month-old)", rating: "5★", text: "Warm pear mash is very soothing on the throat and builds immunity.", date: "Yesterday", avatarClass: "" }],
-      ingredients: [
-        "1 ripe pear (peeled & cored)",
-        "3 fresh tulsi leaves",
-        "A tiny drop of ginger juice",
-        "1/2 cup water"
-      ],
-      steps: [
-        "Chop pear and place in a pan with water and tulsi leaves.",
-        "Simmer for 8 minutes until pear is soft. Discard tulsi leaves.",
-        "Mash the pear, stir in the ginger juice, and serve warm."
-      ],
-      ageAdjustment: "For toddlers (12-24 months): Ginger juice should be a tiny drop to keep it pleasant and not spicy.",
-      science: "Tulsi has strong antiviral properties, and ginger enhances gut immunity, which represents 70% of the body's immune system."
-    },
-    preschool: {
-      title: "Ginger-Garlic Immunity Shorba",
-      desc: "A warm, thin yellow lentil shorba simmered with freshly minced garlic and ginger.",
-      prepTime: "10 mins",
-      cookTime: "15 mins",
-      servings: "2 servings",
-      rating: "4.8",
-      reviews: [{ name: "Anju M. (Mom of 3-year-old)", rating: "5★", text: "Very aromatic shorba. Great for cold days to keep sickness away.", date: "5 days ago", avatarClass: "purple" }],
-      ingredients: [
-        "2 tablespoons yellow moong dal",
-        "1 clove garlic (minced)",
-        "A tiny sliver of ginger (grated)",
-        "1.5 cups water",
-        "1/4 teaspoon ghee",
-        "A pinch of turmeric & salt"
-      ],
-      steps: [
-        "Pressure cook dal, garlic, ginger, water, turmeric, and salt for 3 whistles.",
-        "Blend or whisk until completely smooth.",
-        "Heat ghee, pour into the shorba, simmer for 1 minute, and serve warm."
-      ],
-      ageAdjustment: "For 2-4 years: Garlic and ginger act as warming agents to ward off colds and boost defense cells.",
-      science: "Garlic contains allicin, a bio-active compound that stimulates white blood cells to fight pathogens."
-    }
-  },
-
-  // --- PICKY EATING ---
-  picky: {
-    infant: {
-      title: "Tri-Color Veggie Mash",
-      desc: "A colorful, appealing mash of orange carrots, sweet potatoes, and green peas.",
-      prepTime: "10 mins",
-      cookTime: "10 mins",
-      servings: "1 bowl",
-      rating: "4.8",
-      reviews: [{ name: "Ritu K. (Mom of 8-month-old)", rating: "5★", text: "The bright orange and green colors really caught my baby's eye.", date: "4 days ago", avatarClass: "green" }],
-      ingredients: [
-        "1/4 cup carrot cubes",
-        "1/4 cup sweet potato cubes",
-        "2 tablespoons green peas",
-        "1.5 cups water",
-        "1/4 teaspoon ghee"
-      ],
-      steps: [
-        "Boil all veggies in water until completely tender.",
-        "Mash each color separately or blend together to create a bright orange-yellow mash.",
-        "Drizzle ghee and serve warm."
-      ],
-      ageAdjustment: "For infants (6-12 months): Bright naturally-colored purees stimulate interest in babies exploring solids.",
-      science: "Visual appeal triggers cephalic phase digestion, causing salivary and gastric juices to flow, making babies more receptive."
-    },
-    toddler: {
-      title: "Mini Pink Beetroot Uttapam",
-      desc: "Bright pink semolina pancakes naturally colored with beetroot juice, perfect as a finger food.",
-      prepTime: "10 mins",
-      cookTime: "8 mins",
-      servings: "1 plate",
-      rating: "4.9",
-      reviews: [{ name: "Poonam H. (Mom of 2-year-old)", rating: "5★", text: "Bright pink uttapam! He ate 3 of these without any fuss.", date: "Yesterday", avatarClass: "orange" }],
-      ingredients: [
-        "1/2 cup semolina batter (sooji mixed with curd)",
-        "2 tablespoons beetroot puree",
-        "1/2 teaspoon ghee"
-      ],
-      steps: [
-        "Mix the beetroot puree into the semolina batter to turn it bright pink.",
-        "Heat a pan, smear ghee, and pour small silver-dollar sized pancakes.",
-        "Cook both sides until soft and serve as finger food."
-      ],
-      ageAdjustment: "For toddlers (12-24 months): Small, colorful finger foods are easier and more fun for toddlers to feed themselves.",
-      science: "Toddlers eat better when they have autonomy. The pink color is highly engaging and disguises healthy beets."
-    },
-    preschool: {
-      title: "Mini Cheesy Spinach Paratha",
-      desc: "Spinach-infused green parathas stuffed with gooey grated cheese.",
-      prepTime: "15 mins",
-      cookTime: "10 mins",
-      servings: "2 servings",
-      rating: "4.9",
-      reviews: [{ name: "Nidhi S. (Mom of 3-year-old)", rating: "5★", text: "Sneaking spinach with cheese works every single time! Recommended.", date: "Yesterday", avatarClass: "purple" }],
-      ingredients: [
-        "1/2 cup whole wheat flour",
-        "2 tablespoons spinach puree",
-        "1 tablespoon grated cheese",
-        "Ghee for cooking"
-      ],
-      steps: [
-        "Knead wheat flour with spinach puree to make green dough.",
-        "Roll into mini rotis, stuff with grated cheese, and fold.",
-        "Cook on a griddle with ghee until soft and golden. Serve warm."
-      ],
-      ageAdjustment: "For 2-4 years: Cheese adds calcium and protein while masking the iron-rich spinach taste, appealing to picky eaters.",
-      science: "Combining cheese (fat/protein) with spinach increases iron bioavailability and makes iron-dense greens tasty."
-    }
-  },
-
-  // --- FOOD ALLERGY SUPPORT ---
-  allergy: {
-    infant: {
-      title: "Hypoallergenic Pumpkin Puree",
-      desc: "A single-ingredient sweet pumpkin mash that is extremely low-allergen and gentle on baby's digestive tract.",
-      prepTime: "5 mins",
-      cookTime: "10 mins",
-      servings: "1 serving",
-      rating: "4.8",
-      reviews: [{ name: "Alpa N. (Mom of 7-month-old)", rating: "5★", text: "Great starter food for sensitive tummies. No reaction at all.", date: "Yesterday", avatarClass: "" }],
-      ingredients: [
-        "1/2 cup sweet pumpkin (peeled & chopped)",
-        "1 cup water"
-      ],
-      steps: [
-        "Boil pumpkin pieces in water for 10 minutes until mushy.",
-        "Blend into a silky smooth puree.",
-        "Serve lukewarm without any oil, dairy, or nuts."
-      ],
-      ageAdjustment: "For infants (6-12 months): Pumpkin is extremely low-allergen and soothing to baby guts.",
-      science: "Pumpkin is rich in Vitamin A and highly digestible, making it the safest starter food for sensitive infants."
-    },
-    toddler: {
-      title: "Allergen-Free Moong Dal Rice",
-      desc: "A simple, soft-mashed rice and moong dal preparation, cooked without dairy, wheat, soy, or nuts.",
-      prepTime: "5 mins",
-      cookTime: "15 mins",
-      servings: "1 bowl",
-      rating: "4.8",
-      reviews: [{ name: "Shalini P. (Mom of 18-month-old)", rating: "5★", text: "My toddler has multiple allergies. This simple khichdi is our safe haven.", date: "3 days ago", avatarClass: "orange" }],
-      ingredients: [
-        "2 tablespoons rice",
-        "2 tablespoons yellow moong dal",
-        "2 cups water",
-        "A pinch of cumin powder"
-      ],
-      steps: [
-        "Wash rice and dal. Pressure cook with water and cumin for 4 whistles.",
-        "Mash thoroughly into a soft paste.",
-        "Serve warm without dairy, nuts, wheat, or soy."
-      ],
-      ageAdjustment: "For toddlers (12-24 months): A safe, baseline recovery food when diagnosing food sensitivities.",
-      science: "Moong dal and rice are naturally gluten-free and have the lowest known allergic response rates in infants."
-    },
-    preschool: {
-      title: "Baked Sweet Potato Wedges",
-      desc: "Warm baked sweet potato wedges tossed with a pinch of cumin and olive oil.",
-      prepTime: "10 mins",
-      cookTime: "15 mins",
-      servings: "1 plate",
-      rating: "4.9",
-      reviews: [{ name: "Vikram R. (Dad of 3-year-old)", rating: "5★", text: "Healthy, wheat-free, dairy-free snack that mimics fries but is highly nutritious.", date: "5 days ago", avatarClass: "green" }],
-      ingredients: [
-        "1 sweet potato",
-        "1/2 teaspoon olive oil",
-        "A pinch of cumin & salt"
-      ],
-      steps: [
-        "Peel and cut sweet potato into finger-thick wedges.",
-        "Toss with olive oil, cumin, and salt.",
-        "Bake or pan-cook on low heat until soft. Serve warm."
-      ],
-      ageAdjustment: "For 2-4 years: A healthy, wheat-free, dairy-free snack that mimics fries but is highly nutritious.",
-      science: "Provides dense carbohydrates, dietary fibers, and minerals without triggering any common allergens."
-    }
-  },
-
-  // --- LACTOSE INTOLERANCE ---
-  lactose: {
-    infant: {
-      title: "Coconut Milk & Rice Starch Porridge",
-      desc: "A lactose-free porridge of rice flour and fresh coconut milk, creamy and easy on the gut.",
-      prepTime: "5 mins",
-      cookTime: "8 mins",
-      servings: "1 bowl",
-      rating: "4.8",
-      reviews: [{ name: "Nisha J. (Mom of 9-month-old)", rating: "5★", text: "My baby had heavy gas with dairy. This coconut milk porridge is safe.", date: "4 days ago", avatarClass: "purple" }],
-      ingredients: [
-        "2 tablespoons rice flour",
-        "1 cup water",
-        "3 tablespoons coconut milk"
-      ],
-      steps: [
-        "Mix rice flour in water, boil on low heat for 5 minutes, stirring.",
-        "Let it cool slightly, then stir in coconut milk.",
-        "Serve lukewarm."
-      ],
-      ageAdjustment: "For infants (6-12 months): Safe, dairy-free alternative to traditional milk-based porridges.",
-      science: "Rice and coconut milk are naturally lactose-free, preventing colic, diarrhea, and bloating in lactose-sensitive infants."
-    },
-    toddler: {
-      title: "Almond Milk Ragi Porridge",
-      desc: "A calcium-rich porridge of finger millet (ragi) cooked in unsweetened almond milk.",
-      prepTime: "5 mins",
-      cookTime: "10 mins",
-      servings: "1 cup",
-      rating: "4.8",
-      reviews: [{ name: "Tanmay M. (Dad of 20-month-old)", rating: "5★", text: "Great recipe. Ragi and almond milk provide calcium without lactose.", date: "Yesterday", avatarClass: "" }],
-      ingredients: [
-        "1.5 tablespoons ragi flour",
-        "1 cup unsweetened almond milk",
-        "1 teaspoon jaggery",
-        "1/4 teaspoon ghee"
-      ],
-      steps: [
-        "Dissolve ragi flour in almond milk. Cook on low heat, stirring constantly.",
-        "Simmer for 6 minutes until thick. Add jaggery and ghee.",
-        "Serve warm."
-      ],
-      ageAdjustment: "For toddlers (12-24 months): Almond milk is dairy-free and provides high calcium to replace regular cow's milk.",
-      science: "Almond milk combined with Ragi delivers double calcium without lactose, protecting the child's intestinal lining."
-    },
-    preschool: {
-      title: "Dairy-Free Tofu Veggie Bhurji",
-      desc: "A dairy-free, high-protein stir-fry of crumbled soya tofu and grated carrots.",
-      prepTime: "10 mins",
-      cookTime: "5 mins",
-      servings: "2 servings",
-      rating: "4.9",
-      reviews: [{ name: "Suman T. (Mom of 3-year-old)", rating: "5★", text: "Tofu bhurji is delicious. He thinks it is paneer and eats it happily.", date: "Yesterday", avatarClass: "green" }],
-      ingredients: [
-        "1/2 cup firm tofu (soya paneer, crumbled)",
-        "1 tablespoon carrot (grated)",
-        "1/2 teaspoon ghee",
-        "A pinch of turmeric & cumin"
-      ],
-      steps: [
-        "Heat ghee in a pan, sauté grated carrot for 2 minutes.",
-        "Add crumbled tofu, turmeric, cumin, and a tiny pinch of salt.",
-        "Sauté for 2 minutes and serve warm."
-      ],
-      ageAdjustment: "For 2-4 years: Tofu mimics paneer perfectly but contains zero dairy, offering high protein.",
-      science: "Soya tofu provides complete plant proteins and is completely free of lactose and milk proteins (casein)."
-    }
-  },
-
-  // --- DIAPER RASH ---
-  diaperrash: {
-    infant: {
-      title: "Cooling Barley & Fennel Drink",
-      desc: "A soothing, clear hydration drink made of pearl barley and fennel seeds to reduce body heat.",
-      prepTime: "5 mins",
-      cookTime: "15 mins",
-      servings: "1 cup",
-      rating: "4.8",
-      reviews: [{ name: "Payal G. (Mom of 9-month-old)", rating: "5★", text: "Diluting the urine really helped soothe his diaper rash irritation.", date: "Yesterday", avatarClass: "orange" }],
-      ingredients: [
-        "1 tablespoon pearl barley",
-        "1/4 teaspoon fennel seeds",
-        "2 cups water"
-      ],
-      steps: [
-        "Boil barley and fennel seeds in water for 15 minutes.",
-        "Strain the liquid, discarding the grains.",
-        "Let it cool to room temperature and feed in sips."
-      ],
-      ageAdjustment: "For infants (6-12 months): Keep it completely unsweetened. Helps cool the body from the inside.",
-      science: "Barley is a natural diuretic and coolant that dilutes acidic urine, reducing diaper rash irritation."
-    },
-    toddler: {
-      title: "Hydrating Coconut & Mint Cooler",
-      desc: "Fresh tender coconut water infused with crushed mint leaves to cool the child's digestive system.",
-      prepTime: "5 mins",
-      cookTime: "0 mins",
-      servings: "1 cup",
-      rating: "4.8",
-      reviews: [{ name: "Shanti R. (Mom of 16-month-old)", rating: "5★", text: "Mint makes the coconut water very refreshing. Keeps urine dilute.", date: "4 days ago", avatarClass: "purple" }],
-      ingredients: [
-        "1/2 cup fresh tender coconut water",
-        "3 fresh mint leaves (crushed)"
-      ],
-      steps: [
-        "Mix coconut water with crushed mint leaves.",
-        "Let it sit for 5 minutes, strain, and serve cool."
-      ],
-      ageAdjustment: "For toddlers (12-24 months): Highly refreshing drink to reduce urine acidity during rashes.",
-      science: "Mint and coconut water act as systemic cooling agents, lowering the metabolic heat that worsens skin rashes."
-    },
-    preschool: {
-      title: "Cooling Cucumber & Yogurt Raita",
-      desc: "A cooling side dish of fresh sweet yogurt, grated cucumber, and roasted cumin powder.",
-      prepTime: "10 mins",
-      cookTime: "0 mins",
-      servings: "2 servings",
-      rating: "4.9",
-      reviews: [{ name: "Dinesh K. (Dad of 3.5-year-old)", rating: "5★", text: "Cucumber yogurt is very cooling. He loved dipping paratha in it.", date: "Yesterday", avatarClass: "" }],
-      ingredients: [
-        "1/2 cup fresh yogurt",
-        "2 tablespoons cucumber (grated)",
-        "A pinch of roasted cumin powder",
-        "A tiny pinch of salt"
-      ],
-      steps: [
-        "Whisk yogurt until smooth.",
-        "Add grated cucumber, cumin, and salt.",
-        "Mix well and serve cool."
-      ],
-      ageAdjustment: "For 2-4 years: Serve cool as a side dish. Yogurt cools the gut and cucumber hydrates skin cells.",
-      science: "Cucumber is 96% water, and yogurt probiotics neutralize acidic gut metabolites, relieving skin inflammation."
-    }
-  },
-
-  // --- ECZEMA SUPPORT ---
-  eczema: {
-    infant: {
-      title: "Avocado & Banana Creamy Mash",
-      desc: "A raw, creamy mash of fresh avocado and sweet banana, loaded with skin-friendly Vitamin E.",
-      prepTime: "5 mins",
-      cookTime: "0 mins",
-      servings: "1 serving",
-      rating: "4.8",
-      reviews: [{ name: "Pooja W. (Mom of 10-month-old)", rating: "5★", text: "Very smooth and creamy. My baby has dry eczema and loved this mash.", date: "Yesterday", avatarClass: "green" }],
-      ingredients: [
-        "1/4 ripe avocado",
-        "1/2 ripe banana"
-      ],
-      steps: [
-        "Scoop out the avocado flesh.",
-        "Mash the avocado and banana together thoroughly until creamy and lump-free.",
-        "Serve immediately."
-      ],
-      ageAdjustment: "For infants (6-12 months): Rich in healthy monounsaturated fats. No cooking required.",
-      science: "Avocados are packed with Vitamin E and healthy lipids that nourish dry skin barrier from the inside."
-    },
-    toddler: {
-      title: "Chia & Mango Coconut Pudding",
-      desc: "A cooling dessert of soaked chia seeds, fresh coconut milk, and mango puree.",
-      prepTime: "15 mins",
-      cookTime: "0 mins",
-      servings: "1 serving",
-      rating: "4.8",
-      reviews: [{ name: "Tanya S. (Mom of 22-month-old)", rating: "5★", text: "Healthy fats from chia really help soothe dry eczema flareups.", date: "3 days ago", avatarClass: "orange" }],
-      ingredients: [
-        "1/2 teaspoon chia seeds",
-        "3 tablespoons coconut milk",
-        "2 tablespoons mango puree",
-        "2 tablespoons water"
-      ],
-      steps: [
-        "Soak chia seeds in water for 15 minutes until gelatinous.",
-        "Stir in coconut milk and mango puree.",
-        "Mix well and serve cool."
-      ],
-      ageAdjustment: "For toddlers (12-24 months): Chia seeds must be fully soaked to prevent swallowing hazards.",
-      science: "Chia seeds contain Omega-3 fatty acids, which reduce systemic skin inflammation and eczema flare-ups."
-    },
-    preschool: {
-      title: "Walnut & Flaxseed Oats Porridge",
-      desc: "A warm oatmeal porridge cooked with powdered walnuts and flaxseeds, rich in ALA Omega-3.",
-      prepTime: "10 mins",
-      cookTime: "8 mins",
-      servings: "1-2 servings",
-      rating: "4.9",
-      reviews: [{ name: "Sunil D. (Dad of 3-year-old)", rating: "5★", text: "I powder walnuts as recommended. Highly nutritious oatmeal breakfast.", date: "5 days ago", avatarClass: "purple" }],
-      ingredients: [
-        "3 tablespoons rolled oats",
-        "1/2 teaspoon flaxseed powder",
-        "2 walnuts (powdered)",
-        "1.5 cups milk or water",
-        "1 teaspoon jaggery"
-      ],
-      steps: [
-        "Cook oats in milk/water for 5 minutes until soft.",
-        "Stir in flaxseed powder and powdered walnuts.",
-        "Add jaggery, mix well, and serve warm."
-      ],
-      ageAdjustment: "For 2-4 years: Walnut must be finely powdered to prevent choking. Omega-3 fats support skin hydration.",
-      science: "Walnuts and flaxseeds are rich in Alpha-Linolenic Acid (ALA), an Omega-3 fat that reduces dry, itchy eczema patches."
-    }
-  },
-
-  // --- ACID REFLUX ---
-  reflux: {
-    infant: {
-      title: "Thickened Rice Porridge",
-      desc: "A slightly thickened rice flour porridge, adjusted with breastmilk or formula, designed to reduce baby spit-ups.",
-      prepTime: "5 mins",
-      cookTime: "8 mins",
-      servings: "1 bowl",
-      rating: "4.8",
-      reviews: [{ name: "Deepali R. (Mom of 7-month-old)", rating: "5★", text: "Thickening his feeds really stopped his acid spit-ups. Highly recommend.", date: "4 days ago", avatarClass: "" }],
-      ingredients: [
-        "2 tablespoons rice flour",
-        "1 cup water",
-        "2 tablespoons breastmilk or formula"
-      ],
-      steps: [
-        "Whisk rice flour in water and boil until it forms a thick porridge.",
-        "Let it cool to warm, then stir in breastmilk/formula to adjust flavor.",
-        "Serve warm."
-      ],
-      ageAdjustment: "For infants (6-12 months): Thickened feeds stay down in the stomach better, preventing spit-ups.",
-      science: "Thicker viscosity foods reduce the volume of gastroesophageal reflux compared to thin liquids."
-    },
-    toddler: {
-      title: "Bland room-temp Curd Rice",
-      desc: "A spice-free, oil-free preparation of room-temperature curd rice, soothing the esophagus.",
-      prepTime: "10 mins",
-      cookTime: "15 mins",
-      servings: "1 bowl",
-      rating: "4.8",
-      reviews: [{ name: "Geeta S. (Mom of 18-month-old)", rating: "5★", text: "Extremely bland but very soothing. It instantly settled her reflux.", date: "Yesterday", avatarClass: "green" }],
-      ingredients: [
-        "1/4 cup rice",
-        "1 cup water",
-        "1/2 cup fresh curd (yogurt, not sour)"
-      ],
-      steps: [
-        "Cook rice with water until mushy. Let it cool completely.",
-        "Mix with curd (do not add salt, oil, or spices).",
-        "Serve at room temp in small portions."
-      ],
-      ageAdjustment: "For toddlers (12-24 months): Spiceless, oil-free curd rice settles stomach acids instantly.",
-      science: "Probiotic yogurt neutralizes stomach acids and cools the esophagus, preventing acid reflux irritation."
-    },
-    preschool: {
-      title: "Fennel Oats Porridge",
-      desc: "Oatmeal cooked in strained fennel water, neutralizing excess stomach acids.",
-      prepTime: "10 mins",
-      cookTime: "10 mins",
-      servings: "1-2 servings",
-      rating: "4.9",
-      reviews: [{ name: "Rajesh T. (Dad of 3-year-old)", rating: "5★", text: "Fennel water is amazing for acidity. This oatmeal recipe is very gentle.", date: "5 days ago", avatarClass: "orange" }],
-      ingredients: [
-        "3 tablespoons rolled oats",
-        "1/4 teaspoon fennel seeds",
-        "1.5 cups water",
-        "1/2 teaspoon jaggery"
-      ],
-      steps: [
-        "Boil fennel seeds in water for 5 minutes, then strain to collect the fennel water.",
-        "Cook oats in the fennel water for 5 minutes until soft.",
-        "Add jaggery and serve warm."
-      ],
-      ageAdjustment: "For 2-4 years: Avoid dairy or fats, as they delay gastric emptying and worsen reflux.",
-      science: "Fennel has carminative properties that relax the digestive tract, and oats absorb excess acid, reducing reflux."
-    }
+// ============================================================================
+// 1. STATE MANAGEMENT
+// ============================================================================
+const state = {
+  selectedStage: 'stage1', // 'stage1' (6-8m), 'stage2' (9-12m), 'stage3' (1-2y), 'stage4' (2-4y)
+  selectedSymptoms: ['fever'], // Max 3, 4th triggers triage lock
+  activeAllergens: new Set(), // 'dairy', 'nuts', 'gluten', 'egg', 'soya'
+  activePantry: new Set(), // 'Rice', 'Moong Dal', 'Ragi', 'Poha', 'Curd', 'Banana', 'Ghee', 'Oats', 'Sabudana'
+  portionMultiplier: 1, // 1 (150ml) or 2 (300ml)
+  activeHeroRecipeId: null, // Overridden if user swaps with an alternative
+  timer: {
+    interval: null,
+    totalSeconds: 0,
+    secondsRemaining: 0,
+    label: ''
   }
 };
 
-// 2. Active Application State
-let selectedAge = '';
-let selectedIllnesses = [];
-let timerInterval = null;
-let activeTimerIndex = null;
-let timerTotalSeconds = 0;
-let timerSecondsRemaining = 0;
-
-// Illness priority map for multi-selection recovery prioritization
-const illnessPriorities = {
-  diarrhea: 100,
-  dehydration: 95,
-  vomiting: 90,
-  stomach: 85,
-  colic: 80,
-  reflux: 75,
-  fever: 70,
-  cold: 60,
-  throat: 55,
-  teething: 50,
-  constipation: 45,
-  rashes: 40,
-  diaperrash: 35,
-  eczema: 30,
-  appetite: 25,
-  picky: 20,
-  immunity: 15,
-  allergy: 14,
-  lactose: 13,
-  anemia: 12,
-  underweight: 11,
-  poorweight: 10,
-  pem: 9,
-  vitd: 8,
-  calcium: 7
+// ============================================================================
+// 2. ICMR-NIN PEDIATRIC GUARDRAIL GUIDES BY AGE STAGE
+// ============================================================================
+const stageGuardrails = {
+  stage1: {
+    title: "6–8 Months (Stage 1: Smooth Purees & Single Grains)",
+    texture: "Silky smooth, strained, spoon-pourable puree",
+    guidance: "<strong>ICMR-NIN Infant Protocol:</strong> Strictly <em>ZERO honey</em> (infant botulism risk), <em>ZERO added salt</em> (immature infant renal kidneys), <em>ZERO added sugar/jaggery</em>, and <em>ZERO whole unground nuts</em> (fatal choking risk). Introduce one single food at a time to monitor tolerance."
+  },
+  stage2: {
+    title: "9–12 Months (Stage 2: Mashed & Soft-Lumpy Foods)",
+    texture: "Fork-mashed, soft-lumpy porridge fostering oral motor chewing",
+    guidance: "<strong>ICMR-NIN Weaning Protocol:</strong> Strictly <em>ZERO honey</em>, <em>ZERO added salt</em>, <em>ZERO added sugar</em>, and <em>ZERO whole nuts</em>. Coarse fork-mashed texture develops jaw motion and tongue transit without needing purée blenders."
+  },
+  stage3: {
+    title: "1–2 Years (Stage 3: Toddler Soft Finger Foods)",
+    texture: "Soft-chew finger foods & modified family pot preparations",
+    guidance: "<strong>ICMR-NIN Toddler Protocol:</strong> Strictly <em>ZERO refined sugar</em> (use natural date/banana sweetness); minimal pinch of iodized salt permitted; gentle digestive spices (jeera, haldi, hing) encouraged; nuts must be finely powdered."
+  },
+  stage4: {
+    title: "2–4 Years (Stage 4: Nutrient-Dense Healing Meals)",
+    texture: "Bite-sized soft solid family meals with diverse nutrient density",
+    guidance: "<strong>ICMR-NIN Preschool Protocol:</strong> High micronutrient density (iron, zinc, vitamin A); balanced energy and protein; avoid deep-fried, heavy commercial snacks, or excessive salt."
+  }
 };
 
-// Category tags mapping
-const tags = {
-  fever: "Fever Recovery",
-  cold: "Cough & Cold Soother",
-  stomach: "Tummy Soother",
-  throat: "Sore Throat Nourisher",
-  constipation: "Constipation Reliever",
-  teething: "Gum Coolant",
-  vomiting: "Nausea Relief",
-  colic: "Anti-Colic Remedy",
-  appetite: "Appetite Stimulant",
-  rashes: "Rashes Cooler",
-  diarrhea: "Diarrhea Soother",
-  dehydration: "Hydration Booster",
-  anemia: "Iron Rich Bowl",
-  underweight: "Calorie Dense",
-  poorweight: "Growth Booster",
-  pem: "High Protein",
-  vitd: "Vitamin D Boost",
-  calcium: "Calcium Rich",
-  immunity: "Immunity Booster",
-  picky: "Kid Approved",
-  allergy: "Allergen Safe",
-  lactose: "Dairy Free",
-  diaperrash: "Cooling Recovery",
-  eczema: "Skin Soother",
-  reflux: "Reflux Relief"
-};
+// ============================================================================
+// 3. RECIPES DATABASE (20 Authentic Pediatric Indian Healing Bowls)
+// ============================================================================
+const recipeDatabase = [
+  {
+    id: "moong_rice_kanji",
+    title: "Golden Moong Dal & Rice Kanji",
+    desc: "The clinical gold standard of Ayurvedic and pediatric recovery foods. Ultra-gentle, easily absorbed amino acids and electrolyte-rich rice water.",
+    type: "Digestive Gruel",
+    prepTime: "5 mins",
+    cookTime: "15 mins",
+    cookMinutes: 15,
+    isQuick: false,
+    staples: ["Rice", "Moong Dal", "Ghee"],
+    allergens: ["dairy"], // Ghee
+    nutritionTags: {
+      hydration_score: 96,
+      calorie_density: 50,
+      gut_gentleness: 99,
+      iron_rich: 45,
+      immunity_boost: 70
+    },
+    baseMacros: { kcal: 115, protein: 3.8, iron: 1.4, hydration: 95 },
+    symptomAffinities: {
+      fever: 98,
+      diarrhea: 99,
+      vomiting: 97,
+      stomach: 96,
+      dehydration: 95,
+      teething: 88,
+      colic: 90,
+      reflux: 92
+    },
+    stages: {
+      stage1: {
+        texture: "Thin, strained liquid broth",
+        ingredients: [
+          { name: "Yellow Moong Dal (soaked)", baseQty: 1.5, unit: "tbsp", scalable: true },
+          { name: "White Rice (washed)", baseQty: 1.5, unit: "tbsp", scalable: true },
+          { name: "Filtered Water", baseQty: 2, unit: "cups", scalable: true },
+          { name: "Haldi (Turmeric Powder)", baseQty: 1, unit: "tiny pinch", scalable: false },
+          { name: "Pure Cow's Ghee", baseQty: 0.25, unit: "tsp", scalable: true, isAllergen: "dairy" },
+          { name: "Roasted Cumin (Jeera) Powder", baseQty: 1, unit: "pinch", scalable: false }
+        ],
+        steps: [
+          "Wash rice and moong dal 3 times, then soak for 15 minutes.",
+          "Pressure cook rice, dal, water, and turmeric for 4 whistles on medium flame until thoroughly soft. [timer:10:Pressure Cook Whistles]",
+          "Mash thoroughly with a potato masher, then strain through a fine mesh sieve to extract a smooth, creamy kanji broth.",
+          "Warm the ghee with roasted cumin powder in a small ladle and whisk directly into the warm kanji. Serve lukewarm."
+        ],
+        guardrail: "Do not add salt. Keep very watery so infant can easily swallow without tiring.",
+        science: "Yellow split moong dal contains easily digestible albumin and globulin proteins. Rice starch water rehydrates enterocytes and repairs the gut mucosal barrier."
+      },
+      stage2: {
+        texture: "Soft fork-mashed semi-liquid porridge",
+        ingredients: [
+          { name: "Yellow Moong Dal", baseQty: 2, unit: "tbsp", scalable: true },
+          { name: "White Rice", baseQty: 2, unit: "tbsp", scalable: true },
+          { name: "Filtered Water", baseQty: 2, unit: "cups", scalable: true },
+          { name: "Haldi & Hing (Asafoetida)", baseQty: 1, unit: "pinch each", scalable: false },
+          { name: "Pure Cow's Ghee", baseQty: 0.5, unit: "tsp", scalable: true, isAllergen: "dairy" },
+          { name: "Jeera (Cumin Seeds)", baseQty: 0.25, unit: "tsp", scalable: false }
+        ],
+        steps: [
+          "Combine soaked rice and moong dal with water, turmeric, and a tiny pinch of hing.",
+          "Pressure cook for 4 whistles until grains collapse. [timer:12:Cook to Mushy Grain]",
+          "Do not strain; mash with a fork to leave soft, silky lumpy grains that the infant can explore.",
+          "Temper with ghee and cumin seeds (remove whole seeds before feeding). Serve warm."
+        ],
+        guardrail: "Zero salt and zero sugar. The naturally savory taste of roasted cumin and ghee satisfies weaning infants.",
+        science: "Hing (asafoetida) contains natural carminative oils that break up trapped intestinal gas bubbles during fever."
+      },
+      stage3: {
+        texture: "Mashed khichdi consistency with soft grains",
+        ingredients: [
+          { name: "Yellow Moong Dal", baseQty: 3, unit: "tbsp", scalable: true },
+          { name: "Rice", baseQty: 3, unit: "tbsp", scalable: true },
+          { name: "Water", baseQty: 2.5, unit: "cups", scalable: true },
+          { name: "Grated Ginger (Adrak)", baseQty: 0.25, unit: "tsp", scalable: false },
+          { name: "Pure Cow's Ghee", baseQty: 1, unit: "tsp", scalable: true, isAllergen: "dairy" },
+          { name: "Iodized Salt (Optional)", baseQty: 1, unit: "very tiny pinch", scalable: false }
+        ],
+        steps: [
+          "Heat ghee in a mini cooker, add cumin seeds, grated ginger, and turmeric.",
+          "Add rice, moong dal, water, and optional small pinch of iodized salt.",
+          "Cook for 4 whistles. Let pressure release naturally. [timer:15:Complete Cooking]",
+          "Mash lightly. Serve warm with an extra drop of ghee."
+        ],
+        guardrail: "Ensure ginger is finely grated so toddler does not bite into hard fiber strands.",
+        science: "Mild ginger gingerols gently stimulate gastric motility without irritating inflamed stomach linings."
+      },
+      stage4: {
+        texture: "Comforting soft-solid khichdi bowl",
+        ingredients: [
+          { name: "Yellow Moong Dal", baseQty: 4, unit: "tbsp", scalable: true },
+          { name: "Rice", baseQty: 4, unit: "tbsp", scalable: true },
+          { name: "Water", baseQty: 3, unit: "cups", scalable: true },
+          { name: "Pure Cow's Ghee", baseQty: 1.5, unit: "tsp", scalable: true, isAllergen: "dairy" },
+          { name: "Jeera & Hing", baseQty: 1, unit: "pinch each", scalable: false },
+          { name: "Iodized Salt", baseQty: 0.25, unit: "tsp", scalable: true }
+        ],
+        steps: [
+          "Roast cumin and hing in ghee until aromatic.",
+          "Add washed dal, rice, salt, and water.",
+          "Cook for 3-4 whistles until tender. [timer:14:Simmer Khichdi]",
+          "Serve warm with a side of fresh homemade curd."
+        ],
+        guardrail: "Avoid hot chili or heavy masalas during fever or gastric recovery.",
+        science: "Balanced ratio of carbohydrate to protein (3:1) maximizes muscle protein sparing during sick days."
+      }
+    }
+  },
 
-// 3. Selection Handlers
-function setAge(age) {
-  selectedAge = age;
+  {
+    id: "roasted_ragi_sari",
+    title: "Roasted Ragi Sari (Finger Millet Porridge)",
+    desc: "South India's most revered traditional baby recovery food. Naturally iron-packed, exceptionally high in calcium, and deeply comforting.",
+    type: "Nutrient Porridge",
+    prepTime: "5 mins",
+    cookTime: "10 mins",
+    cookMinutes: 10,
+    isQuick: true,
+    staples: ["Ragi", "Ghee"],
+    allergens: ["dairy"],
+    nutritionTags: {
+      hydration_score: 70,
+      calorie_density: 80,
+      gut_gentleness: 88,
+      iron_rich: 98,
+      immunity_boost: 82
+    },
+    baseMacros: { kcal: 145, protein: 4.2, iron: 3.6, hydration: 75 },
+    symptomAffinities: {
+      anemia: 99,
+      underweight: 96,
+      poorweight: 96,
+      pem: 95,
+      calcium: 99,
+      vitd: 92,
+      immunity: 88,
+      teething: 85
+    },
+    stages: {
+      stage1: {
+        texture: "Silky smooth, liquid finger millet porridge",
+        ingredients: [
+          { name: "Sprouted Roasted Ragi Flour", baseQty: 1.5, unit: "tbsp", scalable: true },
+          { name: "Filtered Water", baseQty: 1, unit: "cup", scalable: true },
+          { name: "Elaichi (Cardamom) Powder", baseQty: 1, unit: "tiny pinch", scalable: false },
+          { name: "Pure Ghee", baseQty: 0.25, unit: "tsp", scalable: true, isAllergen: "dairy" }
+        ],
+        steps: [
+          "In a small saucepan, whisk ragi flour with cold water until completely lump-free.",
+          "Cook on medium-low flame, stirring continuously with a whisk to prevent scorching. [timer:8:Whisk & Simmer Ragi]",
+          "Watch for a glossy, smooth sheen as the ragi starch gelatinizes.",
+          "Stir in cardamom powder and ghee. Serve lukewarm."
+        ],
+        guardrail: "Zero jaggery/sugar. The natural nutty malt sweetness of sprouted ragi is readily accepted by infants.",
+        science: "Sprouting ragi multiplies bioavailable non-heme iron and breaks down anti-nutritional phytates, maximizing absorption."
+      },
+      stage2: {
+        texture: "Thick spoon-coating malt porridge",
+        ingredients: [
+          { name: "Sprouted Ragi Flour", baseQty: 2, unit: "tbsp", scalable: true },
+          { name: "Water", baseQty: 1, unit: "cup", scalable: true },
+          { name: "Ghee", baseQty: 0.5, unit: "tsp", scalable: true, isAllergen: "dairy" },
+          { name: "Cardamom & Nutmeg Powder", baseQty: 1, unit: "pinch", scalable: false }
+        ],
+        steps: [
+          "Whisk ragi in cold water, cook on low flame for 8-10 minutes until thick. [timer:9:Thick Porridge Simmer]",
+          "Stir in ghee and a whisper of nutmeg to support calming bedtime digestion.",
+          "Feed warm in small spoon portions."
+        ],
+        guardrail: "Do not add honey. Keep texture smooth without un-dissolved dry flour lumps.",
+        science: "Finger millet provides 344mg of elemental calcium per 100g, supporting skeletal mineralization during growth phases."
+      },
+      stage3: {
+        texture: "Warm soothing porridge with mashed dates",
+        ingredients: [
+          { name: "Ragi Flour", baseQty: 2.5, unit: "tbsp", scalable: true },
+          { name: "Water or Coconut Milk", baseQty: 1, unit: "cup", scalable: true },
+          { name: "Soaked Soft Date Puree", baseQty: 1, unit: "tbsp", scalable: true },
+          { name: "Ghee", baseQty: 1, unit: "tsp", scalable: true, isAllergen: "dairy" }
+        ],
+        steps: [
+          "Dissolve ragi in liquid and simmer until bubbling and glossy. [timer:8:Simmer Porridge]",
+          "Stir in soft date puree for healthy mineral sweetness.",
+          "Add ghee and serve warm."
+        ],
+        guardrail: "Use soft soaked date paste instead of crystal sugar to provide dietary potassium and iron.",
+        science: "Dates provide natural fructose bound with soluble fibers, preventing glycemic spikes while nourishing red blood cell synthesis."
+      },
+      stage4: {
+        texture: "Warm comforting ragi halwa porridge",
+        ingredients: [
+          { name: "Ragi Flour", baseQty: 3, unit: "tbsp", scalable: true },
+          { name: "Warm Milk or Water", baseQty: 1, unit: "cup", scalable: true, isAllergen: "dairy" },
+          { name: "Jaggery Powder", baseQty: 1, unit: "tsp", scalable: true },
+          { name: "Ghee", baseQty: 1.5, unit: "tsp", scalable: true, isAllergen: "dairy" },
+          { name: "Powdered Almonds (Finely Sifted)", baseQty: 0.5, unit: "tsp", scalable: true, isAllergen: "nuts" }
+        ],
+        steps: [
+          "Roast ragi in ghee for 2 minutes until fragrant.",
+          "Gradually pour in warm milk while whisking vigorously. [timer:7:Cook with Milk]",
+          "Add jaggery and fine almond powder. Cook for 2 more minutes until halwa consistency."
+        ],
+        guardrail: "If child has diarrhea, jaggery and milk will be automatically substituted by the engine.",
+        science: "Almond lipids provide alpha-tocopherol (Vitamin E) and mono-unsaturated fats to accelerate recovery in underweight children."
+      }
+    }
+  },
+
+  {
+    id: "steamed_apple_mash",
+    title: "Steamed Ceylon Cinnamon & Apple Mash",
+    desc: "Gentle stewed fruit nectar packed with soothing soluble pectin. Calms raw irritated throats, binds loose stools, and provides quick soothing glucose.",
+    type: "Digestive Fruit Mash",
+    prepTime: "5 mins",
+    cookTime: "8 mins",
+    cookMinutes: 8,
+    isQuick: true,
+    staples: ["Banana"],
+    allergens: [],
+    nutritionTags: {
+      hydration_score: 85,
+      calorie_density: 55,
+      gut_gentleness: 98,
+      iron_rich: 30,
+      immunity_boost: 75
+    },
+    baseMacros: { kcal: 78, protein: 0.6, iron: 0.5, hydration: 88 },
+    symptomAffinities: {
+      cold: 95,
+      throat: 98,
+      diarrhea: 96,
+      appetite: 90,
+      teething: 92,
+      stomach: 88
+    },
+    stages: {
+      stage1: {
+        texture: "Silky smooth warm apple nectar",
+        ingredients: [
+          { name: "Sweet Red Apple (Peeled & Cored)", baseQty: 1, unit: "small", scalable: true },
+          { name: "Water for steaming", baseQty: 0.5, unit: "cup", scalable: false },
+          { name: "Ceylon Cinnamon Powder", baseQty: 1, unit: "micro pinch", scalable: false }
+        ],
+        steps: [
+          "Dice peeled apple into small cubes.",
+          "Steam in a steamer or small saucepan with 1/4 cup water for 8 minutes until translucent and fork-tender. [timer:8:Steam Apples]",
+          "Puree thoroughly in a blender until completely silky with zero grit.",
+          "Stir in a tiny micro-pinch of Ceylon cinnamon. Serve warm."
+        ],
+        guardrail: "No added sugar or honey. Always use Ceylon cinnamon (true cinnamon) rather than cassia to avoid coumarin toxicity.",
+        science: "Stewed apple releases soluble pectin that forms a soothing gel over raw pharyngeal mucosa and binds excess water in the intestinal lumen."
+      },
+      stage2: {
+        texture: "Fork-crushed warm compote",
+        ingredients: [
+          { name: "Sweet Apple (Peeled)", baseQty: 1, unit: "medium", scalable: true },
+          { name: "Ceylon Cinnamon", baseQty: 1, unit: "pinch", scalable: false }
+        ],
+        steps: [
+          "Steam apple cubes until soft and squishable between two fingers. [timer:8:Steam Apple Cubes]",
+          "Crush with a fork to maintain soft, melt-in-mouth pulp.",
+          "Serve warm to comfort a sore throat."
+        ],
+        guardrail: "Ensure peel is removed completely as apple skin can cause choking in infants under 12 months.",
+        science: "Warm temperature encourages localized blood circulation in the oropharynx, reducing ticklish cough reflexes."
+      },
+      stage3: {
+        texture: "Steamed apple & pear warm compote",
+        ingredients: [
+          { name: "Apple & Pear (Peeled)", baseQty: 1, unit: "cup diced", scalable: true },
+          { name: "Cinnamon & Clove Powder", baseQty: 1, unit: "pinch each", scalable: false },
+          { name: "Ghee", baseQty: 0.25, unit: "tsp", scalable: true, isAllergen: "dairy" }
+        ],
+        steps: [
+          "Steam fruits with a pinch of clove and cinnamon. [timer:10:Steam Compote]",
+          "Mash with back of a spoon and stir in ghee.",
+          "Serve warm as a soothing mid-morning recovery bowl."
+        ],
+        guardrail: "Keep clove powder microscopic as toddler palates are sensitive to eugenol pungency.",
+        science: "Clove eugenol acts as a mild natural local analgesic for throat discomfort."
+      },
+      stage4: {
+        texture: "Warm stewed fruit bowl with crushed raisins",
+        ingredients: [
+          { name: "Apple Cubes", baseQty: 1, unit: "large", scalable: true },
+          { name: "Black Soaked Raisins (Mashed)", baseQty: 1, unit: "tbsp", scalable: true },
+          { name: "Cinnamon Powder", baseQty: 0.25, unit: "tsp", scalable: false }
+        ],
+        steps: [
+          "Cook apples and soaked raisins in a splash of water for 8 minutes. [timer:8:Stew Apples & Raisins]",
+          "Sprinkle cinnamon and serve as a warm healing dessert."
+        ],
+        guardrail: "Mash raisins to avoid whole dried fruit choking risks.",
+        science: "Natural tartaric acid and soluble fiber gently regulate digestion while satisfying appetite during recovery."
+      }
+    }
+  },
+
+  {
+    id: "curd_rice_pomegranate",
+    title: "Tempering-Soft Curd Rice (Daddojanam)",
+    desc: "Ancient South Indian probiotic healing bowl. Cools high internal fever, restores damaged gut microbiome post-antibiotics or diarrhea, and stops diaper burn.",
+    type: "Probiotic Rice Bowl",
+    prepTime: "5 mins",
+    cookTime: "12 mins",
+    cookMinutes: 12,
+    isQuick: true,
+    staples: ["Rice", "Curd", "Ghee"],
+    allergens: ["dairy"],
+    nutritionTags: {
+      hydration_score: 90,
+      calorie_density: 65,
+      gut_gentleness: 95,
+      iron_rich: 40,
+      immunity_boost: 85
+    },
+    baseMacros: { kcal: 130, protein: 4.5, iron: 1.1, hydration: 88 },
+    symptomAffinities: {
+      diarrhea: 92,
+      stomach: 94,
+      rashes: 98,
+      diaperrash: 99,
+      appetite: 85,
+      teething: 88,
+      fever: 80
+    },
+    stages: {
+      stage1: {
+        texture: "Smooth rice & fresh homemade curd puree",
+        ingredients: [
+          { name: "Overcooked Soft White Rice", baseQty: 3, unit: "tbsp", scalable: true },
+          { name: "Fresh Homemade Sweet Curd (Dahi)", baseQty: 2, unit: "tbsp", scalable: true, isAllergen: "dairy" },
+          { name: "Warm Water / Rice Starch", baseQty: 2, unit: "tbsp", scalable: true },
+          { name: "Roasted Jeera Powder", baseQty: 1, unit: "pinch", scalable: false }
+        ],
+        steps: [
+          "Cook rice until very soft and mushy like baby paste.",
+          "Cool rice to room temperature (never mix curd into hot rice as heat kills live probiotic bacteria).",
+          "Whisk fresh sweet curd and warm water into the rice until silky smooth.",
+          "Sprinkle roasted cumin powder. Serve at room temperature."
+        ],
+        guardrail: "Ensure curd is fresh and not sour; sour curd can cause gastric acid discomfort in infants.",
+        science: "Live Lactobacillus cultures in homemade curd competitively displace pathogenic gut bacteria and synthesize B-complex vitamins."
+      },
+      stage2: {
+        texture: "Soft-mashed curd rice with mild jeera tempering",
+        ingredients: [
+          { name: "Soft Mashed Rice", baseQty: 0.5, unit: "cup", scalable: true },
+          { name: "Fresh Curd", baseQty: 3, unit: "tbsp", scalable: true, isAllergen: "dairy" },
+          { name: "Ghee", baseQty: 0.25, unit: "tsp", scalable: true, isAllergen: "dairy" },
+          { name: "Cumin Seeds (Jeera)", baseQty: 0.25, unit: "tsp", scalable: false },
+          { name: "Hing", baseQty: 1, unit: "pinch", scalable: false }
+        ],
+        steps: [
+          "Mash cooked rice thoroughly while still warm, then let it cool.",
+          "Fold in fresh creamy curd.",
+          "In a mini ladle, warm ghee with cumin seeds and hing. Pour over curd rice (strain out whole cumin).",
+          "Serve comforting bowl."
+        ],
+        guardrail: "Zero salt for babies under 1 year. The natural sweetness of curd is soothing.",
+        science: "Lactic acid lowers intestinal pH, neutralizing alkaline diaper rash triggers and speeding perineal skin healing."
+      },
+      stage3: {
+        texture: "Creamy curd rice with crushed pomegranate juice",
+        ingredients: [
+          { name: "Soft Cooked Rice", baseQty: 0.5, unit: "cup", scalable: true },
+          { name: "Fresh Curd & Milk Splash", baseQty: 0.5, unit: "cup", scalable: true, isAllergen: "dairy" },
+          { name: "Fresh Pomegranate (Anar) Juice", baseQty: 2, unit: "tbsp", scalable: true },
+          { name: "Ghee & Mustard/Curry Leaves", baseQty: 0.5, unit: "tsp", scalable: true, isAllergen: "dairy" },
+          { name: "Iodized Salt", baseQty: 1, unit: "tiny pinch", scalable: false }
+        ],
+        steps: [
+          "Mash rice with curd and a splash of milk for a silky velvet consistency.",
+          "Tempering: Splutter cumin and a fresh curry leaf in ghee. Mix into rice.",
+          "Drizzle fresh sweet pomegranate juice on top. Serve cool."
+        ],
+        guardrail: "Use fresh strained pomegranate juice; avoid giving whole hard pomegranate seeds to toddlers under 2.",
+        science: "Pomegranate punicalagins provide potent natural polyphenols that dampen systemic mucosal inflammation."
+      },
+      stage4: {
+        texture: "Authentic temple-style Daddojanam",
+        ingredients: [
+          { name: "Cooked Rice", baseQty: 0.75, unit: "cup", scalable: true },
+          { name: "Fresh Curd", baseQty: 0.5, unit: "cup", scalable: true, isAllergen: "dairy" },
+          { name: "Ghee Tempering (Jeera, Hing, Curry Leaf)", baseQty: 1, unit: "tsp", scalable: true, isAllergen: "dairy" },
+          { name: "Pomegranate Pearls (Soft)", baseQty: 1, unit: "tbsp", scalable: true },
+          { name: "Salt", baseQty: 0.25, unit: "tsp", scalable: true }
+        ],
+        steps: [
+          "Mix rice, curd, and salt.",
+          "Pour hot tempering of ghee, cumin, and curry leaf over rice.",
+          "Garnish with ruby pomegranate pearls. Serve fresh."
+        ],
+        guardrail: "Do not refrigerate and feed cold; serve at gentle room temperature.",
+        science: "Probiotics accelerate barrier recovery in children recovering from acute infectious gastroenteritis."
+      }
+    }
+  },
+
+  {
+    id: "sabudana_khichdi",
+    title: "Gentle Sabudana (Tapioca Pearl) Light Khichdi",
+    desc: "A staple Ayurvedic recovery meal. High-energy pure complex carbohydrate pearls that provide immediate gentle energy during bouts of vomiting or stomach weakness.",
+    type: "Gentle Energy Bowl",
+    prepTime: "10 mins",
+    cookTime: "12 mins",
+    cookMinutes: 12,
+    isQuick: true,
+    staples: ["Sabudana", "Ghee"],
+    allergens: ["dairy", "nuts"],
+    nutritionTags: {
+      hydration_score: 75,
+      calorie_density: 85,
+      gut_gentleness: 97,
+      iron_rich: 25,
+      immunity_boost: 50
+    },
+    baseMacros: { kcal: 160, protein: 1.2, iron: 0.8, hydration: 78 },
+    symptomAffinities: {
+      vomiting: 98,
+      diarrhea: 94,
+      stomach: 92,
+      underweight: 90,
+      fever: 85,
+      dehydration: 82
+    },
+    stages: {
+      stage1: {
+        texture: "Sabudana water / smooth gelatinized pudding",
+        ingredients: [
+          { name: "Sabudana (Soaked for 4 hours)", baseQty: 2, unit: "tbsp", scalable: true },
+          { name: "Water", baseQty: 1.5, unit: "cups", scalable: true },
+          { name: "Jeera Powder", baseQty: 1, unit: "pinch", scalable: false },
+          { name: "Ghee", baseQty: 0.25, unit: "tsp", scalable: true, isAllergen: "dairy" }
+        ],
+        steps: [
+          "Boil soaked sabudana pearls in water on medium heat until they turn completely clear and glassy. [timer:10:Boil Sabudana to Glassy]",
+          "Blend into a silky starch broth.",
+          "Add roasted cumin powder and a drop of ghee. Serve warm in small sips."
+        ],
+        guardrail: "Ensure pearls are boiled to 100% translucency so no rubbery white centers remain.",
+        science: "Tapioca starch is exceptionally low in complex fiber and protein, placing minimal digestive demand on the stomach after vomiting."
+      },
+      stage2: {
+        texture: "Soft translucent pearl mash",
+        ingredients: [
+          { name: "Sabudana (Soaked overnight)", baseQty: 3, unit: "tbsp", scalable: true },
+          { name: "Boiled Potato Mash", baseQty: 1, unit: "tbsp", scalable: true },
+          { name: "Ghee", baseQty: 0.5, unit: "tsp", scalable: true, isAllergen: "dairy" },
+          { name: "Jeera", baseQty: 0.25, unit: "tsp", scalable: false }
+        ],
+        steps: [
+          "Heat ghee in a pan, add cumin.",
+          "Add soaked sabudana and mashed boiled potato with 3 tbsp water.",
+          "Cover and steam for 5 minutes until pearls turn transparent. [timer:5:Steam Soft Pearls]",
+          "Mash with spoon and serve warm."
+        ],
+        guardrail: "No whole peanuts for infants under 12 months. Peanuts are omitted for safety.",
+        science: "Combined tapioca and potato starches rapidly replenish glycogen stores without provoking nausea reflexes."
+      },
+      stage3: {
+        texture: "Soft-tossed non-sticky toddler khichdi",
+        ingredients: [
+          { name: "Sabudana (Soaked)", baseQty: 0.5, unit: "cup", scalable: true },
+          { name: "Boiled Potato Cubes", baseQty: 2, unit: "tbsp", scalable: true },
+          { name: "Finely Powdered Roasted Peanut (Nut-Free option available)", baseQty: 1, unit: "tbsp", scalable: true, isAllergen: "nuts" },
+          { name: "Ghee", baseQty: 1, unit: "tsp", scalable: true, isAllergen: "dairy" },
+          { name: "Cumin & Rock Salt", baseQty: 1, unit: "pinch each", scalable: false }
+        ],
+        steps: [
+          "Toss soaked pearls with peanut powder and salt.",
+          "Heat ghee, add cumin and potato cubes.",
+          "Add sabudana, sprinkle water, cover and cook for 6 minutes. [timer:6:Cover & Steam]",
+          "Serve soft and warm."
+        ],
+        guardrail: "Ensure peanuts are milled to ultra-fine dust; never give peanut chunks to young toddlers.",
+        science: "Peanut powder adds essential arginine and plant lipids to balance the carbohydrate load."
+      },
+      stage4: {
+        texture: "Traditional light pearl khichdi with lemon squeeze",
+        ingredients: [
+          { name: "Sabudana (Soaked)", baseQty: 0.75, unit: "cup", scalable: true },
+          { name: "Boiled Potato & Finely Ground Peanuts", baseQty: 2, unit: "tbsp each", scalable: true, isAllergen: "nuts" },
+          { name: "Ghee & Cumin Seeds", baseQty: 1.5, unit: "tsp", scalable: true, isAllergen: "dairy" },
+          { name: "Fresh Lemon Juice & Salt", baseQty: 0.5, unit: "tsp each", scalable: false }
+        ],
+        steps: [
+          "Saute cumin and potatoes in ghee.",
+          "Add sabudana coated with roasted peanut powder and salt.",
+          "Cook until pearls are soft and glossy. Finish with a squeeze of fresh lemon juice. [timer:6:Saute Khichdi]"
+        ],
+        guardrail: "Lemon juice should be mild and not overly sour during acid reflux.",
+        science: "Vitamin C from lemon juice enhances iron bioavailability while alkalizing urine output."
+      }
+    }
+  },
+
+  {
+    id: "ajwain_jeera_broth",
+    title: "Roasted Ajwain & Jeera Digestive Broth",
+    desc: "Traditional grandmother's remedy for colic, trapped wind, and acid reflux. Gently warms the digestive tract, relaxes bowel spasms, and prevents dehydration.",
+    type: "Digestive Carminative Broth",
+    prepTime: "2 mins",
+    cookTime: "8 mins",
+    cookMinutes: 8,
+    isQuick: true,
+    staples: ["Ghee"],
+    allergens: [],
+    nutritionTags: {
+      hydration_score: 99,
+      calorie_density: 20,
+      gut_gentleness: 99,
+      iron_rich: 35,
+      immunity_boost: 80
+    },
+    baseMacros: { kcal: 25, protein: 0.4, iron: 0.6, hydration: 99 },
+    symptomAffinities: {
+      colic: 99,
+      stomach: 97,
+      reflux: 96,
+      dehydration: 94,
+      cold: 85,
+      vomiting: 88
+    },
+    stages: {
+      stage1: {
+        texture: "Clear warm herbal infusion",
+        ingredients: [
+          { name: "Carom Seeds (Ajwain)", baseQty: 0.25, unit: "tsp", scalable: false },
+          { name: "Cumin Seeds (Jeera)", baseQty: 0.25, unit: "tsp", scalable: false },
+          { name: "Filtered Water", baseQty: 1.5, unit: "cups", scalable: true }
+        ],
+        steps: [
+          "Dry roast ajwain and jeera on low heat for 60 seconds until aromatic.",
+          "Add water and bring to a rolling boil. [timer:6:Boil Herbal Paani]",
+          "Simmer until water reduces to 1 cup.",
+          "Strain twice through muslin cloth to remove every seed particle. Feed 2-3 teaspoons lukewarm before naptime."
+        ],
+        guardrail: "Never feed whole seeds to an infant. Only feed the strained herbal water.",
+        science: "Ajwain thymol possesses antispasmodic properties that relax the smooth muscles of the infant gastrointestinal tract."
+      },
+      stage2: {
+        texture: "Infused digestive warm water",
+        ingredients: [
+          { name: "Ajwain & Jeera", baseQty: 0.5, unit: "tsp each", scalable: false },
+          { name: "Water", baseQty: 2, unit: "cups", scalable: true }
+        ],
+        steps: [
+          "Boil ajwain and jeera in water for 8 minutes. [timer:8:Boil Digestive Broth]",
+          "Strain into a sippy cup.",
+          "Offer small sips throughout the day between solid feeds."
+        ],
+        guardrail: "Do not add honey or sugar. Natural herbal flavor is well tolerated.",
+        science: "Cuminaldehyde in jeera stimulates salivary amylase and pancreatic enzymes, speeding gastric emptying."
+      },
+      stage3: {
+        texture: "Digestive broth with a whisper of dry ginger",
+        ingredients: [
+          { name: "Ajwain & Jeera", baseQty: 0.5, unit: "tsp each", scalable: false },
+          { name: "Dry Ginger (Saunth) Powder", baseQty: 1, unit: "tiny pinch", scalable: false },
+          { name: "Water", baseQty: 2, unit: "cups", scalable: true }
+        ],
+        steps: [
+          "Boil spices together with water until golden yellow. [timer:8:Boil Spiced Broth]",
+          "Strain and serve warm in a cup."
+        ],
+        guardrail: "Keep saunth very subtle so toddler does not find it pungent.",
+        science: "Gingerols combined with thymol accelerate gas clearance and suppress reflux symptoms."
+      },
+      stage4: {
+        texture: "Warm digestive tea with tulsi leaf",
+        ingredients: [
+          { name: "Ajwain, Jeera & Fennel (Saunf)", baseQty: 0.5, unit: "tsp each", scalable: false },
+          { name: "Fresh Tulsi Leaves", baseQty: 2, unit: "leaves", scalable: false },
+          { name: "Water", baseQty: 2, unit: "cups", scalable: true }
+        ],
+        steps: [
+          "Boil seeds and torn tulsi leaves in water for 7 minutes. [timer:7:Boil Tulsi Broth]",
+          "Strain and serve warm."
+        ],
+        guardrail: "Avoid drinking cold; warm liquids dissolve trapped gas far more effectively.",
+        science: "Fennel anethole relieves visceral gut cramping and normalizes irregular intestinal peristalsis."
+      }
+    }
+  },
+
+  {
+    id: "sprouted_green_gram_porridge",
+    title: "Sprouted Moong & Rice Mash",
+    desc: "A powerhouse of bioavailable protein, iron, and zinc for children recovering from weight loss, protein deficiency (PEM), or extended illness.",
+    type: "High-Protein Recovery Mash",
+    prepTime: "10 mins",
+    cookTime: "18 mins",
+    cookMinutes: 18,
+    isQuick: false,
+    staples: ["Moong Dal", "Rice", "Ghee"],
+    allergens: ["dairy"],
+    nutritionTags: {
+      hydration_score: 75,
+      calorie_density: 88,
+      gut_gentleness: 88,
+      iron_rich: 92,
+      immunity_boost: 88
+    },
+    baseMacros: { kcal: 155, protein: 6.2, iron: 2.8, hydration: 80 },
+    symptomAffinities: {
+      underweight: 98,
+      poorweight: 99,
+      pem: 99,
+      anemia: 92,
+      immunity: 88,
+      appetite: 82
+    },
+    stages: {
+      stage1: {
+        texture: "Ultra-smooth sprouted green gram puree",
+        ingredients: [
+          { name: "Sprouted Green Moong (Steamed)", baseQty: 2, unit: "tbsp", scalable: true },
+          { name: "Cooked Soft Rice", baseQty: 2, unit: "tbsp", scalable: true },
+          { name: "Pure Cow's Ghee", baseQty: 0.5, unit: "tsp", scalable: true, isAllergen: "dairy" },
+          { name: "Warm Water", baseQty: 0.5, unit: "cup", scalable: true }
+        ],
+        steps: [
+          "Pressure cook sprouted green gram and rice for 5 whistles until completely soft. [timer:15:Pressure Cook Sprouted Dal]",
+          "Blend into a velvety, lump-free smooth paste.",
+          "Whisk in warm ghee to add essential medium-chain fatty acids. Serve warm."
+        ],
+        guardrail: "Ensure sprouts are thoroughly pressure-cooked; never feed raw sprouts to an infant.",
+        science: "Sprouting green gram synthesizes endogenous Vitamin C, which converts non-heme iron into the readily absorbable ferrous form."
+      },
+      stage2: {
+        texture: "Soft fork-mashed sprouted khichdi",
+        ingredients: [
+          { name: "Sprouted Moong & Rice", baseQty: 0.5, unit: "cup combined", scalable: true },
+          { name: "Ghee & Jeera", baseQty: 0.5, unit: "tsp", scalable: true, isAllergen: "dairy" },
+          { name: "Turmeric & Hing", baseQty: 1, unit: "pinch each", scalable: false }
+        ],
+        steps: [
+          "Cook sprouted dal and rice with turmeric and hing until mushy. [timer:16:Cook Sprouted Mash]",
+          "Mash with potato masher.",
+          "Add ghee and serve."
+        ],
+        guardrail: "Zero salt under 12 months. The rich umami of sprouted lentils provides great natural flavor.",
+        science: "Digestibility of sprouted protein increases by 30% due to endogenous proteases breaking down complex protein matrices."
+      },
+      stage3: {
+        texture: "Soft sprouted dal rice with carrot bits",
+        ingredients: [
+          { name: "Sprouted Moong & Rice", baseQty: 0.5, unit: "cup", scalable: true },
+          { name: "Finely Grated Carrot", baseQty: 2, unit: "tbsp", scalable: true },
+          { name: "Ghee & Cumin", baseQty: 1, unit: "tsp", scalable: true, isAllergen: "dairy" },
+          { name: "Salt", baseQty: 1, unit: "pinch", scalable: false }
+        ],
+        steps: [
+          "Saute cumin and grated carrots in ghee for 2 minutes.",
+          "Add sprouted dal, rice, salt, and water.",
+          "Pressure cook for 4 whistles. [timer:14:Cook Carrot Dal Rice]",
+          "Mash lightly and serve warm."
+        ],
+        guardrail: "Grate carrots very finely so they cook to melt-in-mouth consistency.",
+        science: "Beta-carotene from carrots synergizes with dietary lipids in ghee to support mucosal immune repair."
+      },
+      stage4: {
+        texture: "Nutritious sprouted moong pulao khichdi",
+        ingredients: [
+          { name: "Sprouted Moong & Rice", baseQty: 0.75, unit: "cup", scalable: true },
+          { name: "Mixed Vegetables (Carrot, Peas, Beans)", baseQty: 3, unit: "tbsp", scalable: true },
+          { name: "Ghee & Spices", baseQty: 1.5, unit: "tsp", scalable: true, isAllergen: "dairy" },
+          { name: "Iodized Salt", baseQty: 0.25, unit: "tsp", scalable: true }
+        ],
+        steps: [
+          "Tempering with ghee, jeera, and mild turmeric.",
+          "Toss veggies, sprouted moong, rice, salt, and 2 cups water.",
+          "Cook for 3 whistles. [timer:14:Cook Sprouted Pulao]",
+          "Serve warm with fresh curd."
+        ],
+        guardrail: "Avoid hot green chilies or whole garam masala pods.",
+        science: "Complete complementary amino acid profile supports catch-up growth in underweight children."
+      }
+    }
+  },
+
+  {
+    id: "soothing_poha_porridge",
+    title: "Soft Turmeric Steamed Poha (Flattened Rice Mash)",
+    desc: "Light, quick-cooking flattened rice porridge. High in bioavailable iron from traditional iron-roller processing, extremely easy to digest during fever and tummy distress.",
+    type: "Quick Iron Mash",
+    prepTime: "3 mins",
+    cookTime: "8 mins",
+    cookMinutes: 8,
+    isQuick: true,
+    staples: ["Poha", "Ghee"],
+    allergens: ["dairy"],
+    nutritionTags: {
+      hydration_score: 80,
+      calorie_density: 65,
+      gut_gentleness: 94,
+      iron_rich: 88,
+      immunity_boost: 72
+    },
+    baseMacros: { kcal: 120, protein: 2.4, iron: 2.9, hydration: 82 },
+    symptomAffinities: {
+      anemia: 90,
+      fever: 88,
+      stomach: 90,
+      teething: 85,
+      picky: 84,
+      appetite: 82
+    },
+    stages: {
+      stage1: {
+        texture: "Silky smooth poha & vegetable broth puree",
+        ingredients: [
+          { name: "Thick Poha (Rinsed & Soaked)", baseQty: 3, unit: "tbsp", scalable: true },
+          { name: "Warm Water or Moong Broth", baseQty: 0.75, unit: "cup", scalable: true },
+          { name: "Turmeric Powder", baseQty: 1, unit: "tiny pinch", scalable: false },
+          { name: "Ghee", baseQty: 0.25, unit: "tsp", scalable: true, isAllergen: "dairy" }
+        ],
+        steps: [
+          "Rinse poha thoroughly in water twice until soft.",
+          "Cook poha in water and turmeric for 5 minutes until it melts completely. [timer:5:Simmer Poha]",
+          "Blend into a silky smooth porridge.",
+          "Stir in ghee and serve lukewarm."
+        ],
+        guardrail: "Ensure poha is fresh and clean; rinse thoroughly to remove surface impurities.",
+        science: "Flattened rice contains 20mg iron per 100g due to processing, addressing toddler iron-deficiency anemia."
+      },
+      stage2: {
+        texture: "Soft fork-mashed poha with roasted jeera",
+        ingredients: [
+          { name: "Poha (Rinsed)", baseQty: 0.5, unit: "cup", scalable: true },
+          { name: "Boiled Potato Mash", baseQty: 1, unit: "tbsp", scalable: true },
+          { name: "Ghee & Jeera", baseQty: 0.5, unit: "tsp", scalable: true, isAllergen: "dairy" },
+          { name: "Hing", baseQty: 1, unit: "pinch", scalable: false }
+        ],
+        steps: [
+          "Warm ghee in a pan, add jeera and hing.",
+          "Add rinsed poha, boiled potato, and 4 tbsp water.",
+          "Cover and steam for 4 minutes. [timer:4:Steam Poha Mash]",
+          "Mash with fork and feed warm."
+        ],
+        guardrail: "Do not add mustard seeds or hard crunchy nuts for stage 2 infants.",
+        science: "Easily broken down amylase bonds make flattened rice require 40% less digestive enzyme expenditure."
+      },
+      stage3: {
+        texture: "Soft vegetable poha with lemon drizzle",
+        ingredients: [
+          { name: "Poha", baseQty: 0.5, unit: "cup", scalable: true },
+          { name: "Finely Chopped Boiled Carrots & Peas", baseQty: 2, unit: "tbsp", scalable: true },
+          { name: "Ghee & Cumin", baseQty: 1, unit: "tsp", scalable: true, isAllergen: "dairy" },
+          { name: "Lemon Juice & Salt", baseQty: 1, unit: "tiny pinch each", scalable: false }
+        ],
+        steps: [
+          "Saute veggies in ghee.",
+          "Add softened poha, pinch of turmeric, and salt.",
+          "Cover and steam for 3 minutes. [timer:3:Steam Veggie Poha]",
+          "Finish with a squeeze of fresh lemon juice to boost iron absorption."
+        ],
+        guardrail: "Lemon juice ascorbic acid is essential to convert ferric iron in poha to absorbable ferrous state.",
+        science: "Ascorbic acid from fresh lemon triples non-heme iron absorption in young toddlers."
+      },
+      stage4: {
+        texture: "Colorful mild kanda poha with soft roasted peanuts",
+        ingredients: [
+          { name: "Poha", baseQty: 0.75, unit: "cup", scalable: true },
+          { name: "Onion & Potato", baseQty: 2, unit: "tbsp each", scalable: true },
+          { name: "Crushed Roasted Peanuts", baseQty: 1, unit: "tbsp", scalable: true, isAllergen: "nuts" },
+          { name: "Ghee & Mild Spices", baseQty: 1.5, unit: "tsp", scalable: true, isAllergen: "dairy" },
+          { name: "Salt & Lemon", baseQty: 0.25, unit: "tsp", scalable: true }
+        ],
+        steps: [
+          "Saute onions and potatoes in ghee until soft.",
+          "Toss with rinsed poha, crushed peanuts, turmeric, and salt. [timer:5:Saute Kanda Poha]",
+          "Garnish with coriander and lemon."
+        ],
+        guardrail: "Keep onion very soft and translucent; avoid browned or crisp bits during recovery.",
+        science: "Balanced macro breakdown with healthy mono-unsaturated fats supports sustained recovery energy."
+      }
+    }
+  },
+
+  {
+    id: "banana_sheera",
+    title: "Ghee-Roasted Suji & Banana Mash",
+    desc: "A calorie-dense sweet halwa made with semolina, ripe bananas, and golden cow's ghee. Ideal for underweight recovery, teething comfort, and boosting energy.",
+    type: "Calorie Recovery Mash",
+    prepTime: "5 mins",
+    cookTime: "10 mins",
+    cookMinutes: 10,
+    isQuick: true,
+    staples: ["Banana", "Ghee"],
+    allergens: ["gluten", "dairy"],
+    nutritionTags: {
+      hydration_score: 55,
+      calorie_density: 95,
+      gut_gentleness: 80,
+      iron_rich: 50,
+      immunity_boost: 65
+    },
+    baseMacros: { kcal: 185, protein: 3.2, iron: 1.5, hydration: 60 },
+    symptomAffinities: {
+      underweight: 98,
+      poorweight: 98,
+      constipation: 88,
+      appetite: 92,
+      teething: 90
+    },
+    stages: {
+      stage1: {
+        texture: "Smooth semolina & ripe elaichi banana puree",
+        ingredients: [
+          { name: "Fine Suji / Rava", baseQty: 1.5, unit: "tbsp", scalable: true, isAllergen: "gluten" },
+          { name: "Mashed Ripe Robusta or Elaichi Banana", baseQty: 2, unit: "tbsp", scalable: true },
+          { name: "Water", baseQty: 1, unit: "cup", scalable: true },
+          { name: "Pure Ghee", baseQty: 0.5, unit: "tsp", scalable: true, isAllergen: "dairy" },
+          { name: "Cardamom", baseQty: 1, unit: "micro pinch", scalable: false }
+        ],
+        steps: [
+          "Dry roast suji on low heat for 3 minutes until aromatic without browning.",
+          "Pour in boiling water while whisking briskly to prevent lumps. [timer:5:Whisk & Simmer Suji]",
+          "Stir in mashed ripe banana and ghee until a glossy smooth puree forms.",
+          "Serve lukewarm."
+        ],
+        guardrail: "Zero added sugar or jaggery. The natural fructose of ripe banana is completely sweet.",
+        science: "Ripe bananas provide short-chain fatty acid precursors and potassium that support neural function."
+      },
+      stage2: {
+        texture: "Soft spoonable banana halwa",
+        ingredients: [
+          { name: "Fine Suji", baseQty: 2, unit: "tbsp", scalable: true, isAllergen: "gluten" },
+          { name: "Ripe Banana Mash", baseQty: 0.5, unit: "banana", scalable: true },
+          { name: "Ghee", baseQty: 1, unit: "tsp", scalable: true, isAllergen: "dairy" },
+          { name: "Water", baseQty: 1, unit: "cup", scalable: true }
+        ],
+        steps: [
+          "Roast suji in ghee until fragrant.",
+          "Add boiling water and cook for 5 minutes. [timer:5:Cook Suji Sheera]",
+          "Stir in fork-mashed banana. Serve warm."
+        ],
+        guardrail: "Ensure suji is cooked until grains are completely soft and water-saturated.",
+        science: "Easily absorbed carbohydrates help restore depleted liver glycogen reserves."
+      },
+      stage3: {
+        texture: "Rich banana sheera with date syrup",
+        ingredients: [
+          { name: "Suji", baseQty: 3, unit: "tbsp", scalable: true, isAllergen: "gluten" },
+          { name: "Mashed Banana", baseQty: 0.5, unit: "banana", scalable: true },
+          { name: "Date Syrup / Puree", baseQty: 1, unit: "tsp", scalable: true },
+          { name: "Ghee", baseQty: 1.5, unit: "tsp", scalable: true, isAllergen: "dairy" },
+          { name: "Water or Milk Splash", baseQty: 1, unit: "cup", scalable: true, isAllergen: "dairy" }
+        ],
+        steps: [
+          "Roast suji in golden ghee.",
+          "Add water/milk, banana, and date puree. Simmer for 6 minutes. [timer:6:Simmer Sheera]",
+          "Serve warm."
+        ],
+        guardrail: "If child has active diarrhea, the mutation engine will automatically replace banana sheera.",
+        science: "High energy density (1.5 kcal/g) provides concentrated recovery calories for small toddler stomachs."
+      },
+      stage4: {
+        texture: "Traditional festive Satyanarayan-style mild sheera",
+        ingredients: [
+          { name: "Suji / Semolina", baseQty: 4, unit: "tbsp", scalable: true, isAllergen: "gluten" },
+          { name: "Ripe Banana & Jaggery", baseQty: 1, unit: "banana & 1 tsp jaggery", scalable: true },
+          { name: "Pure Cow's Ghee", baseQty: 2, unit: "tsp", scalable: true, isAllergen: "dairy" },
+          { name: "Cardamom & Finely Milled Almonds", baseQty: 1, unit: "pinch each", scalable: false, isAllergen: "nuts" }
+        ],
+        steps: [
+          "Golden roast suji in ghee.",
+          "Add warm water, jaggery, banana, and cardamom. Cook until halwa leaves pan sides. [timer:7:Cook Halwa]",
+          "Garnish with fine almond powder."
+        ],
+        guardrail: "Ensure nuts are powdered to avoid choking hazard in preschoolers.",
+        science: "Butyric acid in cow's ghee nourishes colonocyte enterocytes and enhances nutrient absorption."
+      }
+    }
+  },
+
+  {
+    id: "papaya_stewed_puree",
+    title: "Warm Stewed Papaya & Fennel Nectar",
+    desc: "Nature's gentlest digestive fruit remedy. Rich in natural papain enzymes that dissolve digestive sludge, soften stubborn stools, and soothe tummy colic.",
+    type: "Gentle Laxative Mash",
+    prepTime: "5 mins",
+    cookTime: "8 mins",
+    cookMinutes: 8,
+    isQuick: true,
+    staples: [],
+    allergens: [],
+    nutritionTags: {
+      hydration_score: 92,
+      calorie_density: 45,
+      gut_gentleness: 96,
+      iron_rich: 30,
+      immunity_boost: 88
+    },
+    baseMacros: { kcal: 65, protein: 0.8, iron: 0.4, hydration: 92 },
+    symptomAffinities: {
+      constipation: 99,
+      stomach: 92,
+      appetite: 90,
+      immunity: 85,
+      vitd: 75
+    },
+    stages: {
+      stage1: {
+        texture: "Silky smooth steamed papaya puree",
+        ingredients: [
+          { name: "Ripe Orange Papaya (Peeled & Deseeded)", baseQty: 0.5, unit: "cup cubed", scalable: true },
+          { name: "Fennel (Saunf) Water", baseQty: 2, unit: "tbsp", scalable: false }
+        ],
+        steps: [
+          "Steam ripe papaya cubes with fennel water for 6 minutes until soft. [timer:6:Steam Papaya]",
+          "Blend into a silky, sweet orange nectar.",
+          "Serve lukewarm."
+        ],
+        guardrail: "Ensure papaya is 100% ripe (soft orange skin and flesh); never feed raw or semi-ripe papaya to babies.",
+        science: "Natural papain and high water content soften hard fecal masses without causing colic or intestinal cramping."
+      },
+      stage2: {
+        texture: "Fork-mashed warm papaya pulp",
+        ingredients: [
+          { name: "Ripe Papaya", baseQty: 0.75, unit: "cup", scalable: true },
+          { name: "Fennel Powder", baseQty: 1, unit: "tiny pinch", scalable: false }
+        ],
+        steps: [
+          "Lightly steam papaya and mash with fork. [timer:6:Steam & Mash Papaya]",
+          "Stir in a pinch of saunf powder.",
+          "Serve as a gentle afternoon snack."
+        ],
+        guardrail: "Zero salt or sugar. Naturally rich in carotenoids and gentle sweetness.",
+        science: "Rich in provitamin A carotenoids which support mucosal epithelial regeneration."
+      },
+      stage3: {
+        texture: "Papaya and soaked prune warm compote",
+        ingredients: [
+          { name: "Ripe Papaya Cubes", baseQty: 0.75, unit: "cup", scalable: true },
+          { name: "Soaked Soft Prunes (Pureed)", baseQty: 1, unit: "prune", scalable: false }
+        ],
+        steps: [
+          "Mash steamed papaya with pureed soaked prune. [timer:5:Warm Compote]",
+          "Serve warm to stimulate morning bowel movement."
+        ],
+        guardrail: "Remove prune pit completely.",
+        science: "Prune sorbitol draws water into colon through osmosis, relieving stubborn toddler withholding constipation."
+      },
+      stage4: {
+        texture: "Chilled fresh papaya cubes with lime and mint",
+        ingredients: [
+          { name: "Ripe Sweet Papaya", baseQty: 1, unit: "cup bite-sized", scalable: true },
+          { name: "Fresh Lime Drizzle", baseQty: 0.25, unit: "tsp", scalable: false },
+          { name: "Crushed Mint Leaves", baseQty: 2, unit: "leaves", scalable: false }
+        ],
+        steps: [
+          "Cut soft papaya into bite-sized cubes.",
+          "Toss with a drop of lime juice and mint. Serve fresh."
+        ],
+        guardrail: "Ensure pieces are soft and chewable.",
+        science: "Dietary fiber and proteolytic enzymes optimize digestive transit time."
+      }
+    }
+  },
+
+  {
+    id: "besan_sheera",
+    title: "Golden Soothing Besan & Haldi Kadha Sheera",
+    desc: "An age-old Punjabi home remedy for cold, chest congestion, and persistent cough. A warm, pourable sweet soup made of roasted chickpea flour, pure ghee, and warming spices.",
+    type: "Warming Respiratory Broth",
+    prepTime: "5 mins",
+    cookTime: "12 mins",
+    cookMinutes: 12,
+    isQuick: true,
+    staples: ["Ghee"],
+    allergens: ["dairy"],
+    nutritionTags: {
+      hydration_score: 65,
+      calorie_density: 85,
+      gut_gentleness: 78,
+      iron_rich: 70,
+      immunity_boost: 98
+    },
+    baseMacros: { kcal: 165, protein: 5.1, iron: 2.2, hydration: 68 },
+    symptomAffinities: {
+      cold: 99,
+      throat: 98,
+      fever: 88,
+      immunity: 95
+    },
+    stages: {
+      stage1: {
+        texture: "Smooth roasted besan & warm water soup",
+        ingredients: [
+          { name: "Gram Flour (Besan)", baseQty: 1.5, unit: "tbsp", scalable: true },
+          { name: "Pure Cow's Ghee", baseQty: 0.5, unit: "tsp", scalable: true, isAllergen: "dairy" },
+          { name: "Warm Filtered Water", baseQty: 1, unit: "cup", scalable: true },
+          { name: "Haldi (Turmeric)", baseQty: 1, unit: "pinch", scalable: false },
+          { name: "Elaichi (Cardamom)", baseQty: 1, unit: "pinch", scalable: false }
+        ],
+        steps: [
+          "Melt ghee in a small pan, roast besan on low flame for 5 minutes until fragrant and golden. [timer:5:Roast Besan]",
+          "Slowly pour in warm water while whisking vigorously to avoid any lumps.",
+          "Add turmeric and cardamom. Simmer for 3 minutes until it forms a thin pourable soup. [timer:3:Simmer Sheera]",
+          "Feed warm right before bedtime."
+        ],
+        guardrail: "No jaggery or honey for infants under 12 months. Besan natural nuttiness is sufficient.",
+        science: "Warm ghee and turmeric soothe the tracheal lining and ease night-time dry coughing spasms."
+      },
+      stage2: {
+        texture: "Warm pourable soup consistency",
+        ingredients: [
+          { name: "Besan", baseQty: 2, unit: "tbsp", scalable: true },
+          { name: "Ghee", baseQty: 1, unit: "tsp", scalable: true, isAllergen: "dairy" },
+          { name: "Warm Water", baseQty: 1, unit: "cup", scalable: true },
+          { name: "Turmeric & Black Pepper", baseQty: 1, unit: "tiny pinch each", scalable: false }
+        ],
+        steps: [
+          "Roast besan in ghee until golden nutty aroma releases.",
+          "Add water and spices, whisking continuously. [timer:6:Whisk & Simmer]",
+          "Serve warm in a small feeding bowl."
+        ],
+        guardrail: "Ensure black pepper is a microscopic speck to avoid throat irritation.",
+        science: "Piperine in black pepper enhances curcumin bioavailability by up to 2000%."
+      },
+      stage3: {
+        texture: "Comforting warm golden besan sheera",
+        ingredients: [
+          { name: "Besan", baseQty: 2.5, unit: "tbsp", scalable: true },
+          { name: "Ghee", baseQty: 1.5, unit: "tsp", scalable: true, isAllergen: "dairy" },
+          { name: "Warm Milk or Water", baseQty: 1, unit: "cup", scalable: true, isAllergen: "dairy" },
+          { name: "Jaggery Powder", baseQty: 1, unit: "tsp", scalable: true },
+          { name: "Haldi & Cinnamon", baseQty: 1, unit: "pinch each", scalable: false }
+        ],
+        steps: [
+          "Roast besan in ghee until light brown.",
+          "Whisk in warm liquid, jaggery, and spices. [timer:6:Cook Sheera]",
+          "Simmer for 3 minutes. Feed warm before sleep."
+        ],
+        guardrail: "If chest is very congested, use water instead of milk to avoid thick mucus sensation.",
+        science: "Chickpea flour is rich in antioxidants, zinc, and protein, fueling leukocyte antibody generation."
+      },
+      stage4: {
+        texture: "Rich Punjabi Haldi Besan Sheera",
+        ingredients: [
+          { name: "Besan", baseQty: 3, unit: "tbsp", scalable: true },
+          { name: "Pure Ghee", baseQty: 2, unit: "tsp", scalable: true, isAllergen: "dairy" },
+          { name: "Warm Milk", baseQty: 1, unit: "cup", scalable: true, isAllergen: "dairy" },
+          { name: "Jaggery & Nutmeg", baseQty: 1, unit: "tsp & pinch", scalable: true },
+          { name: "Finely Ground Almonds", baseQty: 1, unit: "tsp", scalable: true, isAllergen: "nuts" }
+        ],
+        steps: [
+          "Roast besan in ghee to deep golden shade.",
+          "Add milk and jaggery, stirring continuously until velvety thick. [timer:6:Simmer Rich Sheera]",
+          "Dust with nutmeg and almond dust. Serve hot-warm."
+        ],
+        guardrail: "Do not let the child drink cold water immediately after eating hot besan sheera.",
+        science: "Nutmeg myristicin has mild sedative and bronchodilator qualities, promoting restorative deep sleep."
+      }
+    }
+  },
+
+  {
+    id: "oats_apple_kheer",
+    title: "Cardamom Rolled Oats & Pear Porridge",
+    desc: "Gentle soluble beta-glucan fiber porridge that coats the digestive lining, regulates bowel movements, and provides slow-release soothing energy.",
+    type: "Soluble Fiber Porridge",
+    prepTime: "5 mins",
+    cookTime: "8 mins",
+    cookMinutes: 8,
+    isQuick: true,
+    staples: ["Oats", "Ghee"],
+    allergens: ["dairy"],
+    nutritionTags: {
+      hydration_score: 82,
+      calorie_density: 70,
+      gut_gentleness: 92,
+      iron_rich: 75,
+      immunity_boost: 78
+    },
+    baseMacros: { kcal: 135, protein: 4.0, iron: 2.1, hydration: 80 },
+    symptomAffinities: {
+      constipation: 95,
+      picky: 88,
+      anemia: 80,
+      teething: 88,
+      eczema: 85
+    },
+    stages: {
+      stage1: {
+        texture: "Silky strained oat & pear milk puree",
+        ingredients: [
+          { name: "Rolled Oats (Powdered)", baseQty: 2, unit: "tbsp", scalable: true },
+          { name: "Grated Pear (Steamed)", baseQty: 2, unit: "tbsp", scalable: true },
+          { name: "Water", baseQty: 1, unit: "cup", scalable: true },
+          { name: "Pure Ghee", baseQty: 0.25, unit: "tsp", scalable: true, isAllergen: "dairy" }
+        ],
+        steps: [
+          "Cook powdered oats in water on low heat for 5 minutes until creamy. [timer:5:Simmer Oat Porridge]",
+          "Stir in steamed pear mash and ghee.",
+          "Blend into a silky smooth porridge. Serve warm."
+        ],
+        guardrail: "Ensure oats are certified gluten-free if gluten exclusion is toggled.",
+        science: "Oat beta-glucans form a viscous gel in the intestinal tract that moisturizes dry stool."
+      },
+      stage2: {
+        texture: "Soft creamy lumpy oat porridge",
+        ingredients: [
+          { name: "Quick Rolled Oats", baseQty: 3, unit: "tbsp", scalable: true },
+          { name: "Steamed Apple/Pear Cubes", baseQty: 0.25, unit: "cup", scalable: true },
+          { name: "Water", baseQty: 1, unit: "cup", scalable: true },
+          { name: "Ghee & Cardamom", baseQty: 0.5, unit: "tsp & pinch", scalable: true, isAllergen: "dairy" }
+        ],
+        steps: [
+          "Boil oats in water for 6 minutes until soft and creamy. [timer:6:Cook Rolled Oats]",
+          "Fold in steamed fruit and cardamom.",
+          "Serve warm."
+        ],
+        guardrail: "Zero salt or sugar. Natural fruit sweetness is delicious.",
+        science: "Oats provide prebiotic oligosaccharides that nourish beneficial Bifidobacteria."
+      },
+      stage3: {
+        texture: "Creamy oatmeal with cinnamon and milk",
+        ingredients: [
+          { name: "Rolled Oats", baseQty: 0.5, unit: "cup", scalable: true },
+          { name: "Warm Milk or Water", baseQty: 1, unit: "cup", scalable: true, isAllergen: "dairy" },
+          { name: "Grated Apple", baseQty: 0.25, unit: "cup", scalable: true },
+          { name: "Ghee & Cinnamon", baseQty: 1, unit: "tsp & pinch", scalable: true, isAllergen: "dairy" }
+        ],
+        steps: [
+          "Cook oats with liquid and grated apple for 6 minutes. [timer:6:Cook Creamy Oatmeal]",
+          "Top with ghee and cinnamon. Serve warm."
+        ],
+        guardrail: "Ensure milk is boiled and cooled before mixing.",
+        science: "Sustained carbohydrate release prevents post-illness toddler temper tantrums and fatigue."
+      },
+      stage4: {
+        texture: "Warm breakfast oats bowl with fruit gems",
+        ingredients: [
+          { name: "Rolled Oats", baseQty: 0.75, unit: "cup", scalable: true },
+          { name: "Milk", baseQty: 1.2, unit: "cups", scalable: true, isAllergen: "dairy" },
+          { name: "Banana Slices & Soft Berries", baseQty: 3, unit: "tbsp", scalable: true },
+          { name: "Honey (Safe >12m) or Jaggery", baseQty: 1, unit: "tsp", scalable: true }
+        ],
+        steps: [
+          "Cook oats in milk until thick and creamy. [timer:6:Boil Oats in Milk]",
+          "Top with fresh fruits and light sweetener."
+        ],
+        guardrail: "Safe for preschoolers; avoid whole hard berries that could slip into airway.",
+        science: "Supports regular morning stool habits in children holding back due to past painful defecation."
+      }
+    }
+  },
+
+  {
+    id: "makhana_kheer",
+    title: "Roasted Makhana (Foxnut) Calcium Mash",
+    desc: "Ancient lotus seed superfood. Naturally gluten-free, dense in organic calcium and magnesium, exceptionally light on inflamed stomachs, and strengthens teeth and bones.",
+    type: "Calcium Superfood Porridge",
+    prepTime: "5 mins",
+    cookTime: "10 mins",
+    cookMinutes: 10,
+    isQuick: true,
+    staples: ["Ghee"],
+    allergens: ["dairy"],
+    nutritionTags: {
+      hydration_score: 75,
+      calorie_density: 80,
+      gut_gentleness: 95,
+      iron_rich: 65,
+      immunity_boost: 80
+    },
+    baseMacros: { kcal: 140, protein: 4.8, iron: 1.8, hydration: 78 },
+    symptomAffinities: {
+      calcium: 99,
+      vitd: 95,
+      pem: 92,
+      underweight: 90,
+      teething: 96,
+      stomach: 85
+    },
+    stages: {
+      stage1: {
+        texture: "Silky smooth roasted makhana milk mash",
+        ingredients: [
+          { name: "Phool Makhana (Roasted & Powdered)", baseQty: 2, unit: "tbsp", scalable: true },
+          { name: "Water or Formula/Breastmilk", baseQty: 0.75, unit: "cup", scalable: true },
+          { name: "Pure Ghee", baseQty: 0.25, unit: "tsp", scalable: true, isAllergen: "dairy" },
+          { name: "Elaichi Powder", baseQty: 1, unit: "micro pinch", scalable: false }
+        ],
+        steps: [
+          "Roast makhana in ghee on low flame until crisp, then grind into a fine powder.",
+          "Boil water in a saucepan, whisk in makhana powder, and simmer for 4 minutes until thick. [timer:4:Simmer Makhana]",
+          "Stir in cardamom. If using breastmilk/formula, stir in after cooling slightly.",
+          "Serve lukewarm."
+        ],
+        guardrail: "Check each makhana pearl for black woody shells before roasting to avoid hard bits.",
+        science: "Foxnuts provide bioavailable calcium and magnesium in a favorable 2:1 physiological ratio."
+      },
+      stage2: {
+        texture: "Soft spoon-mashed foxnut kheer",
+        ingredients: [
+          { name: "Roasted Makhana Powder", baseQty: 3, unit: "tbsp", scalable: true },
+          { name: "Water or Splash of Milk", baseQty: 1, unit: "cup", scalable: true, isAllergen: "dairy" },
+          { name: "Ghee & Cardamom", baseQty: 0.5, unit: "tsp", scalable: true, isAllergen: "dairy" }
+        ],
+        steps: [
+          "Simmer makhana powder with liquid for 6 minutes. [timer:6:Cook Makhana Kheer]",
+          "Stir in ghee and serve warm."
+        ],
+        guardrail: "Zero sugar. Naturally mild and nutty.",
+        science: "Low sodium and high potassium content make foxnuts gentle on infant kidneys."
+      },
+      stage3: {
+        texture: "Warm makhana porridge with mashed dates",
+        ingredients: [
+          { name: "Crushed Roasted Makhana", baseQty: 0.5, unit: "cup", scalable: true },
+          { name: "Warm Milk", baseQty: 1, unit: "cup", scalable: true, isAllergen: "dairy" },
+          { name: "Date Paste", baseQty: 1, unit: "tsp", scalable: true },
+          { name: "Ghee", baseQty: 1, unit: "tsp", scalable: true, isAllergen: "dairy" }
+        ],
+        steps: [
+          "Cook crushed makhana in milk until soft and pudding-like. [timer:7:Cook Makhana Pudding]",
+          "Stir in date paste and ghee.",
+          "Serve warm."
+        ],
+        guardrail: "Ensure date paste has no seed fragments.",
+        science: "Magnesium acts as an enzymatic cofactor for converting Vitamin D into its active hormonal form."
+      },
+      stage4: {
+        texture: "Royal Makhana Kheer with Saffron Strands",
+        ingredients: [
+          { name: "Makhana (Coarsely Crushed)", baseQty: 0.75, unit: "cup", scalable: true },
+          { name: "Full Cream Milk", baseQty: 1.5, unit: "cups", scalable: true, isAllergen: "dairy" },
+          { name: "Jaggery Powder & Kesar", baseQty: 1, unit: "tsp & 2 strands", scalable: true },
+          { name: "Ghee", baseQty: 1.5, unit: "tsp", scalable: true, isAllergen: "dairy" }
+        ],
+        steps: [
+          "Saute crushed makhana in ghee.",
+          "Pour milk and kesar, simmer for 8 minutes until creamy thick. [timer:8:Simmer Royal Kheer]",
+          "Stir in jaggery off the heat. Serve warm."
+        ],
+        guardrail: "Add jaggery only after turning off flame to avoid curdling milk.",
+        science: "Rich in kaempferol flavonoid antioxidants that combat systemic oxidative stress during viral infections."
+      }
+    }
+  },
+
+  {
+    id: "pumpkin_moong_soup",
+    title: "Sweet Golden Kaddu & Moong Dal Velvety Soup",
+    desc: "A golden restorative soup combining sweet yellow pumpkin and split yellow lentils. Rich in beta-carotene, Vitamin C, and soothing soluble fibers.",
+    type: "Immunity Soup",
+    prepTime: "5 mins",
+    cookTime: "12 mins",
+    cookMinutes: 12,
+    isQuick: true,
+    staples: ["Moong Dal", "Ghee"],
+    allergens: ["dairy"],
+    nutritionTags: {
+      hydration_score: 94,
+      calorie_density: 55,
+      gut_gentleness: 98,
+      iron_rich: 55,
+      immunity_boost: 95
+    },
+    baseMacros: { kcal: 98, protein: 3.5, iron: 1.6, hydration: 92 },
+    symptomAffinities: {
+      fever: 95,
+      constipation: 92,
+      throat: 94,
+      appetite: 92,
+      vitd: 85,
+      immunity: 94
+    },
+    stages: {
+      stage1: {
+        texture: "Silky smooth golden velvety soup",
+        ingredients: [
+          { name: "Yellow Pumpkin / Kaddu (Peeled & Cubed)", baseQty: 0.5, unit: "cup", scalable: true },
+          { name: "Yellow Moong Dal (Soaked)", baseQty: 1.5, unit: "tbsp", scalable: true },
+          { name: "Water", baseQty: 1.5, unit: "cups", scalable: true },
+          { name: "Turmeric & Cumin Powder", baseQty: 1, unit: "pinch each", scalable: false },
+          { name: "Ghee", baseQty: 0.25, unit: "tsp", scalable: true, isAllergen: "dairy" }
+        ],
+        steps: [
+          "Pressure cook pumpkin cubes, moong dal, water, and turmeric for 3 whistles until mushy. [timer:10:Pressure Cook Pumpkin]",
+          "Puree with an immersion blender until completely silky smooth.",
+          "Warm ghee with cumin powder in a ladle and stir into the soup. Serve warm."
+        ],
+        guardrail: "No salt. The natural sweetness of ripe red pumpkin makes this soup deeply appealing to sick infants.",
+        science: "Pumpkin contains carotenoids and lutein that help repair damaged mucosal membranes during respiratory viral bouts."
+      },
+      stage2: {
+        texture: "Thick velvety puree with tiny soft pumpkin gems",
+        ingredients: [
+          { name: "Pumpkin & Moong Dal", baseQty: 0.75, unit: "cup combined", scalable: true },
+          { name: "Ghee & Jeera", baseQty: 0.5, unit: "tsp", scalable: true, isAllergen: "dairy" },
+          { name: "Hing", baseQty: 1, unit: "pinch", scalable: false }
+        ],
+        steps: [
+          "Cook pumpkin and moong dal together. [timer:10:Cook Pumpkin Dal]",
+          "Mash mostly smooth, leaving small soft pumpkin bits.",
+          "Temper with ghee and cumin. Serve warm."
+        ],
+        guardrail: "Ensure pumpkin is thoroughly cooked and peels are removed completely.",
+        science: "High potassium and dietary water content encourage gentle urinary excretion of fever metabolites."
+      },
+      stage3: {
+        texture: "Comforting thick soup with coriander aroma",
+        ingredients: [
+          { name: "Pumpkin Cubes & Moong Dal", baseQty: 1, unit: "cup", scalable: true },
+          { name: "Ghee", baseQty: 1, unit: "tsp", scalable: true, isAllergen: "dairy" },
+          { name: "Cumin & Tiny Salt Pinch", baseQty: 1, unit: "pinch each", scalable: false }
+        ],
+        steps: [
+          "Cook and blend into a thick velvety soup. [timer:11:Cook & Simmer Soup]",
+          "Stir in ghee and a whisper of salt.",
+          "Serve warm with a soft rice spoon."
+        ],
+        guardrail: "Do not add heavy cream; ghee provides healthy digestible lipids.",
+        science: "Gentle on sore throats with zero citrus sting."
+      },
+      stage4: {
+        texture: "Golden spiced pumpkin soup with toasted seeds",
+        ingredients: [
+          { name: "Pumpkin & Moong Dal", baseQty: 1.2, unit: "cups", scalable: true },
+          { name: "Powdered Pumpkin Seeds (Pepitas)", baseQty: 1, unit: "tsp", scalable: true },
+          { name: "Ghee, Cumin & Black Pepper", baseQty: 1, unit: "tsp & pinch", scalable: true, isAllergen: "dairy" },
+          { name: "Salt", baseQty: 0.25, unit: "tsp", scalable: true }
+        ],
+        steps: [
+          "Saute cumin in ghee, add pumpkin, dal, and water.",
+          "Cook until tender, blend smooth, and season with salt and mild pepper. [timer:12:Cook Soup]",
+          "Dust with finely powdered pumpkin seeds for zinc."
+        ],
+        guardrail: "Ensure pumpkin seeds are ground to fine powder.",
+        science: "Pumpkin seeds provide bioavailable elemental zinc, crucial for T-cell replication during viral recovery."
+      }
+    }
+  },
+
+  {
+    id: "barley_water_lime",
+    title: "Soothing Pearl Barley Water with Mint",
+    desc: "Traditional cooling fever drink. Flushes renal toxins, reduces high internal body heat, calms burning urine, and restores electrolyte equilibrium.",
+    type: "Cooling Electrolyte Drink",
+    prepTime: "2 mins",
+    cookTime: "15 mins",
+    cookMinutes: 15,
+    isQuick: false,
+    staples: [],
+    allergens: ["gluten"],
+    nutritionTags: {
+      hydration_score: 99,
+      calorie_density: 35,
+      gut_gentleness: 97,
+      iron_rich: 30,
+      immunity_boost: 70
+    },
+    baseMacros: { kcal: 45, protein: 1.1, iron: 0.8, hydration: 98 },
+    symptomAffinities: {
+      fever: 99,
+      dehydration: 98,
+      rashes: 95,
+      diaperrash: 92,
+      vomiting: 90
+    },
+    stages: {
+      stage1: {
+        texture: "Clear strained barley water",
+        ingredients: [
+          { name: "Pearl Barley (Soaked for 2 hours)", baseQty: 2, unit: "tbsp", scalable: true, isAllergen: "gluten" },
+          { name: "Filtered Water", baseQty: 2, unit: "cups", scalable: true }
+        ],
+        steps: [
+          "Boil soaked barley in water in an open pan or pressure cooker for 15 minutes until water turns milky white. [timer:15:Boil Barley Water]",
+          "Strain through a fine muslin sieve.",
+          "Allow to cool to room temperature. Feed in small sips using a sterile spoon."
+        ],
+        guardrail: "Do not add honey or salt for infants under 12 months. Pure strained barley water is naturally cooling.",
+        science: "Barley water acts as a mild osmotic diuretic that promotes renal clearance of pyrogenic waste products."
+      },
+      stage2: {
+        texture: "Light barley broth with soft grain mash",
+        ingredients: [
+          { name: "Barley", baseQty: 3, unit: "tbsp", scalable: true, isAllergen: "gluten" },
+          { name: "Water", baseQty: 2.5, unit: "cups", scalable: true }
+        ],
+        steps: [
+          "Boil barley until tender. [timer:15:Boil Barley]",
+          "Strain liquid for drinking, and lightly mash a few grains into the water.",
+          "Serve lukewarm."
+        ],
+        guardrail: "Gluten-containing grain; excluded if gluten allergy is active.",
+        science: "Rich in soluble beta-glucan and silicic acid, supporting mucosal barrier integrity."
+      },
+      stage3: {
+        texture: "Cooling barley water with lemon drop & mint",
+        ingredients: [
+          { name: "Barley Water (Strained)", baseQty: 1, unit: "cup", scalable: true, isAllergen: "gluten" },
+          { name: "Fresh Mint Leaf (Steeped)", baseQty: 1, unit: "leaf", scalable: false },
+          { name: "Fresh Lemon Juice", baseQty: 2, unit: "drops", scalable: false }
+        ],
+        steps: [
+          "Boil and strain barley water. [timer:14:Boil Barley Paani]",
+          "Steep a mint leaf for 2 minutes and add two drops of lemon juice.",
+          "Serve cool-room temperature."
+        ],
+        guardrail: "Ensure lemon juice is minimal to avoid citrus acidity on sensitive stomachs.",
+        science: "Cooling hydration reduces core body temperature elevation during prolonged fevers."
+      },
+      stage4: {
+        texture: "Refreshing barley water lemonade with rock salt",
+        ingredients: [
+          { name: "Barley Water", baseQty: 1, unit: "cup", scalable: true, isAllergen: "gluten" },
+          { name: "Lemon Juice & Rock Salt", baseQty: 0.5, unit: "tsp & pinch", scalable: false },
+          { name: "Jaggery (Optional)", baseQty: 0.5, unit: "tsp", scalable: false }
+        ],
+        steps: [
+          "Mix strained barley water with lemon, rock salt, and optional light jaggery.",
+          "Serve as a refreshing rehydration drink."
+        ],
+        guardrail: "Rock salt provides balanced trace electrolytes without excessive industrial sodium.",
+        science: "Replaces sweat and evaporative fluid losses caused by sustained pediatric fever spikes."
+      }
+    }
+  },
+
+  {
+    id: "spinach_moong_khichdi",
+    title: "Iron-Rich Palak & Yellow Moong Khichdi",
+    desc: "A rich green recovery khichdi combining freshly steamed baby spinach, yellow lentils, and rice. Deeply restores depleted hemoglobin and iron stores.",
+    type: "Iron Restoration Khichdi",
+    prepTime: "8 mins",
+    cookTime: "15 mins",
+    cookMinutes: 15,
+    isQuick: false,
+    staples: ["Rice", "Moong Dal", "Ghee"],
+    allergens: ["dairy"],
+    nutritionTags: {
+      hydration_score: 85,
+      calorie_density: 72,
+      gut_gentleness: 88,
+      iron_rich: 99,
+      immunity_boost: 90
+    },
+    baseMacros: { kcal: 135, protein: 4.8, iron: 3.4, hydration: 85 },
+    symptomAffinities: {
+      anemia: 99,
+      pem: 95,
+      poorweight: 90,
+      immunity: 92,
+      picky: 85
+    },
+    stages: {
+      stage1: {
+        texture: "Silky emerald green dal puree",
+        ingredients: [
+          { name: "Baby Spinach (Blanched & Pureed)", baseQty: 3, unit: "leaves", scalable: true },
+          { name: "Yellow Moong Dal & Rice", baseQty: 1.5, unit: "tbsp each", scalable: true },
+          { name: "Water", baseQty: 1.5, unit: "cups", scalable: true },
+          { name: "Pure Ghee", baseQty: 0.25, unit: "tsp", scalable: true, isAllergen: "dairy" },
+          { name: "Turmeric", baseQty: 1, unit: "tiny pinch", scalable: false }
+        ],
+        steps: [
+          "Blanch spinach in boiling water for 60 seconds, then immediately immerse in cool water to preserve nutrients and bright chlorophyll.",
+          "Pressure cook moong dal and rice until very soft. [timer:12:Cook Dal Rice]",
+          "Blend spinach, cooked dal, rice, and ghee into a silky emerald soup.",
+          "Serve lukewarm."
+        ],
+        guardrail: "Always blanch spinach and discard blanch water to reduce oxalates and nitrates.",
+        science: "Blanching removes soluble oxalates that would otherwise bind dietary iron and calcium in the gut."
+      },
+      stage2: {
+        texture: "Soft-mashed green khichdi",
+        ingredients: [
+          { name: "Moong Dal & Rice", baseQty: 0.5, unit: "cup cooked", scalable: true },
+          { name: "Finely Chopped Blanched Spinach", baseQty: 2, unit: "tbsp", scalable: true },
+          { name: "Ghee & Jeera", baseQty: 0.5, unit: "tsp", scalable: true, isAllergen: "dairy" }
+        ],
+        steps: [
+          "Fold blanched spinach puree into warm mashed khichdi.",
+          "Temper with ghee and cumin. [timer:5:Warm & Temper Khichdi]",
+          "Serve warm."
+        ],
+        guardrail: "No salt under 12 months. Fresh spinach has a pleasant earthy natural taste.",
+        science: "Folate in green leaves is crucial for erythrocyte erythropoiesis and immune cell proliferation."
+      },
+      stage3: {
+        texture: "Soft palak khichdi with lemon squeeze",
+        ingredients: [
+          { name: "Moong Dal Rice Khichdi", baseQty: 0.75, unit: "cup", scalable: true },
+          { name: "Spinach Puree", baseQty: 3, unit: "tbsp", scalable: true },
+          { name: "Lemon Juice Drizzle", baseQty: 0.25, unit: "tsp", scalable: false },
+          { name: "Ghee & Salt", baseQty: 1, unit: "tsp & pinch", scalable: true, isAllergen: "dairy" }
+        ],
+        steps: [
+          "Simmer khichdi with spinach puree and salt for 4 minutes. [timer:4:Simmer Green Khichdi]",
+          "Stir in ghee and a drop of lemon juice to liberate bound non-heme iron."
+        ],
+        guardrail: "Do not overcook spinach; add at end to retain thermolabile folate.",
+        science: "Ascorbic acid from lemon creates soluble iron chelates that withstand alkaline duodenal pH."
+      },
+      stage4: {
+        texture: "Comforting Palak Dal Bowl with Paneer Bits",
+        ingredients: [
+          { name: "Khichdi with Spinach", baseQty: 1, unit: "cup", scalable: true },
+          { name: "Soft Crumbled Fresh Paneer", baseQty: 2, unit: "tbsp", scalable: true, isAllergen: "dairy" },
+          { name: "Ghee & Mild Cumin-Hing", baseQty: 1.5, unit: "tsp", scalable: true, isAllergen: "dairy" },
+          { name: "Salt", baseQty: 0.25, unit: "tsp", scalable: true }
+        ],
+        steps: [
+          "Warm khichdi with crumbled soft paneer and ghee. [timer:5:Warm Khichdi with Paneer]",
+          "Serve warm."
+        ],
+        guardrail: "Ensure paneer is fresh and very soft.",
+        science: "High biological value milk protein enhances tissue repair and iron incorporation into ferritin."
+      }
+    }
+  },
+
+  {
+    id: "lauki_jeera_soup",
+    title: "Stewed Bottle Gourd (Lauki) & Cumin Clear Broth",
+    desc: "Ayurveda's most gentle hydrator. Bottle gourd is 96% pure structured water, completely non-acidic, and soothes acid reflux, nausea, and vomiting.",
+    type: "Alkaline Hydration Broth",
+    prepTime: "4 mins",
+    cookTime: "10 mins",
+    cookMinutes: 10,
+    isQuick: true,
+    staples: ["Ghee"],
+    allergens: ["dairy"],
+    nutritionTags: {
+      hydration_score: 98,
+      calorie_density: 30,
+      gut_gentleness: 99,
+      iron_rich: 30,
+      immunity_boost: 65
+    },
+    baseMacros: { kcal: 42, protein: 0.9, iron: 0.6, hydration: 98 },
+    symptomAffinities: {
+      reflux: 99,
+      vomiting: 97,
+      stomach: 96,
+      fever: 90,
+      dehydration: 94
+    },
+    stages: {
+      stage1: {
+        texture: "Clear silky bottle gourd broth",
+        ingredients: [
+          { name: "Fresh Sweet Lauki (Peeled & Seedless)", baseQty: 0.5, unit: "cup cubed", scalable: true },
+          { name: "Water", baseQty: 1, unit: "cup", scalable: true },
+          { name: "Roasted Jeera Powder", baseQty: 1, unit: "pinch", scalable: false },
+          { name: "Pure Ghee", baseQty: 0.25, unit: "tsp", scalable: true, isAllergen: "dairy" }
+        ],
+        steps: [
+          "Always taste a raw slice of lauki first to guarantee it is sweet and NEVER bitter.",
+          "Steam or pressure cook lauki with water for 2 whistles until clear and tender. [timer:8:Pressure Cook Lauki]",
+          "Blend into a silky clear broth.",
+          "Add cumin powder and ghee. Serve warm."
+        ],
+        guardrail: "CRITICAL SAFETY: Always taste lauki before cooking; discard if bitter (cucurbitacin toxicity).",
+        science: "Naturally alkaline pH counteracts gastric hyperacidity and lowers intra-esophageal pressure in reflux."
+      },
+      stage2: {
+        texture: "Soft fork-mashed lauki and moong dal broth",
+        ingredients: [
+          { name: "Lauki & Yellow Moong Dal", baseQty: 0.5, unit: "cup combined", scalable: true },
+          { name: "Ghee & Jeera", baseQty: 0.5, unit: "tsp", scalable: true, isAllergen: "dairy" }
+        ],
+        steps: [
+          "Cook lauki and moong dal together. [timer:10:Cook Lauki Moong]",
+          "Mash with fork into a soft textured broth.",
+          "Serve warm."
+        ],
+        guardrail: "Zero salt under 12 months.",
+        science: "High pectin-to-cellulose ratio minimizes intestinal gas generation and fermentation."
+      },
+      stage3: {
+        texture: "Comforting lauki soup with tiny potato dice",
+        ingredients: [
+          { name: "Lauki & Potato", baseQty: 0.75, unit: "cup", scalable: true },
+          { name: "Ghee & Cumin Seeds", baseQty: 1, unit: "tsp", scalable: true, isAllergen: "dairy" },
+          { name: "Pinch of Salt", baseQty: 1, unit: "pinch", scalable: false }
+        ],
+        steps: [
+          "Saute cumin in ghee, add diced lauki, potato, and water.",
+          "Cook until tender and puree semi-smooth. [timer:10:Simmer Lauki Soup]",
+          "Serve warm."
+        ],
+        guardrail: "Ensure soup is not boiling hot; lukewarm temperature avoids triggering vomiting reflexes.",
+        science: "Low osmolality fluid facilitates rapid gastric emptying into the small intestine."
+      },
+      stage4: {
+        texture: "Light Lauki & Moong Dal Gravy with Rice",
+        ingredients: [
+          { name: "Lauki & Moong Dal", baseQty: 1, unit: "cup", scalable: true },
+          { name: "Ghee, Jeera, Hing & Turmeric", baseQty: 1.5, unit: "tsp", scalable: true, isAllergen: "dairy" },
+          { name: "Salt", baseQty: 0.25, unit: "tsp", scalable: true }
+        ],
+        steps: [
+          "Cook lauki dal subzi with mild spices until stew consistency. [timer:12:Cook Lauki Dal Stew]",
+          "Serve warm with steamed white rice."
+        ],
+        guardrail: "Avoid tomatoes or chilies when child is experiencing acid reflux.",
+        science: "Non-irritating soluble fiber bulk gently absorbs gastric acids without delaying digestion."
+      }
+    }
+  }
+];
+
+// ============================================================================
+// 4. MULTI-SYMPTOM SCORING & DYNAMIC CONFLICT ENGINE
+// ============================================================================
+
+/**
+ * Calculates a multidimensional clinical score for a recipe based on active symptoms,
+ * age stage, active allergens, and pantry filter.
+ */
+function scoreRecipe(recipe) {
+  let score = 0;
+  const symptoms = state.selectedSymptoms;
   
-  // Update UI active states
-  document.querySelectorAll('.age-options .option-card').forEach(card => {
-    card.classList.remove('active');
+  // 1. Base symptom affinity scoring
+  symptoms.forEach(sym => {
+    const affinity = recipe.symptomAffinities[sym] || 25;
+    score += affinity * 1.5;
   });
-  document.getElementById(`age-${age}`).classList.add('active');
-  
-  checkAndDisplayRecipe();
-}
 
-function setIllness(illness) {
-  const index = selectedIllnesses.indexOf(illness);
-  if (index > -1) {
-    // Already selected, toggle off
-    selectedIllnesses.splice(index, 1);
-    document.getElementById(`illness-${illness}`).classList.remove('active');
-  } else {
-    // Toggle on
-    selectedIllnesses.push(illness);
-    document.getElementById(`illness-${illness}`).classList.add('active');
+  // 2. Multi-symptom clinical trait weighting
+  if (symptoms.includes('diarrhea')) {
+    score += (recipe.nutritionTags.hydration_score * 0.4);
+    score += (recipe.nutritionTags.gut_gentleness * 0.5);
+    score -= (recipe.nutritionTags.calorie_density * 0.2); // Too heavy worsens diarrhea
   }
-  
-  updateSelectionIndicator();
-  checkAndDisplayRecipe();
+  if (symptoms.includes('fever')) {
+    score += (recipe.nutritionTags.hydration_score * 0.45);
+    score += (recipe.nutritionTags.immunity_boost * 0.35);
+  }
+  if (symptoms.includes('vomiting')) {
+    score += (recipe.nutritionTags.gut_gentleness * 0.6);
+    score += (recipe.nutritionTags.hydration_score * 0.4);
+    score -= (recipe.nutritionTags.calorie_density * 0.3); // High fat provokes vomiting
+  }
+  if (symptoms.includes('underweight') || symptoms.includes('poorweight') || symptoms.includes('pem')) {
+    score += (recipe.nutritionTags.calorie_density * 0.65);
+    score += (recipe.nutritionTags.iron_rich * 0.25);
+  }
+  if (symptoms.includes('anemia')) {
+    score += (recipe.nutritionTags.iron_rich * 0.85);
+  }
+  if (symptoms.includes('constipation')) {
+    score += (recipe.nutritionTags.gut_gentleness * 0.4);
+    score += (recipe.nutritionTags.hydration_score * 0.35);
+  }
+  if (symptoms.includes('cold') || symptoms.includes('throat')) {
+    score += (recipe.nutritionTags.immunity_boost * 0.6);
+  }
+  if (symptoms.includes('colic') || symptoms.includes('reflux') || symptoms.includes('stomach')) {
+    score += (recipe.nutritionTags.gut_gentleness * 0.7);
+  }
+  if (symptoms.includes('calcium') || symptoms.includes('vitd')) {
+    if (recipe.id === 'makhana_kheer' || recipe.id === 'roasted_ragi_sari') score += 40;
+  }
+
+  // 3. Pantry Staple Match Boost (+25 points per matching staple in kitchen)
+  if (state.activePantry.size > 0 && recipe.staples) {
+    let pantryOverlap = 0;
+    recipe.staples.forEach(staple => {
+      if (state.activePantry.has(staple)) {
+        pantryOverlap++;
+        score += 28;
+      }
+    });
+  }
+
+  // 4. Allergen Exclusion Handling
+  if (state.activeAllergens.size > 0) {
+    state.activeAllergens.forEach(allergen => {
+      if (recipe.allergens && recipe.allergens.includes(allergen)) {
+        // If gluten is excluded and recipe uses gluten grain (suji/barley) without easy substitute
+        if (allergen === 'gluten' && (recipe.id === 'banana_sheera' || recipe.id === 'barley_water_lime')) {
+          score -= 1000; // Strict filter out
+        }
+      }
+    });
+  }
+
+  return score;
 }
 
-// Clear all selected symptoms and restore recommendation view smoothly
-function clearSelectedSymptoms() {
-  selectedIllnesses = [];
-  document.querySelectorAll('.illness-options .illness-btn').forEach(btn => {
-    btn.classList.remove('active');
-  });
-  updateSelectionIndicator();
-  checkAndDisplayRecipe();
-}
+/**
+ * Mutates ingredients dynamically when conflicting symptoms or allergies occur
+ */
+function resolveIngredientMutations(recipe, stageData) {
+  const mutations = [];
+  const symptoms = state.selectedSymptoms;
+  const isInfant = state.selectedStage === 'stage1' || state.selectedStage === 'stage2';
+  const hasDiarrhea = symptoms.includes('diarrhea');
+  const hasDairyAllergy = state.activeAllergens.has('dairy');
+  const hasNutAllergy = state.activeAllergens.has('nuts');
+  const hasGlutenAllergy = state.activeAllergens.has('gluten');
 
-function updateSelectionIndicator() {
-  const wrap = document.getElementById('selection-indicator-wrap');
-  const badge = document.getElementById('selected-count-badge');
-  const clearBtn = document.getElementById('clear-selection-btn');
-  if (!wrap || !badge || !clearBtn) return;
-  
-  const count = selectedIllnesses.length;
-  if (count > 0) {
-    wrap.classList.add('visible');
-    badge.textContent = `Selected: ${count}`;
-    clearBtn.removeAttribute('disabled');
-    if (count > 3) {
-      badge.classList.add('alert-badge');
-    } else {
-      badge.classList.remove('alert-badge');
+  // Clone stage ingredients for safe mutation
+  const adaptedIngredients = stageData.ingredients.map(ing => {
+    let modified = { ...ing };
+    let originalName = ing.name;
+
+    // Rule 1: Infant < 12m salt & sugar guardrail
+    if (isInfant) {
+      if (ing.name.toLowerCase().includes('salt') || ing.name.toLowerCase().includes('sugar') || ing.name.toLowerCase().includes('jaggery') || ing.name.toLowerCase().includes('honey')) {
+        modified.name = `${ing.name} — OMITTED`;
+        modified.adapted = true;
+        mutations.push({
+          badge: "ICMR-NIN Guardrail: Salt/Sugar Omitted",
+          text: "Under 12 months, infant kidneys and developing metabolic pathways cannot process added sodium or sugar."
+        });
+      }
     }
-  } else {
-    wrap.classList.remove('visible');
-    badge.textContent = 'Selected: 0';
-    clearBtn.setAttribute('disabled', 'true');
-    badge.classList.remove('alert-badge');
-  }
+
+    // Rule 2: Diarrhea active -> Strip jaggery/sugars & heavy dairy
+    if (hasDiarrhea) {
+      if (ing.name.toLowerCase().includes('jaggery') || ing.name.toLowerCase().includes('sugar') || ing.name.toLowerCase().includes('honey')) {
+        modified.name = "Sweetener Omitted (Zero added sugar)";
+        modified.adapted = true;
+        mutations.push({
+          badge: "Sugar Omitted: Diarrhea Safe",
+          text: "High osmolar sugars draw excess water into bowel lumen and exacerbate diarrhea."
+        });
+      }
+      if (ing.name.toLowerCase().includes('milk') && !ing.name.toLowerCase().includes('coconut') && !ing.name.toLowerCase().includes('formula') && !ing.name.toLowerCase().includes('breastmilk')) {
+        modified.name = "Light Coconut Milk or Diluted Rice Starch";
+        modified.adapted = true;
+        mutations.push({
+          badge: "Dairy Substituted: Diarrhea Recovery",
+          text: "Transient secondary lactase enzyme deficiency is frequent during pediatric gastroenteritis."
+        });
+      }
+    }
+
+    // Rule 3: Dairy allergy active -> Swap ghee/milk/curd
+    if (hasDairyAllergy) {
+      if (ing.name.toLowerCase().includes('ghee')) {
+        modified.name = "Virgin Cold-Pressed Coconut Oil";
+        modified.adapted = true;
+        mutations.push({
+          badge: "Ghee Swapped: 100% Dairy-Free",
+          text: "Replaced cow's ghee with cold-pressed coconut oil for milk protein allergy safety."
+        });
+      }
+      if (ing.name.toLowerCase().includes('curd') || (ing.name.toLowerCase().includes('milk') && !ing.name.toLowerCase().includes('coconut'))) {
+        modified.name = "Homemade Coconut Milk or Oat Cream";
+        modified.adapted = true;
+        mutations.push({
+          badge: "Milk Swapped: Dairy-Free",
+          text: "Substituted dairy milk/curd with plant-based hypoallergenic coconut milk."
+        });
+      }
+    }
+
+    // Rule 4: Nut allergy active -> Swap almonds/peanuts
+    if (hasNutAllergy) {
+      if (ing.name.toLowerCase().includes('almond') || ing.name.toLowerCase().includes('peanut') || ing.name.toLowerCase().includes('nut')) {
+        modified.name = "Roasted Sesame & Melon Seed Powder (Nut-Free)";
+        modified.adapted = true;
+        mutations.push({
+          badge: "Nut Substitute: Allergy-Safe",
+          text: "Replaced tree nuts/peanuts with finely milled hypoallergenic seeds."
+        });
+      }
+    }
+
+    return modified;
+  });
+
+  // Deduplicate mutations by badge
+  const uniqueMutations = [];
+  const seenBadges = new Set();
+  mutations.forEach(m => {
+    if (!seenBadges.has(m.badge)) {
+      seenBadges.add(m.badge);
+      uniqueMutations.push(m);
+    }
+  });
+
+  return { adaptedIngredients, uniqueMutations };
 }
 
-function checkAndDisplayRecipe() {
+// ============================================================================
+// 5. VIEW RENDERING & CONTROLLER
+// ============================================================================
+
+/**
+ * Re-evaluates entire dataset, ranks matches, and renders UI
+ */
+function updateAppView() {
   const container = document.getElementById('recipe-output-container');
-  if (selectedAge && selectedIllnesses.length > 0) {
-    displayRecipes();
-  } else {
-    if (container) {
-      container.style.display = 'none';
-      container.innerHTML = '';
-    }
+  const recoverySection = document.getElementById('recovery-schedule-section');
+  
+  // 1. Check 3-Symptom Clinical Triage Cutoff
+  if (state.selectedSymptoms.length > 3) {
+    renderMedicalTriageAlert();
+    if (recoverySection) recoverySection.innerHTML = '';
+    return;
   }
+
+  // 2. Score and Rank Recipes
+  const scoredRecipes = recipeDatabase
+    .map(recipe => ({ recipe, score: scoreRecipe(recipe) }))
+    .filter(item => item.score > -200) // Filter out hard allergen exclusions
+    .sort((a, b) => b.score - a.score);
+
+  if (scoredRecipes.length === 0) {
+    container.innerHTML = `
+      <div class="doctor-warning-card" style="text-align: center;">
+        <h3>No Exact Recipe Match</h3>
+        <p>No recipes match your active allergy exclusions. Please uncheck some exclusions or clear symptom filters.</p>
+      </div>
+    `;
+    return;
+  }
+
+  // 3. Determine Hero Recipe (Use activeHeroRecipeId if chosen, else #1 score)
+  let heroItem = scoredRecipes[0];
+  if (state.activeHeroRecipeId) {
+    const customHero = scoredRecipes.find(item => item.recipe.id === state.activeHeroRecipeId);
+    if (customHero) heroItem = customHero;
+  }
+
+  const heroRecipe = heroItem.recipe;
+
+  // 4. Determine Top 2 Alternatives (#2 Quick Option, #3 Pantry/Next Best)
+  const remaining = scoredRecipes.filter(item => item.recipe.id !== heroRecipe.id);
+  let quickAlt = remaining.find(item => item.recipe.isQuick) || remaining[0];
+  let secondAlt = remaining.find(item => item.recipe.id !== (quickAlt ? quickAlt.recipe.id : '')) || remaining[1];
+
+  // 5. Render Hero Recipe Card
+  renderHeroRecipe(heroRecipe, heroItem.score);
+
+  // 6. Render Ranked Alternatives
+  if (quickAlt || secondAlt) {
+    renderAlternatives(quickAlt ? quickAlt.recipe : null, secondAlt ? secondAlt.recipe : null);
+  }
+
+  // 7. Render 24-Hour Recovery Feeding Schedule
+  render24HourSchedule(heroRecipe);
+
+  // 8. Update Profile Header & Mobile Sticky Bar
+  updateProfileSummary(heroRecipe);
 }
 
-// Helper to generate individual recipe card HTML
-function getRecipeCardHtml(recipe, index, cookMinutes, tagText, harmonyHtml = '') {
-  const ingredientsHtml = recipe.ingredients.map(ing => `<li>${ing}</li>`).join('');
-  const stepsHtml = recipe.steps.map(step => `<li>${step}</li>`).join('');
-
-  return `
-    <div class="recipe-card" style="margin-bottom: 3rem; animation: fadeIn 0.5s ease-out;">
-      <!-- Visuals Panel -->
-      <div class="recipe-visuals">
-        <div class="recipe-meta-top">
-          <div class="badge-row">
-            <span class="recipe-tag">${tagText}</span>
-            <span class="rating-chip">${recipe.rating} ★</span>
-          </div>
-          <h3 class="recipe-header-title">${recipe.title}</h3>
-          <p class="recipe-desc">${recipe.desc}</p>
-        </div>
-        
-        <div>
-          <div class="recipe-meta-grid">
-            <div class="meta-item">
-              <i>⏱️</i>
-              <div>
-                <span class="meta-label">Prep Time</span>
-                <span class="meta-value">${recipe.prepTime}</span>
-              </div>
-            </div>
-            <div class="meta-item">
-              <i>🔥</i>
-              <div>
-                <span class="meta-label">Cook Time</span>
-                <span class="meta-value">${recipe.cookTime}</span>
-              </div>
-            </div>
-            <div class="meta-item" style="grid-column: span 2;">
-              <i>🥣</i>
-              <div>
-                <span class="meta-label">Suggested Portion</span>
-                <span class="meta-value">${recipe.servings}</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Integrated Cooking Timer -->
-          <div class="cooking-timer">
-            <div class="timer-row">
-              <span class="timer-title">⏰ Active Cooking Helper:</span>
-              <span class="timer-clock" id="timer-display-${index}">${cookMinutes}:00</span>
-            </div>
-            <div class="timer-progress-bar">
-              <div class="timer-progress-fill" id="timer-progress-${index}"></div>
-            </div>
-            <div class="timer-controls">
-              <button class="timer-btn start" id="btn-timer-start-${index}" onclick="startTimer(${index}, ${cookMinutes})">Start Helper</button>
-              <button class="timer-btn reset" onclick="resetTimer(${index}, ${cookMinutes})">Reset</button>
-            </div>
-          </div>
-        </div>
+/**
+ * Renders the prominent Pediatrician Consultation Triage screen when > 3 symptoms
+ */
+function renderMedicalTriageAlert() {
+  const container = document.getElementById('recipe-output-container');
+  container.innerHTML = `
+    <div class="doctor-warning-card">
+      <div class="warning-icon-big">⚠️</div>
+      <h3>Pediatric Evaluation Required: Consult a Doctor</h3>
+      <p>You have selected <strong>${state.selectedSymptoms.length} simultaneous symptoms</strong>. When an infant or toddler exhibits more than 3 concurrent acute symptoms, recipe-based home recovery is clinically contraindicated without a physical pediatric examination.</p>
+      
+      <div class="emergency-red-box">
+        <strong>🚨 Immediate Emergency Hospital Red Flags (Do Not Delay):</strong>
+        <ul style="margin-left: 1.2rem; margin-top: 0.4rem; line-height: 1.5;">
+          <li>High unremitting fever (&gt;102°F or lasting &gt;48 hours)</li>
+          <li>Sunken eyes, depressed fontanelle (soft spot), or zero wet diapers in 6+ hours</li>
+          <li>Extreme lethargy, floppiness, or inability to wake for feeds</li>
+          <li>Rapid breathing, grunting sounds, or chest retractions (ribs pulling inward)</li>
+          <li>Persistent projectile vomiting or blood/mucus in stool</li>
+        </ul>
       </div>
 
-      <!-- Recipe Content Panel -->
-      <div class="recipe-content">
-        ${harmonyHtml}
-
-        <!-- Ingredients -->
-        <div class="recipe-section">
-          <h4>📋 Ingredients Checklist</h4>
-          <ul class="ingredients-list">
-            ${ingredientsHtml}
-          </ul>
-        </div>
-
-        <!-- Instructions -->
-        <div class="recipe-section">
-          <h4>👩‍🍳 Cooking Directions</h4>
-          <ol class="steps-list">
-            ${stepsHtml}
-          </ol>
-        </div>
-
-        <!-- Age Specific Modifications -->
-        <div class="age-adjustment-box">
-          <h5>👶 Age-Specific Safety Advice</h5>
-          <p>${recipe.ageAdjustment}</p>
-        </div>
-
-        <!-- Scientific & Healing properties -->
-        <div class="healing-science-box">
-          <h5>🔬 The Science Behind the Ingredients</h5>
-          <p>${recipe.science}</p>
-        </div>
+      <div style="margin-top: 1.2rem;">
+        <button type="button" class="timer-tactile-btn primary" onclick="clearSelectedSymptoms()">
+          ✕ Reset to Single Symptom Care
+        </button>
       </div>
     </div>
   `;
 }
 
-// 4. Render Single Recipe based on priority matching
-function displayRecipes() {
+/**
+ * Renders the #1 Best Clinical Match Hero Card
+ */
+function renderHeroRecipe(recipe, score) {
   const container = document.getElementById('recipe-output-container');
-  
-  if (selectedIllnesses.length > 3) {
-    container.innerHTML = `
-      <h2 class="section-title" style="margin-bottom: 2.5rem;">Medical Evaluation Recommended</h2>
-      <div class="doctor-warning-card">
-        <div class="warning-icon">⚠️</div>
-        <div class="warning-content">
-          <h3>Please Consult Your Pediatrician</h3>
-          <p>You have selected <strong>${selectedIllnesses.length} conditions</strong>. If your child is experiencing more than 3 symptoms or illnesses simultaneously, we strongly advise consulting your pediatrician immediately.</p>
-          <p>Home remedies and nutritional recovery recipes are meant to support individual, mild conditions and should not delay professional medical diagnosis and care when multiple symptoms are present.</p>
-          <div class="emergency-badge">🚨 Pediatric Emergency Advice: Seek immediate medical attention if your child has difficulty breathing, persistent high fever, extreme lethargy, or refuses all fluids.</div>
+  const stageData = recipe.stages[state.selectedStage] || recipe.stages.stage1;
+  const { adaptedIngredients, uniqueMutations } = resolveIngredientMutations(recipe, stageData);
+
+  // Calculate scaled macros
+  const mult = state.portionMultiplier;
+  const macros = {
+    kcal: Math.round(recipe.baseMacros.kcal * mult),
+    protein: (recipe.baseMacros.protein * mult).toFixed(1),
+    iron: (recipe.baseMacros.iron * mult).toFixed(1),
+    hydration: recipe.baseMacros.hydration
+  };
+
+  // Build Ingredients HTML with interactive checkboxes
+  const ingredientsHtml = adaptedIngredients.map((ing, i) => {
+    const qtyText = ing.scalable ? `${ing.baseQty * mult} ${ing.unit}` : `${ing.unit}`;
+    const adaptedTag = ing.adapted ? `<span class="ing-adapted-tag">Adapted</span>` : '';
+    return `
+      <label class="ingredient-row" id="ing-row-${i}">
+        <input type="checkbox" class="ing-checkbox" onchange="toggleIngCheck(this, ${i})">
+        <span class="ing-text"><strong>${qtyText}</strong> ${ing.name} ${adaptedTag}</span>
+      </label>
+    `;
+  }).join('');
+
+  // Build Steps HTML with step-linked timers
+  const stepsHtml = stageData.steps.map((step, idx) => {
+    // Check for [timer:MINS:LABEL]
+    let timerBtnHtml = '';
+    let cleanStep = step;
+    const match = step.match(/\[timer:(\d+):(.*?)\]/);
+    if (match) {
+      const minutes = parseInt(match[1]);
+      const label = match[2];
+      timerBtnHtml = `
+        <div>
+          <button type="button" class="step-timer-trigger" onclick="triggerStepTimer(${minutes}, '${label.replace(/'/g, "\\'")}')">
+            ⏱️ Start ${minutes}m ${label}
+          </button>
+        </div>
+      `;
+      cleanStep = step.replace(/\[timer:.*?\]/, '');
+    }
+
+    return `
+      <div class="step-item">
+        <div class="step-number-circle">${idx + 1}</div>
+        <div>
+          <div class="step-desc-text">${cleanStep}</div>
+          ${timerBtnHtml}
         </div>
       </div>
     `;
-    container.style.display = 'block';
-    container.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    return;
-  }
-  
-  // Sort illnesses by priority to pick the primary/highest priority one
-  const sortedIllnesses = [...selectedIllnesses].sort((a, b) => {
-    const priorityA = illnessPriorities[a] || 0;
-    const priorityB = illnessPriorities[b] || 0;
-    return priorityB - priorityA;
-  });
-  
-  const primaryIllness = sortedIllnesses[0];
-  const recipe = recipes[primaryIllness][selectedAge];
-  
-  if (recipe) {
-    const cookMinutes = parseInt(recipe.cookTime) || 10;
-    const tagText = tags[primaryIllness] || "Comfort Food";
-    
-    // Generate harmony description if multiple illnesses are selected
-    let harmonyHtml = '';
-    if (selectedIllnesses.length > 1) {
-      const diseaseNamesList = selectedIllnesses.map(item => tags[item] || item);
-      let symptomsText = "";
-      if (diseaseNamesList.length === 2) {
-        symptomsText = `<strong>${diseaseNamesList[0]}</strong> and <strong>${diseaseNamesList[1]}</strong>`;
-      } else {
-        symptomsText = `<strong>${diseaseNamesList.slice(0, -1).join(', ')}</strong>, and <strong>${diseaseNamesList[diseaseNamesList.length - 1]}</strong>`;
-      }
-      
-      harmonyHtml = `
-        <div class="harmony-box">
-          <strong>💡 Multi-Symptom Harmony:</strong> Since your child is experiencing a combination of ${symptomsText}, we have recommended <strong>${recipe.title}</strong> as the optimal healing bowl. It addresses the highest priority nutritional needs while remaining safe, gentle, and highly digestible for all selected conditions.
+  }).join('');
+
+  // Multi-symptom harmony explanation
+  let harmonyHtml = '';
+  if (state.selectedSymptoms.length > 1) {
+    const symNames = state.selectedSymptoms.map(s => getSymptomLabel(s)).join(', ');
+    harmonyHtml = `
+      <div class="harmony-conflict-box">
+        <strong>💡 Multi-Symptom Harmonized:</strong> For concurrent symptoms (<em>${symNames}</em>), 
+        <strong>${recipe.title}</strong> was dynamically selected by our scoring engine as the optimal intersection of 
+        electrolyte rehydration and gut mucosal tolerance.
+        ${uniqueMutations.length > 0 ? `
+          <div class="mutation-badges-wrap">
+            ${uniqueMutations.map(m => `<span class="mutation-badge" title="${m.text}">⚡ ${m.badge}</span>`).join('')}
+          </div>
+        ` : ''}
+      </div>
+    `;
+  } else if (uniqueMutations.length > 0) {
+    harmonyHtml = `
+      <div class="harmony-conflict-box">
+        <strong>🛡️ Clinical Adaptations Applied:</strong>
+        <div class="mutation-badges-wrap">
+          ${uniqueMutations.map(m => `<span class="mutation-badge" title="${m.text}">⚡ ${m.badge}</span>`).join('')}
         </div>
-      `;
-    }
-    
-    let htmlContent = `<h2 class="section-title" style="margin-bottom: 2.5rem;">Recommended Healing Bowl</h2>`;
-    htmlContent += getRecipeCardHtml(recipe, 0, cookMinutes, tagText, harmonyHtml);
-    
-    container.innerHTML = htmlContent;
-    container.style.display = 'block';
-    container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      </div>
+    `;
   }
+
+  container.innerHTML = `
+    <article class="recipe-card-hero">
+      
+      <!-- Top Clinical Match Bar -->
+      <div class="hero-match-badge-bar">
+        <div style="display: flex; align-items: center; gap: 0.6rem;">
+          <span class="clinical-match-badge">⭐ #1 BEST CLINICAL MATCH</span>
+          <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-main);">${recipe.type}</span>
+        </div>
+        <span class="match-score-pill">Fit Score: ${Math.round(score)} pts</span>
+      </div>
+
+      <div class="recipe-hero-body">
+        
+        <!-- Header Info -->
+        <div class="recipe-header-flex">
+          <div>
+            <h2 class="recipe-hero-title">${recipe.title}</h2>
+            <p class="recipe-hero-desc">${recipe.desc}</p>
+          </div>
+        </div>
+
+        <!-- Multi-Symptom Conflict Resolution Banner -->
+        ${harmonyHtml}
+
+        <!-- Macro Nutrients (Scales with Portion) -->
+        <div class="macros-grid">
+          <div class="macro-col">
+            <span class="macro-val">${macros.kcal}</span>
+            <span class="macro-lbl">Calories (kcal)</span>
+          </div>
+          <div class="macro-col">
+            <span class="macro-val">${macros.protein}g</span>
+            <span class="macro-lbl">Protein</span>
+          </div>
+          <div class="macro-col">
+            <span class="macro-val">${macros.iron}mg</span>
+            <span class="macro-lbl">Iron</span>
+          </div>
+          <div class="macro-col">
+            <span class="macro-val">${macros.hydration}%</span>
+            <span class="macro-lbl">Hydration</span>
+          </div>
+        </div>
+
+        <!-- Quick Meta Details Strip -->
+        <div class="meta-quick-strip">
+          <div class="meta-chip">⏱️ Prep: <span>${recipe.prepTime}</span></div>
+          <div class="meta-chip">🔥 Cook: <span>${recipe.cookTime}</span></div>
+          <div class="meta-chip">🥣 Suggested Texture: <span>${stageData.texture}</span></div>
+        </div>
+
+        <!-- Two Columns: Ingredients Checklist vs Cooking Directions -->
+        <div class="recipe-inner-columns">
+          
+          <!-- Ingredients Checklist with Interactive Checkboxes -->
+          <div class="checklist-box">
+            <h4 class="recipe-sub-title">📋 Ingredients (${mult === 1 ? '1 Bowl' : '2 Bowls Batch'})</h4>
+            <div style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 0.6rem;">Tap to check off while prepping:</div>
+            <div class="ingredients-checklist">
+              ${ingredientsHtml}
+            </div>
+          </div>
+
+          <!-- Cooking Directions with Step-Linked Timers -->
+          <div class="steps-box">
+            <h4 class="recipe-sub-title">👩‍🍳 Step-by-Step Directions</h4>
+            <div class="cooking-steps-list">
+              ${stepsHtml}
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Active Cooking Timer Widget -->
+        <div class="cooking-timer-card">
+          <div class="timer-header-flex">
+            <span class="timer-title-text" id="active-timer-label">⏰ Active Cooking Helper: Standby</span>
+            <span class="timer-countdown-clock" id="timer-clock-display">00:00</span>
+          </div>
+          <div class="timer-bar-track">
+            <div class="timer-bar-progress" id="timer-progress-bar"></div>
+          </div>
+          <div class="timer-buttons-row">
+            <button type="button" class="timer-tactile-btn primary" id="timer-toggle-btn" onclick="toggleTimer()">
+              Start Helper
+            </button>
+            <button type="button" class="timer-tactile-btn" onclick="resetTimer()">
+              Reset
+            </button>
+          </div>
+        </div>
+
+        <!-- Scientific Rationale & Safety Callouts -->
+        <div class="science-guardrail-grid">
+          <div class="guardrail-callout">
+            <h5>👶 Stage Safety Guide</h5>
+            <p>${stageData.guardrail}</p>
+          </div>
+          <div class="guardrail-callout">
+            <h5>🔬 Pediatric Biochemical Rationale</h5>
+            <p>${stageData.science}</p>
+          </div>
+        </div>
+
+      </div>
+
+    </article>
+
+    <!-- Container for Ranked Alternatives -->
+    <div id="alternatives-output-container"></div>
+  `;
 }
 
-// 5. Active Cooking Timer (Multi-instance compatible)
-function setupTimer(index, seconds) {
-  if (activeTimerIndex === index) {
-    resetTimer(index, seconds / 60);
-    return;
+/**
+ * Renders the 2 Ranked Alternatives
+ */
+function renderAlternatives(quickAlt, pantryAlt) {
+  const container = document.getElementById('alternatives-output-container');
+  if (!container) return;
+
+  let cardsHtml = '';
+
+  if (quickAlt) {
+    cardsHtml += `
+      <div class="alt-recipe-card">
+        <div>
+          <div class="alt-tag-row">
+            <span class="alt-type-badge quick">⚡ Quick ${quickAlt.cookTime} Option</span>
+            <span style="font-size: 0.76rem; color: var(--text-muted); font-weight: 600;">${quickAlt.type}</span>
+          </div>
+          <h4 class="alt-card-title">${quickAlt.title}</h4>
+          <p class="alt-card-desc">${quickAlt.desc}</p>
+        </div>
+        <button type="button" class="swap-to-main-btn" onclick="swapToHero('${quickAlt.id}')">
+          Swap to Main View 🥣
+        </button>
+      </div>
+    `;
   }
-  
-  // Stop existing timer interval if another timer is chosen
-  if (timerInterval) {
-    clearInterval(timerInterval);
-    timerInterval = null;
+
+  if (pantryAlt && (!quickAlt || pantryAlt.id !== quickAlt.id)) {
+    cardsHtml += `
+      <div class="alt-recipe-card">
+        <div>
+          <div class="alt-tag-row">
+            <span class="alt-type-badge pantry">🏠 Pantry Staple Option</span>
+            <span style="font-size: 0.76rem; color: var(--text-muted); font-weight: 600;">${pantryAlt.staples ? pantryAlt.staples.join(', ') : 'Staples'}</span>
+          </div>
+          <h4 class="alt-card-title">${pantryAlt.title}</h4>
+          <p class="alt-card-desc">${pantryAlt.desc}</p>
+        </div>
+        <button type="button" class="swap-to-main-btn" onclick="swapToHero('${pantryAlt.id}')">
+          Swap to Main View 🥣
+        </button>
+      </div>
+    `;
   }
-  
-  activeTimerIndex = index;
-  timerTotalSeconds = seconds;
-  timerSecondsRemaining = seconds;
-  updateTimerUI(index);
+
+  container.innerHTML = `
+    <section class="alternatives-section">
+      <h3 class="alternatives-title">🔄 Ranked Clinical Alternatives</h3>
+      <div class="alternatives-grid">
+        ${cardsHtml}
+      </div>
+    </section>
+  `;
 }
 
-function updateTimerUI(index) {
-  const displayEl = document.getElementById(`timer-display-${index}`);
-  const progressEl = document.getElementById(`timer-progress-${index}`);
-  if (!displayEl || !progressEl) return;
-  
-  const mins = Math.floor(timerSecondsRemaining / 60);
-  const secs = timerSecondsRemaining % 60;
-  displayEl.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-  
-  const percentage = ((timerTotalSeconds - timerSecondsRemaining) / timerTotalSeconds) * 100;
-  progressEl.style.width = `${percentage}%`;
+/**
+ * Renders the 24-Hour Gentle Recovery Schedule
+ */
+function render24HourSchedule(recipe) {
+  const container = document.getElementById('recovery-schedule-section');
+  if (!container) return;
+
+  const hasFever = state.selectedSymptoms.includes('fever');
+  const hasDiarrhea = state.selectedSymptoms.includes('diarrhea');
+  const hasCold = state.selectedSymptoms.includes('cold') || state.selectedSymptoms.includes('throat');
+
+  let morningDrink = "Warm Jeera-Ajwain Paani or Light Fennel Infusion";
+  let afternoonSip = "Tender Coconut Water or Homemade Electrolyte Sip";
+  let eveningDinner = "Soft Mashed Moong Khichdi with drop of Ghee";
+
+  if (hasDiarrhea) {
+    morningDrink = "Diluted Rice Water (Kanji Paani) with pinch of Cumin";
+    afternoonSip = "Fresh Homemade Curd Whey Water (Probiotic Chaas)";
+    eveningDinner = "Steamed Stewed Apple Mash with Cinnamon";
+  } else if (hasCold) {
+    morningDrink = "Warm Ginger-Tulsi Steamed Water (Strained)";
+    afternoonSip = "Warm Stewed Apple Puree with Ceylon Cinnamon";
+    eveningDinner = "Golden Besan Kadha Sheera (Warm Bedtime Soup)";
+  } else if (hasFever) {
+    morningDrink = "Strained Pearl Barley Paani (Cooling Hydrator)";
+    afternoonSip = "Tender Coconut Water or Sweet Pomegranate Nectar";
+    eveningDinner = "Golden Moong Dal & Rice Thin Gruel";
+  }
+
+  container.innerHTML = `
+    <div class="recovery-header-flex">
+      <div class="recovery-header-title">
+        <h3>24-Hour Gentle Recovery Feeding Schedule</h3>
+        <p>Pediatric circadian timeline tailored to active recovery needs:</p>
+      </div>
+      <div class="recovery-actions">
+        <button type="button" class="recovery-tactile-btn whatsapp" onclick="copyScheduleToWhatsApp('${recipe.title.replace(/'/g, "\\'")}')">
+          📋 Copy for WhatsApp
+        </button>
+      </div>
+    </div>
+
+    <div class="timeline-slots-grid">
+      <div class="timeline-slot">
+        <span class="slot-time-badge">🌅 7:00 AM – 8:00 AM</span>
+        <div class="slot-name">Morning Hydration</div>
+        <div class="slot-item-text">${morningDrink}</div>
+      </div>
+      <div class="timeline-slot" style="border-left: 3px solid var(--primary-color);">
+        <span class="slot-time-badge">🍲 10:30 AM – 11:30 AM</span>
+        <div class="slot-name">Healing Bowl</div>
+        <div class="slot-item-text"><strong>${recipe.title}</strong> (${state.portionMultiplier} Bowl Portion)</div>
+      </div>
+      <div class="timeline-slot">
+        <span class="slot-time-badge">☀️ 2:30 PM – 3:30 PM</span>
+        <div class="slot-name">Afternoon Sip</div>
+        <div class="slot-item-text">${afternoonSip}</div>
+      </div>
+      <div class="timeline-slot">
+        <span class="slot-time-badge">🌙 6:30 PM – 7:30 PM</span>
+        <div class="slot-name">Soothing Dinner</div>
+        <div class="slot-item-text">${eveningDinner}</div>
+      </div>
+    </div>
+  `;
 }
 
-function startTimer(index, cookMinutes) {
-  // If active timer isn't set up for this index, set it up
-  if (activeTimerIndex !== index) {
-    setupTimer(index, cookMinutes * 60);
+/**
+ * Updates top profile bar and mobile sticky bar
+ */
+function updateProfileSummary(recipe) {
+  const stageHeader = stageGuardrails[state.selectedStage];
+  const summaryStage = document.getElementById('summary-stage-title');
+  const summarySub = document.getElementById('summary-symptoms-sub');
+  const mobileMatchedTitle = document.getElementById('mobile-matched-title');
+
+  if (summaryStage) summaryStage.textContent = stageHeader.title;
+  if (summarySub) {
+    summarySub.textContent = `Active: ${state.selectedSymptoms.map(s => getSymptomLabel(s)).join(', ')}`;
   }
-  
-  if (timerInterval) return;
-  
-  const startBtn = document.getElementById(`btn-timer-start-${index}`);
-  if (startBtn) {
-    startBtn.textContent = 'Pause';
-    startBtn.className = 'timer-btn pause';
-    startBtn.onclick = () => pauseTimer(index, cookMinutes);
+  if (mobileMatchedTitle) {
+    mobileMatchedTitle.textContent = recipe.title;
   }
-  
-  timerInterval = setInterval(() => {
-    if (timerSecondsRemaining > 0) {
-      timerSecondsRemaining--;
-      updateTimerUI(index);
+
+  // Update Pediatric Guardrail Box
+  const guardrailBox = document.getElementById('pediatric-guardrail-box');
+  if (guardrailBox) {
+    guardrailBox.innerHTML = stageHeader.guidance;
+  }
+
+  // Update Selected Symptom Pill Count
+  const countBadge = document.getElementById('selected-count-badge');
+  const clearBtn = document.getElementById('clear-selection-btn');
+  if (countBadge) {
+    countBadge.textContent = `Selected: ${state.selectedSymptoms.length} / 3`;
+    if (state.selectedSymptoms.length === 3) {
+      countBadge.className = 'selected-pill-badge limit-reached';
+    } else if (state.selectedSymptoms.length > 3) {
+      countBadge.className = 'selected-pill-badge alert-badge';
     } else {
-      clearInterval(timerInterval);
-      timerInterval = null;
-      triggerTimerFinish(index);
+      countBadge.className = 'selected-pill-badge';
+    }
+  }
+  if (clearBtn) {
+    clearBtn.disabled = state.selectedSymptoms.length === 0;
+  }
+}
+
+// ============================================================================
+// 6. INTERACTIVE TIMERS & STEP LINKING
+// ============================================================================
+
+function triggerStepTimer(minutes, label) {
+  state.timer.totalSeconds = minutes * 60;
+  state.timer.secondsRemaining = minutes * 60;
+  state.timer.label = label;
+  
+  const labelEl = document.getElementById('active-timer-label');
+  if (labelEl) labelEl.textContent = `⏰ Active: ${label}`;
+  
+  updateTimerDisplay();
+  startTimerCountdown();
+}
+
+function toggleTimer() {
+  const btn = document.getElementById('timer-toggle-btn');
+  if (state.timer.interval) {
+    // Pause
+    clearInterval(state.timer.interval);
+    state.timer.interval = null;
+    if (btn) btn.textContent = 'Resume';
+  } else {
+    // Start / Resume
+    if (state.timer.secondsRemaining <= 0) {
+      state.timer.totalSeconds = 10 * 60;
+      state.timer.secondsRemaining = 10 * 60;
+      state.timer.label = "Cooking Simmer";
+    }
+    startTimerCountdown();
+  }
+}
+
+function startTimerCountdown() {
+  if (state.timer.interval) clearInterval(state.timer.interval);
+
+  const btn = document.getElementById('timer-toggle-btn');
+  if (btn) btn.textContent = 'Pause';
+
+  state.timer.interval = setInterval(() => {
+    if (state.timer.secondsRemaining > 0) {
+      state.timer.secondsRemaining--;
+      updateTimerDisplay();
+    } else {
+      clearInterval(state.timer.interval);
+      state.timer.interval = null;
+      onTimerFinished();
     }
   }, 1000);
 }
 
-function pauseTimer(index, cookMinutes) {
-  if (activeTimerIndex !== index) return;
-  clearInterval(timerInterval);
-  timerInterval = null;
-  
-  const startBtn = document.getElementById(`btn-timer-start-${index}`);
-  if (startBtn) {
-    startBtn.textContent = 'Resume';
-    startBtn.className = 'timer-btn start';
-    startBtn.onclick = () => startTimer(index, cookMinutes);
+function resetTimer() {
+  if (state.timer.interval) {
+    clearInterval(state.timer.interval);
+    state.timer.interval = null;
+  }
+  state.timer.secondsRemaining = state.timer.totalSeconds || 10 * 60;
+  updateTimerDisplay();
+
+  const btn = document.getElementById('timer-toggle-btn');
+  if (btn) btn.textContent = 'Start Helper';
+}
+
+function updateTimerDisplay() {
+  const display = document.getElementById('timer-clock-display');
+  const bar = document.getElementById('timer-progress-bar');
+  if (!display) return;
+
+  const mins = Math.floor(state.timer.secondsRemaining / 60);
+  const secs = state.timer.secondsRemaining % 60;
+  display.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+
+  if (bar && state.timer.totalSeconds > 0) {
+    const pct = ((state.timer.totalSeconds - state.timer.secondsRemaining) / state.timer.totalSeconds) * 100;
+    bar.style.width = `${pct}%`;
   }
 }
 
-function resetTimer(index, cookMinutes) {
-  if (activeTimerIndex === index) {
-    clearInterval(timerInterval);
-    timerInterval = null;
-    timerSecondsRemaining = cookMinutes * 60;
-    updateTimerUI(index);
-  } else {
-    setupTimer(index, cookMinutes * 60);
+function onTimerFinished() {
+  const display = document.getElementById('timer-clock-display');
+  if (display) {
+    display.textContent = "Done! 🎉";
+    display.style.color = "var(--secondary-color)";
   }
-  
-  const startBtn = document.getElementById(`btn-timer-start-${index}`);
-  if (startBtn) {
-    startBtn.textContent = 'Start Helper';
-    startBtn.className = 'timer-btn start';
-    startBtn.onclick = () => startTimer(index, cookMinutes);
-  }
-}
+  const btn = document.getElementById('timer-toggle-btn');
+  if (btn) btn.textContent = 'Finished';
 
-function triggerTimerFinish(index) {
-  const clock = document.getElementById(`timer-display-${index}`);
-  if (clock) {
-    clock.style.color = 'var(--secondary-color)';
-    clock.textContent = "Done! 🎉";
-  }
-  
+  // Play gentle web audio chime
   try {
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    const oscillator = audioCtx.createOscillator();
-    const gainNode = audioCtx.createGain();
-    
-    oscillator.connect(gainNode);
-    gainNode.connect(audioCtx.destination);
-    oscillator.type = 'sine';
-    oscillator.frequency.setValueAtTime(440, audioCtx.currentTime);
-    gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
-    oscillator.start();
-    oscillator.stop(audioCtx.currentTime + 1);
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5
+    gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+    osc.start();
+    osc.frequency.exponentialRampToValueAtTime(659.25, audioCtx.currentTime + 0.3); // E5
+    osc.stop(audioCtx.currentTime + 0.8);
   } catch(e) {
-    console.log("Audio feedback not supported or blocked");
+    console.log("Audio chime note:", e);
   }
 }
 
-// Interactive 3D Cursor Tilt for Age Group Cards
-function initCardTilt() {
-  const cards = document.querySelectorAll('.option-card');
+// ============================================================================
+// 7. USER EVENT HANDLERS
+// ============================================================================
+
+function setAgeStage(stage) {
+  state.selectedStage = stage;
+  document.querySelectorAll('.age-card-btn').forEach(btn => btn.classList.remove('active'));
+  const activeBtn = document.getElementById(`age-${stage}`);
+  if (activeBtn) activeBtn.classList.add('active');
+
+  state.activeHeroRecipeId = null; // Reset manual swap
+  updateAppView();
+}
+
+function toggleSymptom(symptomId) {
+  const index = state.selectedSymptoms.indexOf(symptomId);
+  const btn = document.getElementById(`symptom-${symptomId}`);
+
+  if (index > -1) {
+    // Remove symptom
+    state.selectedSymptoms.splice(index, 1);
+    if (btn) btn.classList.remove('active');
+  } else {
+    // Add symptom
+    state.selectedSymptoms.push(symptomId);
+    if (btn) btn.classList.add('active');
+  }
+
+  state.activeHeroRecipeId = null; // Clear override to re-rank
+  updateAppView();
+}
+
+function clearSelectedSymptoms() {
+  state.selectedSymptoms = [];
+  document.querySelectorAll('.symptom-chip').forEach(btn => btn.classList.remove('active'));
+  state.activeHeroRecipeId = null;
+  updateAppView();
+}
+
+function toggleAllergen(allergen) {
+  const btn = document.getElementById(`allergen-${allergen}`);
+  if (state.activeAllergens.has(allergen)) {
+    state.activeAllergens.delete(allergen);
+    if (btn) btn.classList.remove('active');
+  } else {
+    state.activeAllergens.add(allergen);
+    if (btn) btn.classList.add('active');
+  }
+  updateAppView();
+}
+
+function togglePantry(staple) {
+  const btn = document.getElementById(`pantry-${staple.replace(/\s+/g, '')}`);
+  if (state.activePantry.has(staple)) {
+    state.activePantry.delete(staple);
+    if (btn) btn.classList.remove('active');
+  } else {
+    state.activePantry.add(staple);
+    if (btn) btn.classList.add('active');
+  }
+  updateAppView();
+}
+
+function clearPantryFilter() {
+  state.activePantry.clear();
+  document.querySelectorAll('.pantry-chip').forEach(btn => btn.classList.remove('active'));
+  updateAppView();
+}
+
+function setPortionScale(scale) {
+  state.portionMultiplier = scale;
+  document.getElementById('portion-btn-1').classList.toggle('active', scale === 1);
+  document.getElementById('portion-btn-2').classList.toggle('active', scale === 2);
+  updateAppView();
+}
+
+function swapToHero(recipeId) {
+  state.activeHeroRecipeId = recipeId;
+  updateAppView();
+  // Smooth scroll into workspace
+  const workspace = document.getElementById('recipe-workspace');
+  if (workspace) {
+    workspace.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+function toggleIngCheck(checkbox, index) {
+  const row = document.getElementById(`ing-row-${index}`);
+  if (row) {
+    row.classList.toggle('checked', checkbox.checked);
+  }
+}
+
+function scrollToRecipe() {
+  const workspace = document.getElementById('recipe-workspace');
+  if (workspace) {
+    workspace.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+function copyScheduleToWhatsApp(recipeTitle) {
+  const stageHeader = stageGuardrails[state.selectedStage];
+  const symptomsText = state.selectedSymptoms.map(s => getSymptomLabel(s)).join(', ');
+  
+  const text = `🥣 *Bal Aahar — Pediatric Recovery Plan*\n` +
+    `👶 *Stage:* ${stageHeader.title}\n` +
+    `🩺 *Symptoms:* ${symptomsText}\n\n` +
+    `⭐ *Recommended Healing Bowl:* ${recipeTitle}\n` +
+    `📅 *24-Hour Recovery Feeding Schedule:*\n` +
+    `• *7:00 AM:* Gentle Morning Hydration\n` +
+    `• *10:30 AM:* ${recipeTitle} (${state.portionMultiplier} Bowl Portion)\n` +
+    `• *2:30 PM:* Afternoon Electrolyte Sip (Coconut water / Chaas)\n` +
+    `• *6:30 PM:* Light Soothing Dinner\n\n` +
+    `⚠️ *Pediatric Note:* Grounded in ICMR-NIN dietary guidelines. Consult pediatrician if fever > 102°F or signs of dehydration appear.`;
+
+  navigator.clipboard.writeText(text).then(() => {
+    showToast("📋 Recovery plan copied! Paste in WhatsApp.");
+  }).catch(() => {
+    showToast("Copied to clipboard!");
+  });
+}
+
+function showToast(msg) {
+  const toast = document.getElementById('toast-notification');
+  if (toast) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => {
+      toast.classList.remove('show');
+    }, 2800);
+  }
+}
+
+function getSymptomLabel(id) {
+  const labels = {
+    fever: "Fever / Flu",
+    cold: "Cough & Cold",
+    stomach: "Tummy Troubles",
+    throat: "Sore Throat",
+    constipation: "Constipation",
+    teething: "Teething Distress",
+    vomiting: "Vomiting",
+    colic: "Colic & Gas",
+    appetite: "Appetite Loss",
+    rashes: "Heat Boils",
+    diarrhea: "Loose Diarrhea",
+    dehydration: "Dehydration",
+    anemia: "Iron Deficiency",
+    underweight: "Underweight Boost",
+    poorweight: "Poor Weight",
+    pem: "Protein Recovery",
+    vitd: "Vitamin D",
+    calcium: "Calcium",
+    immunity: "Weak Immunity",
+    picky: "Picky Eating",
+    diaperrash: "Diaper Rash",
+    eczema: "Skin Eczema",
+    reflux: "Acid Reflux"
+  };
+  return labels[id] || id;
+}
+
+// ============================================================================
+// 8. 3D TACTILE HOVER TILT & INITIALIZATION
+// ============================================================================
+function initTactileTilt() {
+  const cards = document.querySelectorAll('.age-card-btn, .alt-recipe-card');
   cards.forEach(card => {
     card.addEventListener('mousemove', (e) => {
       const rect = card.getBoundingClientRect();
       const x = e.clientX - rect.left - rect.width / 2;
       const y = e.clientY - rect.top - rect.height / 2;
-      const rotateX = -(y / (rect.height / 2)) * 7;
-      const rotateY = (x / (rect.width / 2)) * 7;
-      const isSelected = card.classList.contains('active');
-      const lift = isSelected ? '-2px' : '-6px';
-      card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(${lift})`;
+      const rotX = -(y / (rect.height / 2)) * 6;
+      const rotY = (x / (rect.width / 2)) * 6;
+      card.style.transform = `perspective(800px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) translateY(-2px)`;
     });
     card.addEventListener('mouseleave', () => {
       card.style.transform = '';
@@ -2309,49 +2581,24 @@ function initCardTilt() {
   });
 }
 
-// Expose functions globally for onclick bindings in dynamic HTML
-window.startTimer = startTimer;
-window.resetTimer = resetTimer;
+// Window Globals for onclick handlers in dynamic markup
+window.setAgeStage = setAgeStage;
+window.toggleSymptom = toggleSymptom;
 window.clearSelectedSymptoms = clearSelectedSymptoms;
-window.updateSelectionIndicator = updateSelectionIndicator;
+window.toggleAllergen = toggleAllergen;
+window.togglePantry = togglePantry;
+window.clearPantryFilter = clearPantryFilter;
+window.setPortionScale = setPortionScale;
+window.swapToHero = swapToHero;
+window.toggleIngCheck = toggleIngCheck;
+window.triggerStepTimer = triggerStepTimer;
+window.toggleTimer = toggleTimer;
+window.resetTimer = resetTimer;
+window.scrollToRecipe = scrollToRecipe;
+window.copyScheduleToWhatsApp = copyScheduleToWhatsApp;
 
-// Page initialized binds
+// DOM Ready
 window.addEventListener('DOMContentLoaded', () => {
-  // Initialize 3D Card Tilt
-  initCardTilt();
-  
-  // Initialize selection indicator state
-  updateSelectionIndicator();
-
-  // Age options
-  document.getElementById('age-infant').onclick = () => setAge('infant');
-  document.getElementById('age-toddler').onclick = () => setAge('toddler');
-  document.getElementById('age-preschool').onclick = () => setAge('preschool');
-  
-  // 25 Illness options
-  document.getElementById('illness-fever').onclick = () => setIllness('fever');
-  document.getElementById('illness-cold').onclick = () => setIllness('cold');
-  document.getElementById('illness-stomach').onclick = () => setIllness('stomach');
-  document.getElementById('illness-throat').onclick = () => setIllness('throat');
-  document.getElementById('illness-constipation').onclick = () => setIllness('constipation');
-  document.getElementById('illness-teething').onclick = () => setIllness('teething');
-  document.getElementById('illness-vomiting').onclick = () => setIllness('vomiting');
-  document.getElementById('illness-colic').onclick = () => setIllness('colic');
-  document.getElementById('illness-appetite').onclick = () => setIllness('appetite');
-  document.getElementById('illness-rashes').onclick = () => setIllness('rashes');
-  document.getElementById('illness-diarrhea').onclick = () => setIllness('diarrhea');
-  document.getElementById('illness-dehydration').onclick = () => setIllness('dehydration');
-  document.getElementById('illness-anemia').onclick = () => setIllness('anemia');
-  document.getElementById('illness-underweight').onclick = () => setIllness('underweight');
-  document.getElementById('illness-poorweight').onclick = () => setIllness('poorweight');
-  document.getElementById('illness-pem').onclick = () => setIllness('pem');
-  document.getElementById('illness-vitd').onclick = () => setIllness('vitd');
-  document.getElementById('illness-calcium').onclick = () => setIllness('calcium');
-  document.getElementById('illness-immunity').onclick = () => setIllness('immunity');
-  document.getElementById('illness-picky').onclick = () => setIllness('picky');
-  document.getElementById('illness-allergy').onclick = () => setIllness('allergy');
-  document.getElementById('illness-lactose').onclick = () => setIllness('lactose');
-  document.getElementById('illness-diaperrash').onclick = () => setIllness('diaperrash');
-  document.getElementById('illness-eczema').onclick = () => setIllness('eczema');
-  document.getElementById('illness-reflux').onclick = () => setIllness('reflux');
+  updateAppView();
+  initTactileTilt();
 });
